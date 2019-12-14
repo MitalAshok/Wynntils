@@ -11,13 +11,15 @@ import java.util.function.IntUnaryOperator;
 
 public enum ItemTier {
 
-    NORMAL(0, TextFormatting.WHITE, (lvl) -> 0),
-    SET(1, TextFormatting.GREEN, (lvl) -> (int) Math.ceil(12d + lvl * 1.6)),
-    UNIQUE(2, TextFormatting.YELLOW, (lvl) -> (int) Math.ceil(5d + lvl * 0.5)),
-    RARE(3, TextFormatting.LIGHT_PURPLE, (lvl) -> (int) Math.ceil(15d + lvl * 1.2)),
-    LEGENDARY(4, TextFormatting.AQUA, (lvl) -> (int) Math.ceil(40d + lvl * 5.2)),
-    FABLED(5, TextFormatting.RED, (lvl) -> (lvl + 5) * 60),
-    MYTHIC(6, TextFormatting.DARK_PURPLE, (lvl) -> (lvl + 5) * 18);
+    //@formatter:off
+    NORMAL    (0, TextFormatting.WHITE,        (lvl) -> 0),
+    SET       (1, TextFormatting.GREEN,        (lvl) -> (int)Math.ceil(12d + lvl * 1.6)),
+    UNIQUE    (2, TextFormatting.YELLOW,       (lvl) -> (int)Math.ceil(5d + lvl * 0.5)),
+    RARE      (3, TextFormatting.LIGHT_PURPLE, (lvl) -> (int)Math.ceil(15d + lvl * 1.2)),
+    LEGENDARY (4, TextFormatting.AQUA,         (lvl) -> (int)Math.ceil(40d + lvl * 5.2)),
+    FABLED    (5, TextFormatting.RED,          (lvl) -> (lvl + 5) * 60),
+    MYTHIC    (6, TextFormatting.DARK_PURPLE,  (lvl) -> (lvl + 5) * 18);
+    //@formatter:on
 
     int priority;
     String color;

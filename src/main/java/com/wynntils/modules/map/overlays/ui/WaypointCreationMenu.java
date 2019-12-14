@@ -71,9 +71,14 @@ public class WaypointCreationMenu extends UI {
         isUpdatingExisting = true;
     }
 
-    @Override public void onInit() { }
-    @Override public void onTick() { }
-    @Override public void onWindowUpdate() {
+    @Override
+    public void onInit() { }
+
+    @Override
+    public void onTick() { }
+
+    @Override
+    public void onWindowUpdate() {
         buttonList.clear();
 
         nameField = new GuiTextField(0, mc.fontRenderer, this.width/2 - 80, this.height/2 - 70, 160, 20);
@@ -197,7 +202,8 @@ public class WaypointCreationMenu extends UI {
         setWpIcon(getWaypointType(), getZoomNeeded(), color == null ? CommonColors.WHITE : color);
     }
 
-    @Override public void onRenderPreUIE(ScreenRenderer renderer) {}
+    @Override
+    public void onRenderPreUIE(ScreenRenderer renderer) {}
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {

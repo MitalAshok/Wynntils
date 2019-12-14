@@ -40,9 +40,9 @@ public class SettingsContainer {
             }
         }
 
-        try{
+        try {
             fromCloud = SettingsManager.getCloudSettings(m, holder);
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { ex.printStackTrace(); }
 
         try {
             tryToLoad();
@@ -191,6 +191,8 @@ public class SettingsContainer {
         return this.displayPath;
     }
 
-    public SettingsHolder getHolder() { return holder; }
+    public SettingsHolder getHolder() {
+        return holder;
+    }
 
 }

@@ -114,7 +114,7 @@ public class CommandServer extends CommandBase implements IClientCommand {
 
         String finalSelectedType = selectedType;
         Utils.runAsync(() -> {
-            try{
+            try {
                 HashMap<String, ArrayList<String>> onlinePlayers = WebManager.getOnlinePlayers();
 
                 if (options.contains("group") && finalSelectedType == null) {
@@ -141,7 +141,7 @@ public class CommandServer extends CommandBase implements IClientCommand {
                 ChatOverlay.getChat().printUnloggedChatMessage(
                         getFilteredServerList(onlinePlayers, finalSelectedType, options), messageId
                 );  // updates the message
-            }catch (Exception ex) {
+            } catch (Exception ex) {
                 ChatOverlay.getChat().printUnloggedChatMessage(
                         new TextComponentString(
                                 TextFormatting.RED +

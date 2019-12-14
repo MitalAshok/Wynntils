@@ -91,11 +91,9 @@ public class ImageDownloader extends SimpleTexture {
                         downloader.bufferedImage = bufferedimage;
                         return;
                     }
-                }
-                catch (Exception exception) {
+                } catch (Exception exception) {
                     return;
-                }
-                finally {
+                } finally {
                     if (httpurlconnection != null) {
                         httpurlconnection.disconnect();
                     }
@@ -106,6 +104,5 @@ public class ImageDownloader extends SimpleTexture {
         this.imageThread.setDaemon(true);
         this.imageThread.start();
     }
-
 
 }

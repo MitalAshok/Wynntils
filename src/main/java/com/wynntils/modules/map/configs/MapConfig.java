@@ -233,6 +233,7 @@ public class MapConfig extends SettingsClass {
     }
 
     public IconTexture iconTexture = IconTexture.Classic;
+
     public enum IconTexture {
         Classic, Medieval
     }

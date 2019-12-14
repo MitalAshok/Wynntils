@@ -477,10 +477,10 @@ public class SettingsUI extends UI {
                     }
                 } else if (field.getType().isAssignableFrom(CustomColor.class)) {
                     valueElement = new UIEColorWheel(0, 0, 0, 17, 20, 20, true, (color) -> {
-                        try{
+                        try {
                             registeredSettings.get(currentSettingsPath).setValue(field, color, false);
                             changedSettings.add(currentSettingsPath);
-                        }catch (Exception ex) { ex.printStackTrace(); }
+                        } catch (Exception ex) { ex.printStackTrace(); }
                     }, SettingsUI.this);
                     Setting.Features.CustomColorFeatures features = field.getAnnotation(Setting.Features.CustomColorFeatures.class);
                     if (features != null) {

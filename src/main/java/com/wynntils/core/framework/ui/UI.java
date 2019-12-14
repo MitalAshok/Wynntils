@@ -53,13 +53,23 @@ public abstract class UI extends GuiScreen {
         ScreenRenderer.endGL();
     }
 
-    @Override public void updateScreen() {
+    @Override
+    public void updateScreen() {
         ticks++; onTick();
         for (UIElement uie : UIElements)
             uie.tick(ticks);
     }
-    @Override public void initGui() { if (!initiated) { initiated = true; onInit(); } onWindowUpdate(); }
-    @Override public void onGuiClosed() {onClose();}
+
+    @Override
+    public void initGui() {
+        if (!initiated) { initiated = true; onInit(); }
+        onWindowUpdate();
+    }
+
+    @Override
+    public void onGuiClosed() {
+        onClose();
+    }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
@@ -150,10 +160,12 @@ public abstract class UI extends GuiScreen {
 
     public static abstract class CommonUIFeatures {
         static ScreenRenderer render = new ScreenRenderer();
+
         public static void drawBook() {
             int wh = ScreenRenderer.screen.getScaledWidth()/2, hh = ScreenRenderer.screen.getScaledHeight()/2;
             render.drawRect(Textures.UIs.book, wh-200, hh-110, wh+200, hh+110, 0f, 0f, 1f, 1f);
         }
+
         public static void drawScrollArea() {
             int wh = ScreenRenderer.screen.getScaledWidth()/2, hh = ScreenRenderer.screen.getScaledHeight()/2;
             render.drawRect(Textures.UIs.book_scrollarea_settings, wh-190, hh-100, wh-12, hh+85, 0f, 0f, 1f, 1f);

@@ -95,9 +95,7 @@ public class CustomElytraModel extends ModelBase
             this.leftWing.rotateAngleX = abstractclientplayer.rotateElytraX;
             this.leftWing.rotateAngleY = abstractclientplayer.rotateElytraY;
             this.leftWing.rotateAngleZ = abstractclientplayer.rotateElytraZ;
-        }
-        else
-        {
+        } else {
             this.leftWing.rotateAngleX = f;
             this.leftWing.rotateAngleZ = f1;
             this.leftWing.rotateAngleY = f3;

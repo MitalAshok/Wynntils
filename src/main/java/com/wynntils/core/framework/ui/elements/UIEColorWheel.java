@@ -141,7 +141,7 @@ public class UIEColorWheel extends UIEClickZone {
 
         int clickedPosX, clickedPosY = 0;
 
-        static final int circleRadius = 160/2;
+        static final int circleRadius = 160 / 2;
 
         String colorText = null;
         String text = "";

@@ -145,13 +145,17 @@ public class PlayerInfo {
         return currentClass == ClassType.NONE ? -1 : health;
     }
 
-    public int getCurrentMana() { return currentClass == ClassType.NONE ? -1 : mc.player.getFoodStats().getFoodLevel(); }
+    public int getCurrentMana() {
+        return currentClass == ClassType.NONE ? -1 : mc.player.getFoodStats().getFoodLevel();
+    }
 
     public int getMaxHealth() {
         return currentClass == ClassType.NONE ? -1 : maxHealth;
     }
 
-    public float getExperiencePercentage() { return currentClass == ClassType.NONE ? -1 : experiencePercentage; }
+    public float getExperiencePercentage() {
+        return currentClass == ClassType.NONE ? -1 : experiencePercentage;
+    }
 
     public int getXpNeededToLevelUp() {
         // Quick fix for crash bug - more investigation to be done.
@@ -171,13 +175,21 @@ public class PlayerInfo {
         }
     }
 
-    public String getCurrentXPAsPercentage() { return currentClass == ClassType.NONE || mc.player == null ? "" : perFormat.format(mc.player.experience * 100); }
+    public String getCurrentXPAsPercentage() {
+        return currentClass == ClassType.NONE || mc.player == null ? "" : perFormat.format(mc.player.experience * 100);
+    }
 
-    public int getCurrentXP() { return currentClass == ClassType.NONE  || mc.player == null? -1 : (int)((getXpNeededToLevelUp()) * mc.player.experience); }
+    public int getCurrentXP() {
+        return currentClass == ClassType.NONE  || mc.player == null? -1 : (int)((getXpNeededToLevelUp()) * mc.player.experience);
+    }
 
-    public int getLevel() { return currentClass == ClassType.NONE ? -1 : level; }
+    public int getLevel() {
+        return currentClass == ClassType.NONE ? -1 : level;
+    }
 
-    public int getMaxMana() {return currentClass == ClassType.NONE ? -1 : 20;}
+    public int getMaxMana() {
+        return currentClass == ClassType.NONE ? -1 : 20;
+    }
 
     public PartyContainer getPlayerParty() {
         return playerParty;
@@ -258,11 +270,13 @@ public class PlayerInfo {
     public static class UnprocessedAmount {
         public int current;
         public int maximum;
+
         public UnprocessedAmount(int current, int maximum) {
             this.current = current;
             this.maximum = maximum;
         }
     }
+
     /**
      * @return UnprocessedAmount((total weight of unprocessed materials), (maximum weight that can be held)).
      *

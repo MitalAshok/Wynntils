@@ -57,8 +57,8 @@ public class ScreenRenderer {
         if (fontRenderer == null)
             try {
                 fontRenderer = new SmartFontRenderer();
-            } catch (Exception e) {}
-            finally {
+            } catch (Exception e) {
+            } finally {
                 fontRenderer.onResourceManagerReload(mc.getResourceManager());
             }
         if (itemRenderer == null)

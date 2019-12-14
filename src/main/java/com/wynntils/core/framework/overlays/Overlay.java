@@ -56,7 +56,7 @@ public abstract class Overlay extends ScreenRenderer implements SettingsHolder {
     public void saveSettings(Module m) {
         try {
             FrameworkManager.getSettings(m == null ? module.getModule() : m, this).saveSettings();
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { ex.printStackTrace(); }
     }
 
     @Override
@@ -65,8 +65,10 @@ public abstract class Overlay extends ScreenRenderer implements SettingsHolder {
     }
 
     public enum OverlayGrowFrom {
+        //@formatter:off
         TOP_LEFT,    TOP_CENTRE,    TOP_RIGHT,
         MIDDLE_LEFT, MIDDLE_CENTRE, MIDDLE_RIGHT,
         BOTTOM_LEFT, BOTTOM_CENTRE, BOTTOM_RIGHT
+        //@formatter:on
     }
 }

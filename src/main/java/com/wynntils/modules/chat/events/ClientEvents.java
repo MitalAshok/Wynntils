@@ -62,7 +62,6 @@ public class ClientEvents implements Listener {
         else if (e.getMessage().startsWith("/xp")) e.setMessage(e.getMessage().replaceFirst("/xp", "/guild xp"));
     }
 
-
     @SubscribeEvent
     public void onWynnLogin(WynncraftServerEvent.Login e) {
         ReflectionFields.GuiIngame_persistantChatGUI.setValue(Minecraft.getMinecraft().ingameGUI, new ChatOverlay());

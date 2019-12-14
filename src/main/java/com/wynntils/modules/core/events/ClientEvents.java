@@ -109,9 +109,9 @@ public class ClientEvents implements Listener {
 
                 ClassType selectedClass = ClassType.NONE;
 
-                try{
+                try {
                     selectedClass = ClassType.valueOf(classS.toUpperCase(Locale.ROOT));
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     switch (classS) {
                         case "Hunter":
                             selectedClass = ClassType.ARCHER;

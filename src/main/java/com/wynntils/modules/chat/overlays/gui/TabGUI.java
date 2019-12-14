@@ -259,12 +259,12 @@ public class TabGUI extends GuiScreen {
     boolean regexValid = false;
 
     private void checkIfRegexIsValid() {
-        try{
+        try {
             Pattern.compile(regexTextField.getText());
             regexTextField.setTextColor(0x55FF55);
             regexValid = true;
             return;
-        }catch (Exception ignored) { }
+        } catch (Exception ignored) { }
 
         regexTextField.setTextColor(0xFF5555);
         regexValid = false;
@@ -283,7 +283,7 @@ public class TabGUI extends GuiScreen {
     private void applyRegexSettings() {
         if (tab == null || tab.getRegexSettings() == null) return;
         tab.getRegexSettings().forEach((k, v) -> {
-            for (GuiCheckBox cb: simpleRegexSettings) {
+            for (GuiCheckBox cb : simpleRegexSettings) {
                 if (cb.displayString.equals(k)) {
                     cb.setIsChecked(v);
                 }

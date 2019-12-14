@@ -10,7 +10,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Arrays;
 
-/** CustomColor
+/**
+ * CustomColor
  * will represent color or complex colors
  * in a more efficient way than awt's Color or minecraft's color ints.
  */
@@ -21,7 +22,9 @@ public class CustomColor {
             b,  // The BLUE  value of the color(0.0f -> 1.0f)
             a;  // The ALPHA value of the color(0.0f -> 1.0f)
 
-    public CustomColor(float r, float g, float b) { this(r, g, b, 1.0f); }
+    public CustomColor(float r, float g, float b) {
+        this(r, g, b, 1.0f);
+    }
 
     public CustomColor(float r, float g, float b, float a) {
         this.r = r;
@@ -32,7 +35,9 @@ public class CustomColor {
 
     public CustomColor() {}
 
-    public CustomColor(CustomColor c) { this(c.r, c.g, c.b, c.a); }
+    public CustomColor(CustomColor c) {
+        this(c.r, c.g, c.b, c.a);
+    }
 
     /** applyColor
      * Will set the color to OpenGL's active color
@@ -180,7 +185,7 @@ public class CustomColor {
     /** HeyZeer0: this is = rgba(1,1,1,1) **/
     @Override
     public String toString() {
-        return "rgba(" + r + "," + g + "," + b + "," + a +")";
+        return "rgba(" + r + "," + g + "," + b + "," + a + ")";
     }
 
     @Override
@@ -209,7 +214,8 @@ public class CustomColor {
         }
 
         // Prevent setA on global references. Create a copy with `new CustomColor(c)` first.
-        @Override public CustomColor setA(float a) {
+        @Override
+        public CustomColor setA(float a) {
             new UnsupportedOperationException("Cannot set alpha of common color").printStackTrace();
             return this;
         }

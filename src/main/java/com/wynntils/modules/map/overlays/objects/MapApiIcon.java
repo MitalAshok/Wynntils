@@ -111,51 +111,63 @@ public class MapApiIcon extends MapTextureIcon {
         translatedName = MAPMARKERNAME_TRANSLATION.get(mmp.getIcon());
     }
 
-    @Override public AssetsTexture getTexture() {
+    @Override
+    public AssetsTexture getTexture() {
         return Textures.Map.map_icons;
     }
 
-    @Override public int getPosX() {
+    @Override
+    public int getPosX() {
         return mmp.getX();
     }
 
-    @Override public int getPosZ() {
+    @Override
+    public int getPosZ() {
         return mmp.getZ();
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return mmp.getName();
     }
 
-    @Override public int getTexPosX() {
+    @Override
+    public int getTexPosX() {
         return texPosX;
     }
 
-    @Override public int getTexPosZ() {
+    @Override
+    public int getTexPosZ() {
         return texPosZ;
     }
 
-    @Override public int getTexSizeX() {
+    @Override
+    public int getTexSizeX() {
         return texSizeX;
     }
 
-    @Override public int getTexSizeZ() {
+    @Override
+    public int getTexSizeZ() {
         return texSizeZ;
     }
 
-    @Override public float getSizeX() {
+    @Override
+    public float getSizeX() {
         return sizeX;
     }
 
-    @Override public float getSizeZ() {
+    @Override
+    public float getSizeZ() {
         return sizeZ;
     }
 
-    @Override public int getZoomNeeded() {
+    @Override
+    public int getZoomNeeded() {
         return zoomNeeded;
     }
 
-    @Override public boolean isEnabled(boolean forMinimap) {
+    @Override
+    public boolean isEnabled(boolean forMinimap) {
         if (MapConfig.INSTANCE.hideCompletedQuests && (mmp.getIcon().equals("Content_Quest") || mmp.getIcon().equals("Content_Miniquest"))) {
             QuestInfo questData = QuestManager.getCurrentQuestsData().get(mmp.getName());
             if (questData != null && questData.getStatus() == QuestStatus.COMPLETED) {

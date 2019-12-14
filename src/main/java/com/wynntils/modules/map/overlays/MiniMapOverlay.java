@@ -78,7 +78,7 @@ public class MiniMapOverlay extends Overlay {
 
         if (centerX > 1 || centerX < 0 || centerZ > 1 || centerZ < 0) return;
 
-        try{
+        try {
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
 
@@ -322,7 +322,7 @@ public class MiniMapOverlay extends Overlay {
                         mapSize / 2f, mapSize + 6, CommonColors.WHITE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE
                 );
             }
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { ex.printStackTrace(); }
     }
 
 }

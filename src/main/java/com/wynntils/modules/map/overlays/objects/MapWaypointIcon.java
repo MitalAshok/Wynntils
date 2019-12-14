@@ -76,53 +76,65 @@ public class MapWaypointIcon extends MapTextureIcon {
         return new MapWaypointIcon(new WaypointProfile("", 0, 0, 0, color, type, 0));
     }
 
-    @Override public AssetsTexture getTexture() {
+    @Override
+    public AssetsTexture getTexture() {
         return Textures.Map.map_icons;
     }
 
-    @Override public int getPosX() {
+    @Override
+    public int getPosX() {
         return (int)wp.getX();
     }
 
-    @Override public int getPosZ() {
+    @Override
+    public int getPosZ() {
         return (int)wp.getZ();
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return wp.getName();
     }
 
-    @Override public int getTexPosX() {
+    @Override
+    public int getTexPosX() {
         return sizeMapping[wp.getType().ordinal() * 4 + texPosXIndex];
     }
 
-    @Override public int getTexPosZ() {
+    @Override
+    public int getTexPosZ() {
         return sizeMapping[wp.getType().ordinal() * 4 + texPosZIndex];
     }
 
-    @Override public int getTexSizeX() {
+    @Override
+    public int getTexSizeX() {
         return sizeMapping[wp.getType().ordinal() * 4 + texSizeXIndex];
     }
 
-    @Override public int getTexSizeZ() {
+    @Override
+    public int getTexSizeZ() {
         return sizeMapping[wp.getType().ordinal() * 4 + texSizeZIndex];
     }
 
-    @Override public float getSizeX() {
+    @Override
+    public float getSizeX() {
         int i = wp.getType().ordinal() * 4;
         return (sizeMapping[i + texSizeXIndex] - sizeMapping[i + texPosXIndex]) / 2.5f;
     }
 
-    @Override public float getSizeZ() {
+    @Override
+    public float getSizeZ() {
         int i = wp.getType().ordinal() * 4;
         return (sizeMapping[i + texSizeZIndex] - sizeMapping[i + texPosZIndex]) / 2.5f;
     }
 
-    @Override public int getZoomNeeded() {
+    @Override
+    public int getZoomNeeded() {
         return wp.getZoomNeeded();
     }
 
-    @Override public boolean isEnabled(boolean forMinimap) {
+    @Override
+    public boolean isEnabled(boolean forMinimap) {
         return wp.getZoomNeeded() != HIDDEN_ZOOM;
     }
 

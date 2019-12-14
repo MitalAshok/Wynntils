@@ -74,8 +74,7 @@ public class FrameworkManager {
 
     public static void registerSettings(Module module, Class<? extends SettingsHolder> settingsClass) {
         ModuleInfo info = module.getClass().getAnnotation(ModuleInfo.class);
-        if (info == null)
-            return;
+        if (info == null) return;
 
         availableModules.get(info.name()).registerSettings(settingsClass);
     }
@@ -83,8 +82,7 @@ public class FrameworkManager {
 
     public static void registerOverlay(Module module, Overlay overlay, Priority priority) {
         ModuleInfo info = module.getClass().getAnnotation(ModuleInfo.class);
-        if (info == null)
-            return;
+        if (info == null) return;
 
         ModuleContainer mc = availableModules.get(info.name());
 

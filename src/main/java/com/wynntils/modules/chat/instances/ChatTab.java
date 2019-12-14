@@ -45,7 +45,9 @@ public class ChatTab implements Comparable<ChatTab> {
         this.orderNb = orderNb;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public String getAutoCommand() {
         return autoCommand;
@@ -78,7 +80,6 @@ public class ChatTab implements Comparable<ChatTab> {
     public String getRegex() {
         return regexFinder.pattern();
     }
-
 
     public void setRegex(String regex) {
         this.regexFinder = Pattern.compile(regex);

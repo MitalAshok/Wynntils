@@ -263,9 +263,9 @@ public class ChatManager {
             String command = "/compass ";
             List<ITextComponent> crdMsg = new ArrayList<>();
 
-            for (ITextComponent texts: in.getSiblings()) {
+            for (ITextComponent texts : in.getSiblings()) {
                 Matcher m = coordinateReg.matcher(texts.getFormattedText());
-                if (!m.find())  continue;
+                if (!m.find()) continue;
 
                 int index = in.getSiblings().indexOf(texts);
 

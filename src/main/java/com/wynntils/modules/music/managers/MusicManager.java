@@ -47,11 +47,11 @@ public class MusicManager {
             }
         }
 
-        try{
+        try {
             WebManager.getCurrentAvailableSongs().forEach(c -> availableMusics.put(c.getAsHash(), c));
 
             isListUpdated = true;
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { ex.printStackTrace(); }
     }
 
     public static void checkForMusic(String location) {
@@ -71,7 +71,7 @@ public class MusicManager {
         for (MusicProfile mp : availableMusics.values()) {
             if (mp.getName().contains("(") && mp.getName().contains(")")) {
                 Matcher mc = regex.matcher(mp.getName());
-                while(mc.find()) {
+                while (mc.find()) {
                     String value = mc.group(1).replace("(", "").replace(")", "");
                     String toSearch = location.contains(" ") ? location.split(" ")[0] : location;
                     if (value.equalsIgnoreCase(location)) {  // perfect match

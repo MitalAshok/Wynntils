@@ -39,5 +39,4 @@ public class CoreModule extends Module {
         return module;
     }
 
-
 }

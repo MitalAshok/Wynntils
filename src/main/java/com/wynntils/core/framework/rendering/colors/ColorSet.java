@@ -60,7 +60,8 @@ public class ColorSet<T extends CustomColor> {
     }
 
     /**
-     * Returns the colour code for a CustomColor if it is in the set, -1 if it isn't.
+     * Returns the colour code for a CustomColor if it is in the set, -1 if it
+     * isn't.
      */
     public int getCode(CustomColor c) {
         if (c == null) return -1;
@@ -108,7 +109,8 @@ public class ColorSet<T extends CustomColor> {
     }
 
     /**
-     * Returns the canonical name for a common colour (All caps, space -> underscore, will be a field name).
+     * Returns the canonical name for a common colour (All caps, space ->
+     * underscore, will be a field name).
      * Null if this isn't the name of a common colour.
      */
     public String canonicalize(String name) {
@@ -136,7 +138,7 @@ public class ColorSet<T extends CustomColor> {
     }
 
     public T valueOf(CustomColor c) {
-        return fromCode(getCode(c));  // Becomes null if not in the set, and also returns reference to color in set
+        return fromCode(getCode(c)); // Becomes null if not in the set, and also returns reference to color in set
     }
 
     /**

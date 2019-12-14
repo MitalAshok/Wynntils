@@ -6,6 +6,7 @@ package com.wynntils.core.framework.enums;
 
 public enum BroadcastType {
 
-    MESSAGE, TITLE
+    MESSAGE,
+    TITLE
 
 }

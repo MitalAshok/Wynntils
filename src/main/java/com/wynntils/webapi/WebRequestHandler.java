@@ -62,8 +62,10 @@ public class WebRequestHandler {
         /**
          * Callback called with raw bytes from request.
          *
-         * If it returns true, the data is marked as good (Will be cached if there is a cache file).
-         * If false or throws, the data is marked as bad (Uses cache file if this was a request, deletes cache file if cache was bad)
+         * If it returns true, the data is marked as good (Will be cached if there is a
+         * cache file).
+         * If false or throws, the data is marked as bad (Uses cache file if this was a
+         * request, deletes cache file if cache was bad)
          */
         public Request handle(Predicate<byte[]> handler) {
             this.handler = handler;
@@ -71,7 +73,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * As {@link #handle(Predicate) handle}, but the data is converted into a String first using Charset
+         * As {@link #handle(Predicate) handle}, but the data is converted into a String
+         * first using Charset
          */
         public Request handleString(Predicate<String> handler, Charset charset) {
             return handle(data -> handler.test(new String(data, charset)));
@@ -92,7 +95,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * As {@link #handle(Predicate) handle}, but the data is parsed as JSON and converted into an Object
+         * As {@link #handle(Predicate) handle}, but the data is parsed as JSON and
+         * converted into an Object
          */
         public Request handleJsonObject(Predicate<JsonObject> handler) {
             return handleJson(j -> {
@@ -102,7 +106,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * As {@link #handle(Predicate) handle}, but the data is parsed as JSON and converted into an Array
+         * As {@link #handle(Predicate) handle}, but the data is parsed as JSON and
+         * converted into an Array
          */
         public Request handleJsonArray(Predicate<JsonArray> handler) {
             return handleJson(j -> {
@@ -112,7 +117,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * As {@link #handle(Predicate) handle}, but the data is parsed by {@link WebReader#fromString(String) WebReader}
+         * As {@link #handle(Predicate) handle}, but the data is parsed by
+         * {@link WebReader#fromString(String) WebReader}
          */
         public Request handleWebReader(Predicate<WebReader> handler) {
             return handleString(s -> {
@@ -123,7 +129,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * Sets the cache file. Good data will be written here, and if there is no good data, it will be read from here.
+         * Sets the cache file. Good data will be written here, and if there is no good
+         * data, it will be read from here.
          */
         public Request cacheTo(File f) {
             this.cacheFile = f;
@@ -134,7 +141,8 @@ public class WebRequestHandler {
          * Set a local cache validator.
          *
          * When a validator is set, the cache file will be read from first.
-         * If the validator returns true, the cache file is used first, and a web request probably won't be made
+         * If the validator returns true, the cache file is used first, and a web
+         * request probably won't be made
          * If false, make a web request as normal.
          */
         public Request cacheValidator(Predicate<byte[]> validator) {
@@ -158,7 +166,8 @@ public class WebRequestHandler {
         }
 
         /**
-         * As {@link #cacheMD5Validator(String)}, but lazily get the hash (inside of a thread).
+         * As {@link #cacheMD5Validator(String)}, but lazily get the hash (inside of a
+         * thread).
          */
         public Request cacheMD5Validator(Supplier<String> expectedHashSupplier) {
             return cacheValidator(data -> {
@@ -357,9 +366,10 @@ public class WebRequestHandler {
         if (interrupted) {
             HashSet<String> completedIds = new HashSet<>();
             HashSet<String> interruptedIds = new HashSet<>();
-            for (ArrayList<Request> requests : groupedRequests) for (Request request : requests) {
-                (request.currentlyHandling == 2 ? completedIds : interruptedIds).add(request.id);
-            }
+            for (ArrayList<Request> requests : groupedRequests)
+                for (Request request : requests) {
+                    (request.currentlyHandling == 2 ? completedIds : interruptedIds).add(request.id);
+                }
             synchronized (this) {
                 requests.removeIf(req -> {
                     if (completedIds.contains(req.id)) {
@@ -384,7 +394,8 @@ public class WebRequestHandler {
 
         try {
             from.renameTo(invalid);
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+        }
     }
 
     private void nextDispatch(int dispatchId, ArrayList<Request>[] groupedRequests, int currentGroupIndex) {
@@ -395,9 +406,10 @@ public class WebRequestHandler {
 
         // Last group; Remove handled requests
         HashSet<String> ids = new HashSet<>();
-        for (ArrayList<Request> requests : groupedRequests) for (Request request : requests) {
-            ids.add(request.id);
-        }
+        for (ArrayList<Request> requests : groupedRequests)
+            for (Request request : requests) {
+                ids.add(request.id);
+            }
         synchronized (this) {
             requests.removeIf(req -> ids.contains(req.id));
         }

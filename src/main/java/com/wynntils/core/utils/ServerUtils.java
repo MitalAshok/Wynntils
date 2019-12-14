@@ -23,7 +23,7 @@ public class ServerUtils {
     /**
      * Connect to a server, possibly disconnecting if already on a world.
      *
-     * @param backGui GUI to return to on failure
+     * @param backGui    GUI to return to on failure
      * @param serverData The server to connect to
      */
     public static void connect(GuiScreen backGui, ServerData serverData) {
@@ -34,7 +34,8 @@ public class ServerUtils {
     /**
      * Disconnect from the current server
      *
-     * @param switchGui If true, the current gui is changed (to the main menu in singleplayer, or multiplayer gui)
+     * @param switchGui If true, the current gui is changed (to the main menu in
+     *                  singleplayer, or multiplayer gui)
      */
     public static void disconnect(boolean switchGui) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -70,9 +71,11 @@ public class ServerUtils {
 
     /**
      * @param serverList A ServerList
-     * @param addNew If true and no server data is found, the newly created server data will be added and saved.
-     * @param ip The ip to use if not found
-     * @return The server data in the given serverList for Wynncraft (Or a new one if none are found)
+     * @param addNew     If true and no server data is found, the newly created
+     *                   server data will be added and saved.
+     * @param ip         The ip to use if not found
+     * @return The server data in the given serverList for Wynncraft (Or a new one
+     *         if none are found)
      */
     public static ServerData getWynncraftServerData(ServerList serverList, boolean addNew, String ip) {
         ServerData server = null;
@@ -103,9 +106,9 @@ public class ServerUtils {
     /**
      * Change the serverIP of a ServerData and save the results
      *
-     * @param list The server list
-     * @param serverData The old server data
-     * @param newIp The ip to change to
+     * @param list        The server list
+     * @param serverData  The old server data
+     * @param newIp       The ip to change to
      * @param defaultName The name to set to if the server data is not found
      * @return The newly saved ServerData
      */

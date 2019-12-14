@@ -31,8 +31,9 @@ public class PlayerInfoOverlay extends Overlay {
     public void render(RenderGameOverlayEvent.Post event) {
         if (!Reference.onWorld || !OverlayConfig.PlayerInfo.INSTANCE.replaceVanilla) return;
 
-        // TODO make the animation be TIME, instead of FRAME, reliant. This is currently causing some slowdowns
-        {  // Animation Detection
+        // TODO make the animation be TIME, instead of FRAME, reliant. This is currently
+        // causing some slowdowns
+        { // Animation Detection
             if (mc.gameSettings.keyBindPlayerList.isKeyDown()) {
                 if (animationProgress < 1.0) animationProgress += 0.02;
             } else if (animationProgress > 0.0) {
@@ -43,69 +44,58 @@ public class PlayerInfoOverlay extends Overlay {
         }
 
         // scales if the screen don't fit the texture height
-        float yScale = screen.getScaledHeight() < 280f ? (float)screen.getScaledHeight_double() / 280f : 1;
+        float yScale = screen.getScaledHeight() < 280f ? (float) screen.getScaledHeight_double() / 280f : 1;
 
-        { scale(yScale);
+        {
+            scale(yScale);
 
-            {  // mask
-                createMask(Textures.Masks.full,
-                        -(int) (178 * animationProgress),
-                        0,
-                        (int) (178 * animationProgress),
-                        222, 0, 0, 1, 1);
+            { // mask
+                createMask(Textures.Masks.full, -(int) (178 * animationProgress), 0, (int) (178 * animationProgress), 222, 0, 0, 1, 1);
 
-                color(1f, 1f, 1f, OverlayConfig.PlayerInfo.INSTANCE.backgroundAlpha);  // apply transparency
+                color(1f, 1f, 1f, OverlayConfig.PlayerInfo.INSTANCE.backgroundAlpha); // apply transparency
                 drawRect(Textures.UIs.tab_overlay, -178, 0, 178, 216, 28, 6, 385, 222);
                 color(1f, 1f, 1f, 1f);
 
-                {  // titles
+                { // titles
                     drawString("Friends", -124, 7, CommonColors.BLACK, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
                     drawString("Global " + Reference.getUserWorld(), -39, 7, CommonColors.BLACK, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
                     drawString("Party", 47, 7, CommonColors.BLACK, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
                     drawString("Guild", 133, 7, CommonColors.BLACK, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
                 }
 
-                {  // entries
+                { // entries
                     List<String> players = getAvailablePlayers();
 
                     for (int x = 0; x < 4; x++) {
                         for (int y = 0; y < 20; y++) {
-                            int position = (x * 20) + (y+1);
+                            int position = (x * 20) + (y + 1);
 
-                            if (players.size() < position) break;  // not enough players
+                            if (players.size() < position) break; // not enough players
 
-                            String entry = players.get(position-1);
-                            if (entry.contains("§l")) continue;  // avoid the titles
+                            String entry = players.get(position - 1);
+                            if (entry.contains("§l")) continue; // avoid the titles
 
                             int xPos = -166 + (87 * x);
                             int yPos = 11 + (10 * y);
 
-                            drawString(entry, xPos, yPos,
-                                    CommonColors.BLACK, SmartFontRenderer.TextAlignment.LEFT_RIGHT,
-                                    SmartFontRenderer.TextShadow.NONE);
+                            drawString(entry, xPos, yPos, CommonColors.BLACK, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NONE);
                         }
                     }
                 }
 
-            } clearMask();
+            }
+            clearMask();
 
-            color(1f, 1f, 1f, OverlayConfig.PlayerInfo.INSTANCE.backgroundAlpha);  // apply transparency
-            {  // paper rolls
-                drawRect(Textures.UIs.tab_overlay,
-                        (int) (177 * animationProgress),
-                        -5,
-                        (int) (27 + (177 * animationProgress)),
-                        229, 0, 0, 27, 229);
+            color(1f, 1f, 1f, OverlayConfig.PlayerInfo.INSTANCE.backgroundAlpha); // apply transparency
+            { // paper rolls
+                drawRect(Textures.UIs.tab_overlay, (int) (177 * animationProgress), -5, (int) (27 + (177 * animationProgress)), 229, 0, 0, 27, 229);
 
-                drawRect(Textures.UIs.tab_overlay,
-                        -(int) (27 + (177 * animationProgress)),
-                        -5,
-                        -(int) (177 * animationProgress),
-                        229, 0, 0, 27, 229);
+                drawRect(Textures.UIs.tab_overlay, -(int) (27 + (177 * animationProgress)), -5, -(int) (177 * animationProgress), 229, 0, 0, 27, 229);
             }
             color(1f, 1f, 1f, 1f);
 
-        } resetScale();
+        }
+        resetScale();
 
     }
 
@@ -116,12 +106,9 @@ public class PlayerInfoOverlay extends Overlay {
         if (Minecraft.getSystemTime() < nextExecution && !lastPlayers.isEmpty()) return lastPlayers;
         nextExecution = Minecraft.getSystemTime() + 250;
 
-        List<NetworkPlayerInfo> players = TabManager.getEntryOrdering()
-                .sortedCopy(Minecraft.getMinecraft().player.connection.getPlayerInfoMap());
+        List<NetworkPlayerInfo> players = TabManager.getEntryOrdering().sortedCopy(Minecraft.getMinecraft().player.connection.getPlayerInfoMap());
 
-        lastPlayers = players.stream()
-                .map(c -> wrapText(c.getDisplayName().getUnformattedText().replace("§7", "§0"), 73))
-                .collect(Collectors.toList());
+        lastPlayers = players.stream().map(c -> wrapText(c.getDisplayName().getUnformattedText().replace("§7", "§0"), 73)).collect(Collectors.toList());
 
         return lastPlayers;
     }

@@ -58,7 +58,7 @@ public class MainWorldMapUI extends WorldMapUI {
 
     private static boolean isHoldingMapKey() {
         int mapKey = MapModule.getModule().getMapKey().getKey();
-        if (mapKey == 0) return false;  // Unknown key
+        if (mapKey == 0) return false; // Unknown key
         if (-100 <= mapKey && mapKey <= -85) {
             // Mouse key
             return Mouse.isButtonDown(mapKey + 100);
@@ -73,7 +73,8 @@ public class MainWorldMapUI extends WorldMapUI {
         // HeyZeer0: This detects if the user is holding the map key;
         if (!holdingMapKey && (System.currentTimeMillis() - creationTime >= 150) && isHoldingMapKey()) holdingMapKey = true;
 
-        // HeyZeer0: This close the map if the user was pressing the map key and after a moment dropped it
+        // HeyZeer0: This close the map if the user was pressing the map key and after a
+        // moment dropped it
         if (holdingMapKey && !isHoldingMapKey()) {
             Minecraft.getMinecraft().displayGuiScreen(null);
             return;
@@ -81,7 +82,7 @@ public class MainWorldMapUI extends WorldMapUI {
 
         updatePosition(mouseX, mouseY);
 
-        if (MapConfig.WorldMap.INSTANCE.showFriends && System.currentTimeMillis() - lastRequest >= 2000) {  // Only request every 2 seconds!
+        if (MapConfig.WorldMap.INSTANCE.showFriends && System.currentTimeMillis() - lastRequest >= 2000) { // Only request every 2 seconds!
             SocketManager.emitEvent("giveLocations");
 
             lastRequest = System.currentTimeMillis();
@@ -99,14 +100,7 @@ public class MainWorldMapUI extends WorldMapUI {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (helpBtn.isMouseOver()) {
-            drawHoveringText(Arrays.asList(
-                "Help",
-                "CTRL to show territories",
-                "Left click on waypoint to place compass beacon there",
-                "Middle click to place compass beacon",
-                "Double click on compass beacon to create waypoint there",
-                "Right click to centre on player"
-            ), mouseX, mouseY, fontRenderer);
+            drawHoveringText(Arrays.asList("Help", "CTRL to show territories", "Left click on waypoint to place compass beacon there", "Middle click to place compass beacon", "Double click on compass beacon to create waypoint there", "Right click to centre on player"), mouseX, mouseY, fontRenderer);
         }
     }
 
@@ -116,7 +110,7 @@ public class MainWorldMapUI extends WorldMapUI {
             super.mouseClicked(mouseX, mouseY, mouseButton);
             return;
         } else if (mouseButton == 1) {
-            updateCenterPosition((float)mc.player.posX, (float)mc.player.posZ);
+            updateCenterPosition((float) mc.player.posX, (float) mc.player.posZ);
             return;
         } else if (mouseButton == 2) {
             // Set compass to middle clicked location
@@ -159,7 +153,6 @@ public class MainWorldMapUI extends WorldMapUI {
             super.keyTyped(typedChar, keyCode);
         }
     }
-
 
     @Override
     public void actionPerformed(GuiButton btn) {

@@ -33,14 +33,14 @@ public class BeaconManager {
 
         double distance = playerVec.distanceTo(positionVec);
         if (distance <= 4f || distance > 4000f) return;
-        if (distance <= 8f) alpha = (float)(distance - 4f) / 3f;
+        if (distance <= 8f) alpha = (float) (distance - 4f) / 3f;
 
-        if (alpha > 1) alpha = 1;  // avoid excessive values
+        if (alpha > 1) alpha = 1; // avoid excessive values
 
         alpha *= color.a;
 
         double maxDistance = Minecraft.getMinecraft().gameSettings.renderDistanceChunks * 16;
-        if (distance > maxDistance) {  // this will drag the beam to the visible area if outside of it
+        if (distance > maxDistance) { // this will drag the beam to the visible area if outside of it
             Vec3d delta = positionVec.subtract(playerVec).normalize();
             positionVec = playerVec.add(delta.x * maxDistance, delta.y * maxDistance, delta.z * maxDistance);
         }
@@ -49,7 +49,7 @@ public class BeaconManager {
     }
 
     private static void drawBeam(double x, double y, double z, float alpha, CustomColor color) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(beamResource);  // binds the texture
+        Minecraft.getMinecraft().renderEngine.bindTexture(beamResource); // binds the texture
         glTexParameteri(3553, 10242, 10497);
 
         // beacon light animation
@@ -72,20 +72,20 @@ public class BeaconManager {
         BufferBuilder builder = tessellator.getBuffer();
         {
             builder.pos(x + .2d, y + d1, z + .2d).tex(1d, d3).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .2d, y     , z + .2d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .8d, y     , z + .2d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .2d, y, z + .2d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .8d, y, z + .2d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .8d, y + d1, z + .2d).tex(0d, d3).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .8d, y + d1, z + .8d).tex(1d, d3).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .8d, y     , z + .8d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .2d, y     , z + .8d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .8d, y, z + .8d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .2d, y, z + .8d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .2d, y + d1, z + .8d).tex(0d, d3).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .8d, y + d1, z + .2d).tex(1d, d3).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .8d, y     , z + .2d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .8d, y     , z + .8d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .8d, y, z + .2d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .8d, y, z + .8d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .8d, y + d1, z + .8d).tex(0d, d3).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .2d, y + d1, z + .8d).tex(1d, d3).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .2d, y     , z + .8d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
-            builder.pos(x + .2d, y     , z + .2d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .2d, y, z + .8d).tex(1d, d2).color(color.r, color.g, color.b, alpha).endVertex();
+            builder.pos(x + .2d, y, z + .2d).tex(0d, d2).color(color.r, color.g, color.b, alpha).endVertex();
             builder.pos(x + .2d, y + d1, z + .2d).tex(0d, d3).color(color.r, color.g, color.b, alpha).endVertex();
         }
         tessellator.draw();

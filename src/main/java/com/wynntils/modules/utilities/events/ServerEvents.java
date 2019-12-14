@@ -37,9 +37,8 @@ public class ServerEvents implements Listener {
         if (!Reference.onLobby) return;
 
         if (loadedResourcePack &&
-                Minecraft.getMinecraft().getResourcePackRepository().getServerResourcePack() == null &&
-                Minecraft.getMinecraft().getCurrentServerData().getResourceMode() == ServerData.ServerResourceMode.ENABLED
-        ) {
+            Minecraft.getMinecraft().getResourcePackRepository().getServerResourcePack() == null &&
+            Minecraft.getMinecraft().getCurrentServerData().getResourceMode() == ServerData.ServerResourceMode.ENABLED) {
             // Not actually loaded resource pack
             loadedResourcePack = false;
         }
@@ -80,10 +79,8 @@ public class ServerEvents implements Listener {
             } else {
                 String lastPack = UtilitiesConfig.INSTANCE.lastServerResourcePack;
                 String lastHash = UtilitiesConfig.INSTANCE.lastServerResourcePackHash;
-                Reference.LOGGER.info(
-                        "New server resource pack: \"server-resource-packs/" + DigestUtils.sha1Hex(resourcePack) + "\"#" + hash + " from \"" + resourcePack +
-                        "\" (Was \"server-resource-packs/" + DigestUtils.sha1Hex(lastPack) + "\"#" + lastHash + " from \"" + lastPack + "\")"
-                );
+                Reference.LOGGER.info("New server resource pack: \"server-resource-packs/" + DigestUtils.sha1Hex(resourcePack) + "\"#" + hash + " from \"" + resourcePack +
+                    "\" (Was \"server-resource-packs/" + DigestUtils.sha1Hex(lastPack) + "\"#" + lastHash + " from \"" + lastPack + "\")");
                 // Loaded old resource pack, so don't cancel to load the new one
                 loadedResourcePack = false;
             }
@@ -92,10 +89,9 @@ public class ServerEvents implements Listener {
             UtilitiesConfig.INSTANCE.saveSettings(UtilitiesModule.getModule());
         }
 
-        if (loadedResourcePack && (  // Don't cancel if there isn't currently a server resource pack
-                Minecraft.getMinecraft().getResourcePackRepository().getServerResourcePack() != null ||
-                Minecraft.getMinecraft().getCurrentServerData().getResourceMode() != ServerData.ServerResourceMode.ENABLED
-        )) {
+        if (loadedResourcePack && ( // Don't cancel if there isn't currently a server resource pack
+        Minecraft.getMinecraft().getResourcePackRepository().getServerResourcePack() != null ||
+            Minecraft.getMinecraft().getCurrentServerData().getResourceMode() != ServerData.ServerResourceMode.ENABLED)) {
             e.getPlayClient().sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
             e.getPlayClient().sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
 

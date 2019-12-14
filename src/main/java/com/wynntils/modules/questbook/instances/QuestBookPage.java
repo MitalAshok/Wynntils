@@ -60,9 +60,11 @@ public class QuestBookPage extends GuiScreen {
 
     /**
      * Base class for all questbook pages
-     * @param title a string displayed on the left page
-     * @param showSearchBar boolean of whether there is a searchbar needed for that page
-     * @param icon the icon that corresponds to the page
+     * 
+     * @param title         a string displayed on the left page
+     * @param showSearchBar boolean of whether there is a searchbar needed for that
+     *                      page
+     * @param icon          the icon that corresponds to the page
      */
     public QuestBookPage(String title, boolean showSearchBar, IconContainer icon) {
         this.title = title;
@@ -131,7 +133,7 @@ public class QuestBookPage extends GuiScreen {
             render.drawString(title, (x - 158f) / 2, (y - 74) / 2, CommonColors.YELLOW, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NONE);
             ScreenRenderer.resetScale();
 
-            /*Render search bar when needed*/
+            /* Render search bar when needed */
             if (showSearchBar) {
                 render.drawRect(Textures.UIs.quest_book, x + 13, y - 109, 52, 255, 133, 23);
                 // searchBar
@@ -171,7 +173,8 @@ public class QuestBookPage extends GuiScreen {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
 
-        int posX = ((res.getScaledWidth()/2) - mouseX); int posY = ((res.getScaledHeight()/2) - mouseY);
+        int posX = ((res.getScaledWidth() / 2) - mouseX);
+        int posY = ((res.getScaledHeight() / 2) - mouseY);
 
         if (showSearchBar) {
             if (posX >= -145 && posX <= -13 && posY >= 86 && posY <= 100) {
@@ -215,9 +218,9 @@ public class QuestBookPage extends GuiScreen {
                     return;
                 }
 
-                if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-                    searchBarText = "";
-                else searchBarText = searchBarText.substring(0, searchBarText.length() - 1);
+                if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) searchBarText = "";
+                else
+                    searchBarText = searchBarText.substring(0, searchBarText.length() - 1);
 
                 Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.BLOCK_NOTE_HAT, 1f));
                 text_flicker = System.currentTimeMillis();
@@ -243,14 +246,14 @@ public class QuestBookPage extends GuiScreen {
         ScreenRenderer.endGL();
     }
 
-    protected void searchUpdate(String currentText) { }
+    protected void searchUpdate(String currentText) {}
 
     protected boolean doesSearchMatch(String toCheck, String searchText) {
         if (QuestBookConfig.INSTANCE.useFuzzySearch) {
             int i = 0, j = 0;
             char[] toCheckArray = toCheck.toCharArray();
             for (char c : searchText.toCharArray()) {
-                for (; i < toCheck.length(); ) {
+                for (; i < toCheck.length();) {
                     if (c == toCheckArray[i]) {
                         i++;
                         j++;
@@ -280,7 +283,10 @@ public class QuestBookPage extends GuiScreen {
 
     /**
      * Can be null
+     * 
      * @return a list of strings - each index representing a new line.
      */
-    public List<String> getHoveredDescription() { return null; }
+    public List<String> getHoveredDescription() {
+        return null;
+    }
 }

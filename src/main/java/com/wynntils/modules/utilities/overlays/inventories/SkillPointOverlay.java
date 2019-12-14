@@ -29,7 +29,9 @@ public class SkillPointOverlay implements Listener {
         try {
             int count = Integer.parseInt(numbers[0]);
             e.getGui().getSlotUnderMouse().getStack().setCount(count == 0 ? 1 : count);
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

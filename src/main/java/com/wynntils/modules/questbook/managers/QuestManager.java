@@ -31,12 +31,14 @@ import java.util.stream.Collectors;
 
 public class QuestManager {
 
-    /** Minimum number of ms between successive analyzes (To prevent analyze spam) */
+    /**
+     * Minimum number of ms between successive analyzes (To prevent analyze spam)
+     */
     private static final int ANALYZE_MIN_TIMEOUT = 5 * 1000;
     /** Time to reanalyze after interrupted */
     private static final int INTERRUPT_TIMEOUT = 30 * 1000;
 
-    private static final int MESSAGE_ID = 423375494;  // QuestManager.class.getName().hashCode()
+    private static final int MESSAGE_ID = 423375494; // QuestManager.class.getName().hashCode()
 
     private static final Pattern QUEST_BOOK_WINDOW_TITLE_PATTERN = Pattern.compile("\\[Pg\\. \\d+] \\w{3,16}'s? (?:Discoveries|(?:Mini-)?Quests)");
 
@@ -106,7 +108,7 @@ public class QuestManager {
         HashSet<String> previouslyIncompleteMiniQuests = new HashSet<>(incompleteMiniQuests);
 
         fakeInventory.onReceiveItems(i -> {
-            if (i.getWindowTitle().contains("Quests")) {  // Quests
+            if (i.getWindowTitle().contains("Quests")) { // Quests
                 boolean isMiniquests = i.getWindowTitle().contains("Mini-Quests");
                 Pair<Integer, ItemStack> next = i.findItem(">>>>>", FilterType.CONTAINS);
                 Pair<Integer, ItemStack> discoveries = i.findItem("Discoveries", FilterType.EQUALS);
@@ -132,13 +134,13 @@ public class QuestManager {
                 ModCore.mc().addScheduledTask(() -> {
                     // parsing
                     for (ItemStack item : items) {
-                        if (!item.hasDisplayName()) continue;  // not a valid quest
+                        if (!item.hasDisplayName()) continue; // not a valid quest
 
                         List<String> lore = ItemUtils.getLore(item);
-                        if (lore.isEmpty()) continue;  // not a valid quest
+                        if (lore.isEmpty()) continue; // not a valid quest
 
                         List<String> realLore = lore.stream().map(TextFormatting::getTextWithoutFormattingCodes).collect(Collectors.toList());
-                        if (!realLore.contains("Right click to track")) continue;  // not a valid quest
+                        if (!realLore.contains("Right click to track")) continue; // not a valid quest
 
                         String displayName = StringUtils.normalizeBadString(TextFormatting.getTextWithoutFormattingCodes(item.getDisplayName()));
 
@@ -205,7 +207,7 @@ public class QuestManager {
                         i.close();
                     }
                 }
-            } else if (i.getWindowTitle().contains("Discoveries")) {  // Discoveries
+            } else if (i.getWindowTitle().contains("Discoveries")) { // Discoveries
                 Pair<Integer, ItemStack> next = i.findItem(">>>>>", FilterType.CONTAINS);
                 Pair<Integer, ItemStack> sDiscoveries = i.findItem("Secret Discoveries", FilterType.EQUALS);
 
@@ -218,11 +220,11 @@ public class QuestManager {
                 NonNullList<ItemStack> items = NonNullList.create();
                 items.addAll(i.getItems());
                 ModCore.mc().addScheduledTask(() -> {
-                    for (ItemStack item : items) {  // parsing discoveries
-                        if (!item.hasDisplayName()) continue;  // not a valid discovery
+                    for (ItemStack item : items) { // parsing discoveries
+                        if (!item.hasDisplayName()) continue; // not a valid discovery
 
                         List<String> lore = ItemUtils.getLore(item);
-                        if (lore.isEmpty() || !TextFormatting.getTextWithoutFormattingCodes(lore.get(0)).contains("✔ Combat Lv")) continue;  // not a valid discovery
+                        if (lore.isEmpty() || !TextFormatting.getTextWithoutFormattingCodes(lore.get(0)).contains("✔ Combat Lv")) continue; // not a valid discovery
 
                         String displayName = item.getDisplayName();
                         displayName = StringUtils.normalizeBadString(displayName.substring(0, displayName.length() - 1));
@@ -249,9 +251,10 @@ public class QuestManager {
                 else if (!secretDiscoveries && sDiscoveries != null) {
                     secretDiscoveries = true;
                     i.clickItem(sDiscoveries.a, 1, ClickType.PICKUP);
-                }
-                else i.close();
-            } else i.close();
+                } else
+                    i.close();
+            } else
+                i.close();
         });
         fakeInventory.onClose(c -> {
             currentInventory = null;
@@ -367,7 +370,8 @@ public class QuestManager {
     }
 
     /**
-     * The next analyze request will scan discoveries too, regardless of if {@link QuestBookConfig#scanDiscoveries} is false
+     * The next analyze request will scan discoveries too, regardless of if
+     * {@link QuestBookConfig#scanDiscoveries} is false
      */
     public static void forceDiscoveries() {
         isForcingDiscoveries = true;
@@ -419,9 +423,7 @@ public class QuestManager {
 
     private static void sendMessage(String msg) {
         // Can be called from nio thread by FakeInventory
-        Minecraft.getMinecraft().addScheduledTask(() ->
-            ChatOverlay.getChat().printChatMessageWithOptionalDeletion(new TextComponentString(msg), MESSAGE_ID)
-        );
+        Minecraft.getMinecraft().addScheduledTask(() -> ChatOverlay.getChat().printChatMessageWithOptionalDeletion(new TextComponentString(msg), MESSAGE_ID));
     }
 
 }

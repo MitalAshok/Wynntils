@@ -21,7 +21,10 @@ public class UIEClickZone extends UIElement {
     public boolean active;
 
     protected boolean hovering = false;
-    public boolean isHovering() { return hovering; }
+
+    public boolean isHovering() {
+        return hovering;
+    }
 
     public UIEClickZone(float anchorX, float anchorY, int offsetX, int offsetY, int width, int height, boolean active, BiConsumer<UI, MouseButton> onClick) {
         super(anchorX, anchorY, offsetX, offsetY);
@@ -33,7 +36,7 @@ public class UIEClickZone extends UIElement {
 
     @Override
     public void render(int mouseX, int mouseY) {
-        hovering = mouseX >= position.getDrawingX() && mouseX < position.getDrawingX()+width && mouseY >= position.getDrawingY() && mouseY < position.getDrawingY()+height;
+        hovering = mouseX >= position.getDrawingX() && mouseX < position.getDrawingX() + width && mouseY >= position.getDrawingY() && mouseY < position.getDrawingY() + height;
     }
 
     @Override
@@ -43,27 +46,24 @@ public class UIEClickZone extends UIElement {
 
     public void click(boolean hovering, MouseButton button, UI ui) {
         if (active && hovering) {
-            if (clickSound != null)
-                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(clickSound, 1f));
-            if (onClick != null)
-                onClick.accept(ui, button);
+            if (clickSound != null) Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(clickSound, 1f));
+            if (onClick != null) onClick.accept(ui, button);
         }
     }
+
     public void click(int mouseX, int mouseY, MouseButton button, UI ui) {
-        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX()+width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY()+height;
+        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX() + width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY() + height;
         if (active && hovering) {
-            if (clickSound != null)
-                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(clickSound, 1f));
-            if (onClick != null)
-                onClick.accept(ui, button);
+            if (clickSound != null) Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(clickSound, 1f));
+            if (onClick != null) onClick.accept(ui, button);
         }
     }
 
     public void release(int mouseX, int mouseY, MouseButton button, UI ui) {
-        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX()+width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY()+height;
+        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX() + width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY() + height;
     }
 
     public void clickMove(int mouseX, int mouseY, MouseButton button, long timeSinceLastClick, UI ui) {
-        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX()+width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY()+height;
+        hovering = mouseX >= position.getDrawingX() && mouseX <= position.getDrawingX() + width && mouseY >= position.getDrawingY() && mouseY <= position.getDrawingY() + height;
     }
 }

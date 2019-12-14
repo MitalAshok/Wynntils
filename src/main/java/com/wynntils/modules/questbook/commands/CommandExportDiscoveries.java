@@ -49,10 +49,8 @@ public class CommandExportDiscoveries extends CommandBase implements IClientComm
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         ITextComponent command = new TextComponentString("/exportDiscoveries");
         command.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/exportDiscoveries"));
-        if (!Reference.onWorld)
-            throw new CommandException("You need to be in a Wynncraft world to run %s", command);
-        if (PlayerInfo.getPlayerInfo().getCurrentClass() == ClassType.NONE)
-            throw new CommandException("You need to select a class to run %s", command);
+        if (!Reference.onWorld) throw new CommandException("You need to be in a Wynncraft world to run %s", command);
+        if (PlayerInfo.getPlayerInfo().getCurrentClass() == ClassType.NONE) throw new CommandException("You need to select a class to run %s", command);
 
         File exportFolder = new File(Reference.MOD_STORAGE_ROOT, "export");
         exportFolder.mkdirs();

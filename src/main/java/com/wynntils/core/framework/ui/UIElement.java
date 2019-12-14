@@ -22,6 +22,7 @@ public abstract class UIElement extends ScreenRenderer {
     }
 
     public abstract void render(int mouseX, int mouseY);
+
     public abstract void tick(long ticks);
 
     public int getId() {

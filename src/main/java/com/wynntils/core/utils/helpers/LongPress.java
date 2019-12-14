@@ -12,7 +12,8 @@ public class LongPress {
     long endTime = 0;
 
     public LongPress(long timeout, Runnable whenFinished) {
-        this.timeout = timeout; this.whenFinished = whenFinished;
+        this.timeout = timeout;
+        this.whenFinished = whenFinished;
     }
 
     public boolean isFinished() {

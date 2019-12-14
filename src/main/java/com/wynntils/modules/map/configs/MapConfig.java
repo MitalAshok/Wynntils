@@ -125,7 +125,6 @@ public class MapConfig extends SettingsClass {
         @Setting(upload = true)
         public ArrayList<PathWaypointProfile> pathWaypoints = new ArrayList<>();
 
-
         @Setting(displayName = "Recording Chest Waypoints", description = "Which chest tiers should be recorded as waypoints?\n\n§8Tiers higher than the specified value will also be recorded.", order = 6)
         public ChestTiers chestTiers = ChestTiers.TIER_3;
 
@@ -136,8 +135,8 @@ public class MapConfig extends SettingsClass {
             TIER_4(1),
             NONE(0);
 
-            private int tierArrayIndex;  // Array starts at 1 :P
-            private String[] tiers = new String[]{"IV", "III", "II", "I"};
+            private int tierArrayIndex; // Array starts at 1 :P
+            private String[] tiers = new String[] { "IV", "III", "II", "I" };
 
             ChestTiers(int tierArrayIndex) {
                 this.tierArrayIndex = tierArrayIndex;
@@ -167,51 +166,51 @@ public class MapConfig extends SettingsClass {
         }
     }
 
-
     public enum MapFormat {
-        SQUARE, CIRCLE
+        SQUARE,
+        CIRCLE
     }
 
     public enum TextureType {
-        Paper, Wynn, Gilded
+        Paper,
+        Wynn,
+        Gilded
     }
 
     public enum PointerType {
 
-        ARROW(10, 8, 5, 4, 0), CURSOR(8, 7, 4, 3.5f, 8), NARROW(8, 8, 4, 4, 15), ROUND(8, 8, 4, 4, 23), STRAIGHT(6, 8, 3, 4, 31), TRIANGLE(8, 6, 4, 3, 39);
+        ARROW(10, 8, 5, 4, 0),
+        CURSOR(8, 7, 4, 3.5f, 8),
+        NARROW(8, 8, 4, 4, 15),
+        ROUND(8, 8, 4, 4, 23),
+        STRAIGHT(6, 8, 3, 4, 31),
+        TRIANGLE(8, 6, 4, 3, 39);
 
         public float width, height, dWidth, dHeight, yStart;
 
         PointerType(float width, float height, float dWidth, float dHeight, float yStart) {
-            this.width = width; this.height = height; this.dWidth = dWidth; this.dHeight = dHeight; this.yStart = yStart;
+            this.width = width;
+            this.height = height;
+            this.dWidth = dWidth;
+            this.dHeight = dHeight;
+            this.yStart = yStart;
         }
     }
 
     @Override
-    public void onSettingChanged(String name) { }
+    public void onSettingChanged(String name) {}
 
     public static HashMap<String, Boolean> resetMapIcons(boolean forMiniMap) {
         HashMap<String, Boolean> enabledIcons = new HashMap<>();
-        for (String icon : new String[]{
-            "Dungeons", "Accessory Merchant", "Armour Merchant", "Dungeon Merchant", "Horse Merchant",
-            "Key Forge Merchant", "LE Merchant", "Emerald Merchant", "TNT Merchant", "Ore Refinery",
-            "Potion Merchant", "Powder Merchant", "Scroll Merchant", "Seasail Merchant", "Weapon Merchant",
-            "Blacksmith", "Guild Master", "Item Identifier", "Powder Master", "Fast Travel",
-            "Fish Refinery", "Wood Refinery", "Crop Refinery", "Marketplace", "Nether Portal",
-            "Light's Secret", "Quests"
+        for (String icon : new String[] { "Dungeons", "Accessory Merchant", "Armour Merchant", "Dungeon Merchant", "Horse Merchant", "Key Forge Merchant", "LE Merchant", "Emerald Merchant", "TNT Merchant", "Ore Refinery", "Potion Merchant", "Powder Merchant", "Scroll Merchant", "Seasail Merchant", "Weapon Merchant", "Blacksmith", "Guild Master", "Item Identifier", "Powder Master", "Fast Travel", "Fish Refinery", "Wood Refinery", "Crop Refinery", "Marketplace", "Nether Portal", "Light's Secret", "Quests"
         }) {
             enabledIcons.put(icon, true);
         }
-        for (String icon : new String[]{
-            "Mini-Quests", "Runes", "Ultimate Discovery", "Caves", "Grind Spots", "Other Merchants",
-            "Art Merchant", "Tool Merchant"
+        for (String icon : new String[] { "Mini-Quests", "Runes", "Ultimate Discovery", "Caves", "Grind Spots", "Other Merchants", "Art Merchant", "Tool Merchant"
         }) {
             enabledIcons.put(icon, forMiniMap);
         }
-        for (String icon : new String[]{
-            "Weaponsmithing Station", "Armouring Station", "Alchemism Station",
-            "Jeweling Station", "Tailoring Station", "Scribing Station",
-            "Cooking Station", "Woodworking Station"
+        for (String icon : new String[] { "Weaponsmithing Station", "Armouring Station", "Alchemism Station", "Jeweling Station", "Tailoring Station", "Scribing Station", "Cooking Station", "Woodworking Station"
         }) {
             enabledIcons.put(icon, false);
         }
@@ -233,8 +232,10 @@ public class MapConfig extends SettingsClass {
     }
 
     public IconTexture iconTexture = IconTexture.Classic;
+
     public enum IconTexture {
-        Classic, Medieval
+        Classic,
+        Medieval
     }
 
 }

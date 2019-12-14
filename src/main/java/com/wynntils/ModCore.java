@@ -25,13 +25,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import java.io.File;
 import java.util.HashMap;
 
-@Mod(
-        name = Reference.NAME,
-        modid = Reference.MOD_ID,
-        acceptedMinecraftVersions = "[" + Reference.MINECRAFT_VERSIONS + "]",
-        guiFactory = "com.wynntils.core.framework.settings.ui.ModConfigFactory",
-        clientSideOnly = true
-)
+@Mod(name = Reference.NAME, modid = Reference.MOD_ID, acceptedMinecraftVersions = "[" + Reference.MINECRAFT_VERSIONS + "]", guiFactory = "com.wynntils.core.framework.settings.ui.ModConfigFactory", clientSideOnly = true)
 public class ModCore {
 
     public static File jarFile = null;
@@ -42,15 +36,15 @@ public class ModCore {
         String[] splitDescription = e.getModMetadata().description.split(" ");
         try {
             Reference.BUILD_NUMBER = Integer.parseInt(splitDescription[splitDescription.length - 1]);
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+        }
 
         jarFile = e.getSourceFile();
 
         Reference.developmentEnvironment = (boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-        // Reference.developmentEnvironment = false;  // Uncomment to test updater
+        // Reference.developmentEnvironment = false; // Uncomment to test updater
 
-        if (Reference.developmentEnvironment)
-            Reference.LOGGER.info("Development environment detected, automatic update detection disabled");
+        if (Reference.developmentEnvironment) Reference.LOGGER.info("Development environment detected, automatic update detection disabled");
 
         WebManager.setupUserAccount();
         WebManager.setupWebApi(true);
@@ -79,7 +73,7 @@ public class ModCore {
         Mappings.loadMappings();
 
         // HeyZeer0: This will reload our cache if a texture or similar is applied
-        ((SimpleReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).registerReloadListener(resourceManager -> {
+        ((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(resourceManager -> {
             Textures.loadTextures();
             Mappings.loadMappings();
         });

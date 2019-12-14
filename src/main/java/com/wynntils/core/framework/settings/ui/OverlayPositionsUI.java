@@ -144,8 +144,7 @@ public class OverlayPositionsUI extends UI {
 
     @Override
     public void onRenderPostUIE(ScreenRenderer render) {
-        if (reloadButtons || (shiftDown && !Keyboard.isKeyDown(42)))
-            onInit();
+        if (reloadButtons || (shiftDown && !Keyboard.isKeyDown(42))) onInit();
     }
 
     @Override
@@ -230,14 +229,7 @@ public class OverlayPositionsUI extends UI {
         int mouseXPrevious, mouseYPrevious;
 
         public OverlayButton(SettingsContainer overlaySettings) {
-            super(((Overlay) overlaySettings.getHolder()).position.anchorX,
-                    ((Overlay) overlaySettings.getHolder()).position.anchorY,
-                    ((Overlay) overlaySettings.getHolder()).position.offsetX,
-                    ((Overlay) overlaySettings.getHolder()).position.offsetY,
-                    ((Overlay) overlaySettings.getHolder()).staticSize.x,
-                    ((Overlay) overlaySettings.getHolder()).staticSize.y,
-                    true,
-                    null);
+            super(((Overlay) overlaySettings.getHolder()).position.anchorX, ((Overlay) overlaySettings.getHolder()).position.anchorY, ((Overlay) overlaySettings.getHolder()).position.offsetX, ((Overlay) overlaySettings.getHolder()).position.offsetY, ((Overlay) overlaySettings.getHolder()).staticSize.x, ((Overlay) overlaySettings.getHolder()).staticSize.y, true, null);
             this.overlaySettings = overlaySettings;
             Overlay overlay = ((Overlay) overlaySettings.getHolder());
             if (overlay.growth == Overlay.OverlayGrowFrom.TOP_CENTRE) {
@@ -289,12 +281,7 @@ public class OverlayPositionsUI extends UI {
             drawRect(color, position.getDrawingX() + width, position.getDrawingY(), position.getDrawingX() + width - 1, position.getDrawingY() + height);
             // Text
             if (hovering && !mouseButtonHeld) {
-                stringToDrawOnTop = new StringDrawing(overlay.displayName,
-                        position.getDrawingX() + (overlay.staticSize.x / 2),
-                        position.getDrawingY() + (overlay.staticSize.y / 2) - 4,
-                        CommonColors.PURPLE,
-                        SmartFontRenderer.TextAlignment.MIDDLE,
-                        SmartFontRenderer.TextShadow.OUTLINE);
+                stringToDrawOnTop = new StringDrawing(overlay.displayName, position.getDrawingX() + (overlay.staticSize.x / 2), position.getDrawingY() + (overlay.staticSize.y / 2) - 4, CommonColors.PURPLE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE);
                 toClick = this;
             } else {
                 if (stringToDrawOnTop != null && stringToDrawOnTop.getString().equals(overlay.displayName)) {

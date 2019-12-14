@@ -18,7 +18,6 @@ import net.minecraftforge.client.IClientCommand;
 
 import java.util.*;
 
-
 public class CommandServer extends CommandBase implements IClientCommand {
     private List<String> serverTypes = Lists.newArrayList("WC", "lobby", "GM", "DEV", "WAR", "HB", "EU");
 
@@ -95,8 +94,7 @@ public class CommandServer extends CommandBase implements IClientCommand {
 
         TextComponentString text;
         if (options.contains("help")) {
-            text = new TextComponentString(
-                    "Usage: /s list [type] [options]\n order of types and options does not matter\nDefault: print all servers oldest to new\n\ntypes:\n");
+            text = new TextComponentString("Usage: /s list [type] [options]\n order of types and options does not matter\nDefault: print all servers oldest to new\n\ntypes:\n");
             for (String type : serverTypes) {
                 text.appendText(String.format("  %s\n", type));
             }
@@ -114,12 +112,12 @@ public class CommandServer extends CommandBase implements IClientCommand {
 
         String finalSelectedType = selectedType;
         Utils.runAsync(() -> {
-            try{
+            try {
                 HashMap<String, ArrayList<String>> onlinePlayers = WebManager.getOnlinePlayers();
 
                 if (options.contains("group") && finalSelectedType == null) {
                     TextComponentString toEdit = new TextComponentString("Available servers" +
-                            (options.contains("count") ? String.format(" (%d)", onlinePlayers.size()): "") + ":\n");
+                        (options.contains("count") ? String.format(" (%d)", onlinePlayers.size()) : "") + ":\n");
 
                     for (String type : serverTypes.subList(0, serverTypes.size() - 1)) {
                         toEdit.appendSibling(getFilteredServerList(onlinePlayers, type, options));
@@ -127,30 +125,19 @@ public class CommandServer extends CommandBase implements IClientCommand {
                     }
                     toEdit.appendSibling(getFilteredServerList(onlinePlayers, serverTypes.get(serverTypes.size() - 1), options));
 
-                    ChatOverlay.getChat().printUnloggedChatMessage(toEdit, messageId);  // updates the message
+                    ChatOverlay.getChat().printUnloggedChatMessage(toEdit, messageId); // updates the message
                     return;
                 }
 
                 if (finalSelectedType == null) {
-                    ChatOverlay.getChat().printUnloggedChatMessage(
-                            getFilteredServerList(onlinePlayers, "", options), messageId
-                    );  // updates the message
+                    ChatOverlay.getChat().printUnloggedChatMessage(getFilteredServerList(onlinePlayers, "", options), messageId); // updates the message
                     return;
                 }
 
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        getFilteredServerList(onlinePlayers, finalSelectedType, options), messageId
-                );  // updates the message
-            }catch (Exception ex) {
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString(
-                                TextFormatting.RED +
-                                "An error occurred while trying to get the servers!"
-                        ).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                new TextComponentString(TextFormatting.RED + ex.getMessage())
-                                ))),
-                        messageId
-                );
+                ChatOverlay.getChat().printUnloggedChatMessage(getFilteredServerList(onlinePlayers, finalSelectedType, options), messageId); // updates the message
+            } catch (Exception ex) {
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString(TextFormatting.RED +
+                    "An error occurred while trying to get the servers!").setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString(TextFormatting.RED + ex.getMessage())))), messageId);
 
                 ex.printStackTrace();
             }
@@ -159,24 +146,19 @@ public class CommandServer extends CommandBase implements IClientCommand {
 
     private void serverInfo(MinecraftServer server, ICommandSender sender, String[] args) {
         int messageId = Utils.getRandom().nextInt(Integer.MAX_VALUE);
-        ChatOverlay.getChat().printUnloggedChatMessage(
-                new TextComponentString(TextFormatting.GRAY + "Calculating Server Information..."
-                ), messageId);
+        ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString(TextFormatting.GRAY + "Calculating Server Information..."), messageId);
 
         Utils.runAsync(() -> {
             if (args.length == 0) {
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString("Usage: /s info <serverID>"), messageId);
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString("Usage: /s info <serverID>"), messageId);
                 return;
             }
             if (args.length > 1) {
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString("Too many arguments\nUsage: /s info <serverID>"), messageId);
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString("Too many arguments\nUsage: /s info <serverID>"), messageId);
                 return;
             }
             if (args[0].equalsIgnoreCase("help")) {
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString("Usage: /s info <serverID>"), messageId);
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString("Usage: /s info <serverID>"), messageId);
                 return;
             }
             // args.length == 1 and no help
@@ -207,28 +189,18 @@ public class CommandServer extends CommandBase implements IClientCommand {
                         return;
                     }
                 }
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString(String.format("Unknown server ID: %s", args[0])), messageId);
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString(String.format("Unknown server ID: %s", args[0])), messageId);
 
             } catch (Exception e) {
-                ChatOverlay.getChat().printUnloggedChatMessage(
-                        new TextComponentString(
-                                TextFormatting.RED +
-                                        "An error occurred while trying to get the servers!"
-                        ).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                new TextComponentString(TextFormatting.RED + e.getMessage())
-                        ))),
-                        messageId
-                );
+                ChatOverlay.getChat().printUnloggedChatMessage(new TextComponentString(TextFormatting.RED +
+                    "An error occurred while trying to get the servers!").setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString(TextFormatting.RED + e.getMessage())))), messageId);
 
                 e.printStackTrace();
             }
         });
     }
 
-    private TextComponentString getFilteredServerList(HashMap<String, ArrayList<String>> onlinePlayers,
-                                                       String filter,
-                                                       List<String> options) {
+    private TextComponentString getFilteredServerList(HashMap<String, ArrayList<String>> onlinePlayers, String filter, List<String> options) {
         TextComponentString text = new TextComponentString("");
         TextComponentString serverListText = new TextComponentString("");
 
@@ -236,8 +208,11 @@ public class CommandServer extends CommandBase implements IClientCommand {
         for (String serverName : options.contains("sort") ? new TreeSet<>(onlinePlayers.keySet()) : onlinePlayers.keySet()) {
             if (serverName.toLowerCase().contains(filter.toLowerCase())) {
                 TextComponentString serverText = new TextComponentString(String.format("%s ", serverName));
-                if (onlinePlayers.get(serverName).size() >= 48) {serverText.getStyle().setColor(TextFormatting.RED);}
-                else {serverText.getStyle().setColor(TextFormatting.GREEN);}
+                if (onlinePlayers.get(serverName).size() >= 48) {
+                    serverText.getStyle().setColor(TextFormatting.RED);
+                } else {
+                    serverText.getStyle().setColor(TextFormatting.GREEN);
+                }
                 serverListText.appendSibling(serverText);
                 serverCount++;
             }
@@ -245,7 +220,7 @@ public class CommandServer extends CommandBase implements IClientCommand {
 
         if (filter.equals("")) {
             text.appendText("Available servers" +
-                    (options.contains("count") ? String.format(" (%d)", onlinePlayers.size()): "") + ":\n");
+                (options.contains("count") ? String.format(" (%d)", onlinePlayers.size()) : "") + ":\n");
         } else if (options.contains("count")) {
             text.appendText(String.format("%s (%d):\n", filter, serverCount));
         } else {
@@ -273,8 +248,7 @@ public class CommandServer extends CommandBase implements IClientCommand {
             case "ls":
             case "l":
                 List<String> arguments = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
-                if (arguments.size() > 1 && arguments.get(0).equals("help"))
-                    return Collections.EMPTY_LIST;
+                if (arguments.size() > 1 && arguments.get(0).equals("help")) return Collections.EMPTY_LIST;
 
                 boolean containsServerType = arguments.stream().anyMatch((arg) -> {
                     List<String> incompatibilities = new ArrayList<>(serverTypes);

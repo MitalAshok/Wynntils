@@ -81,7 +81,8 @@ public class FakeInventory {
         return this;
     }
 
-    /* If set, the fake inventory will be closed when the player tries to
+    /*
+     * If set, the fake inventory will be closed when the player tries to
      * interact with anything. Will not call the onClose callback.
      */
     public FakeInventory onInterrupt(Consumer<FakeInventory> onInterrupt) {
@@ -144,9 +145,9 @@ public class FakeInventory {
     /**
      * Simulates a inventory click on a certain slot
      *
-     * @param slot the input slot
+     * @param slot        the input slot
      * @param mouseButton what mouse button was
-     * @param type the typeof the click
+     * @param type        the typeof the click
      */
     public void clickItem(int slot, int mouseButton, ClickType type) {
         if (!open) return;
@@ -295,7 +296,8 @@ public class FakeInventory {
         }
     }
 
-    // cancel all other interactions to avoid GUI openings while this one is already opened
+    // cancel all other interactions to avoid GUI openings while this one is already
+    // opened
 
     private boolean shouldCancel(Event e) {
         if (interrupted || isCrashed()) return false;
@@ -314,19 +316,18 @@ public class FakeInventory {
     public void cancelInteractItem(PacketEvent<CPacketPlayerTryUseItem> e) {
         if (!shouldCancel(e)) return;
 
-        if (!e.isCanceled())
-            Minecraft.getMinecraft().player.sendMessage(new TextComponentString(TextFormatting.RED + "Your action was canceled because Wynntils is processing a background inventory."));
+        if (!e.isCanceled()) Minecraft.getMinecraft().player.sendMessage(new TextComponentString(TextFormatting.RED + "Your action was canceled because Wynntils is processing a background inventory."));
 
         e.setCanceled(true);
     }
 
-    // cancel all other interactions to avoid GUI openings while this one is already opened
+    // cancel all other interactions to avoid GUI openings while this one is already
+    // opened
     @SubscribeEvent
     public void cancelInteractItemOnBlock(PacketEvent<CPacketPlayerTryUseItemOnBlock> e) {
         if (!shouldCancel(e)) return;
 
-        if (!e.isCanceled())
-            Minecraft.getMinecraft().player.sendMessage(new TextComponentString(TextFormatting.RED + "Your action was canceled because Wynntils is processing a background inventory."));
+        if (!e.isCanceled()) Minecraft.getMinecraft().player.sendMessage(new TextComponentString(TextFormatting.RED + "Your action was canceled because Wynntils is processing a background inventory."));
 
         e.setCanceled(true);
     }

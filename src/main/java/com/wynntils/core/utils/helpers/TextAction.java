@@ -24,7 +24,8 @@ public class TextAction {
     private static HashMap<String, ArrayList<Runnable>> dynamicNameMap = new HashMap<>();
 
     /**
-     * Gets an event that will construct the given class and then call the {@link Runnable#run()} method.
+     * Gets an event that will construct the given class and then call the
+     * {@link Runnable#run()} method.
      *
      * @param clazz The class object (that implements Runnable)
      * @return A click event that constructs then runs the class
@@ -45,10 +46,12 @@ public class TextAction {
     }
 
     /**
-     * Gets an event that will call a given runnable. If the runnable does not depend on a closure or fields,
+     * Gets an event that will call a given runnable. If the runnable does not
+     * depend on a closure or fields,
      * please use {@link #getStaticEvent(Class)}.
      *
-     * Note that this *will* leak (but very slowly), since the lifetime of the command string is not trackable.
+     * Note that this *will* leak (but very slowly), since the lifetime of the
+     * command string is not trackable.
      *
      * @param action The runnable to be called
      * @return A click event that will call the runnable

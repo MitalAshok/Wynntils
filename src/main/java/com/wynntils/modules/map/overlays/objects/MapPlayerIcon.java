@@ -84,44 +84,32 @@ public class MapPlayerIcon extends MapIcon {
         disableBlend();
         disableBlend();
 
-        { pushMatrix();
+        {
+            pushMatrix();
             float sizeX = getSizeX() * sizeMultiplier;
             float sizeZ = getSizeZ() * sizeMultiplier;
 
-            // boolean worldMapOpen = Minecraft.getMinecraft().currentScreen instanceof WorldMapUI;
+            // boolean worldMapOpen = Minecraft.getMinecraft().currentScreen instanceof
+            // WorldMapUI;
 
             ResourceLocation res = getResource();
 
             // TODO somehow this doesn't works on the MiniMap
             CommonColors outlineColor = null;
-            if (profile.isInParty())
-                outlineColor = CommonColors.YELLOW;
-            else if (profile.isMutualFriend())
-                outlineColor = CommonColors.GREEN;
-            else if (profile.isGuildmate())
-                outlineColor = CommonColors.LIGHT_BLUE;
+            if (profile.isInParty()) outlineColor = CommonColors.YELLOW;
+            else if (profile.isMutualFriend()) outlineColor = CommonColors.GREEN;
+            else if (profile.isGuildmate()) outlineColor = CommonColors.LIGHT_BLUE;
 
-            if (outlineColor != null) renderer.drawRectF(outlineColor,
-                    (centreX) - sizeX - .5f,
-                    (centreZ) - sizeZ - .5f,
-                    (centreX) + sizeX + .5f,
-                    (centreZ) + sizeZ + .5f
-            );
+            if (outlineColor != null) renderer.drawRectF(outlineColor, (centreX) - sizeX - .5f, (centreZ) - sizeZ - .5f, (centreX) + sizeX + .5f, (centreZ) + sizeZ + .5f);
 
             Minecraft.getMinecraft().getTextureManager().bindTexture(res);
 
-            drawScaledCustomSizeModalRect(
-                    ((centreX + ScreenRenderer.drawingOrigin().x) -sizeX),
-                    ((centreZ + ScreenRenderer.drawingOrigin().y) -sizeZ),
-                    8f, 8, 8, 8,
-                    sizeX * 2f,
-                    sizeZ * 2f,
-                    64f, 64f);
+            drawScaledCustomSizeModalRect(((centreX + ScreenRenderer.drawingOrigin().x) - sizeX), ((centreZ + ScreenRenderer.drawingOrigin().y) - sizeZ), 8f, 8, 8, 8, sizeX * 2f, sizeZ * 2f, 64f, 64f);
 
-            if (profile.hasHat())
-                drawScaledCustomSizeModalRect(-sizeX, -sizeZ, 40.0F, 8, 8, 8, sizeX * 2f, sizeZ * 2f, 64.0F, 64.0F);
+            if (profile.hasHat()) drawScaledCustomSizeModalRect(-sizeX, -sizeZ, 40.0F, 8, 8, 8, sizeX * 2f, sizeZ * 2f, 64.0F, 64.0F);
 
-        } popMatrix();
+        }
+        popMatrix();
     }
 
     @Override

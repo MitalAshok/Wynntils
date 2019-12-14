@@ -17,7 +17,6 @@ public class Textures {
     public static void loadTextures() {
         List<Class<?>> textureClasses = new ArrayList<>();
 
-
         textureClasses.add(Masks.class);
         textureClasses.add(Overlays.class);
         textureClasses.add(UIs.class);
@@ -31,7 +30,7 @@ public class Textures {
                         String file = path + f.getName() + ".png";
                         f.set(null, new AssetsTexture(new ResourceLocation(file)));
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

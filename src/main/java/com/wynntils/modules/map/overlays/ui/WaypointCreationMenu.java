@@ -71,45 +71,50 @@ public class WaypointCreationMenu extends UI {
         isUpdatingExisting = true;
     }
 
-    @Override public void onInit() { }
-    @Override public void onTick() { }
-    @Override public void onWindowUpdate() {
+    @Override
+    public void onInit() {}
+
+    @Override
+    public void onTick() {}
+
+    @Override
+    public void onWindowUpdate() {
         buttonList.clear();
 
-        nameField = new GuiTextField(0, mc.fontRenderer, this.width/2 - 80, this.height/2 - 70, 160, 20);
-        xCoordField = new GuiTextField(1, mc.fontRenderer, this.width/2 - 65, this.height/2 - 30, 40, 20);
-        zCoordField = new GuiTextField(2, mc.fontRenderer, this.width/2 - 5, this.height/2 - 30, 40, 20);
-        yCoordField = new GuiTextField(3, mc.fontRenderer, this.width/2 + 55, this.height/2 - 30, 25, 20);
-        buttonList.add(waypointTypeNext = new GuiButton(97, this.width/2 - 40, this.height/2 + 10, 18, 18, ">"));
-        buttonList.add(waypointTypeBack = new GuiButton(98, this.width/2 - 80, this.height/2 + 10, 18, 18, "<"));
+        nameField = new GuiTextField(0, mc.fontRenderer, this.width / 2 - 80, this.height / 2 - 70, 160, 20);
+        xCoordField = new GuiTextField(1, mc.fontRenderer, this.width / 2 - 65, this.height / 2 - 30, 40, 20);
+        zCoordField = new GuiTextField(2, mc.fontRenderer, this.width / 2 - 5, this.height / 2 - 30, 40, 20);
+        yCoordField = new GuiTextField(3, mc.fontRenderer, this.width / 2 + 55, this.height / 2 - 30, 25, 20);
+        buttonList.add(waypointTypeNext = new GuiButton(97, this.width / 2 - 40, this.height / 2 + 10, 18, 18, ">"));
+        buttonList.add(waypointTypeBack = new GuiButton(98, this.width / 2 - 80, this.height / 2 + 10, 18, 18, "<"));
 
         int visibilityButtonWidth = 100;
-        int visibilityButtonHeight = this.height/2 + 40;
-        buttonList.add(defaultVisibilityButton = new GuiButton(99, this.width/2 - 3 * visibilityButtonWidth / 2 - 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Default"));
-        buttonList.add(alwaysVisibleButton = new GuiButton(100, this.width/2 - visibilityButtonWidth / 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Always Visible"));
-        buttonList.add(hiddenButton = new GuiButton(101, this.width/2 + visibilityButtonWidth / 2 + 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Hidden"));
+        int visibilityButtonHeight = this.height / 2 + 40;
+        buttonList.add(defaultVisibilityButton = new GuiButton(99, this.width / 2 - 3 * visibilityButtonWidth / 2 - 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Default"));
+        buttonList.add(alwaysVisibleButton = new GuiButton(100, this.width / 2 - visibilityButtonWidth / 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Always Visible"));
+        buttonList.add(hiddenButton = new GuiButton(101, this.width / 2 + visibilityButtonWidth / 2 + 2, visibilityButtonHeight, visibilityButtonWidth, 18, "Hidden"));
 
         int saveButtonHeight = this.height - 80 > visibilityButtonHeight + 20 ? this.height - 80 : this.height - 60;
-        buttonList.add(cancelButton = new GuiButton(102, this.width/2 - 71, saveButtonHeight, 45, 18, "Cancel"));
-        buttonList.add(saveButton = new GuiButton(103, this.width/2 + 25, saveButtonHeight, 45, 18, "Save"));
+        buttonList.add(cancelButton = new GuiButton(102, this.width / 2 - 71, saveButtonHeight, 45, 18, "Cancel"));
+        buttonList.add(saveButton = new GuiButton(103, this.width / 2 + 25, saveButtonHeight, 45, 18, "Save"));
         saveButton.enabled = false;
 
         xCoordField.setText(Integer.toString(initialX));
         zCoordField.setText(Integer.toString(initialZ));
         yCoordField.setText(Integer.toString(Minecraft.getMinecraft().player.getPosition().getY()));
 
-        nameFieldLabel = new GuiLabel(mc.fontRenderer, 0, this.width/2 - 80, this.height/2 - 81, 40, 10, 0xFFFFFF);
+        nameFieldLabel = new GuiLabel(mc.fontRenderer, 0, this.width / 2 - 80, this.height / 2 - 81, 40, 10, 0xFFFFFF);
         nameFieldLabel.addLine("Waypoint Name:");
-        xCoordFieldLabel = new GuiLabel(mc.fontRenderer, 1, this.width/2 - 75, this.height/2 - 24, 40, 10, 0xFFFFFF);
+        xCoordFieldLabel = new GuiLabel(mc.fontRenderer, 1, this.width / 2 - 75, this.height / 2 - 24, 40, 10, 0xFFFFFF);
         xCoordFieldLabel.addLine("X");
-        yCoordFieldLabel = new GuiLabel(mc.fontRenderer, 2, this.width/2 + 45, this.height/2 - 24, 40, 10, 0xFFFFFF);
+        yCoordFieldLabel = new GuiLabel(mc.fontRenderer, 2, this.width / 2 + 45, this.height / 2 - 24, 40, 10, 0xFFFFFF);
         yCoordFieldLabel.addLine("Y");
-        zCoordFieldLabel = new GuiLabel(mc.fontRenderer, 3, this.width/2 - 15, this.height/2 - 24, 40, 10, 0xFFFFFF);
+        zCoordFieldLabel = new GuiLabel(mc.fontRenderer, 3, this.width / 2 - 15, this.height / 2 - 24, 40, 10, 0xFFFFFF);
         zCoordFieldLabel.addLine("Z");
-        coordinatesLabel = new GuiLabel(mc.fontRenderer, 3, this.width/2 - 80, this.height/2 - 41, 40, 10, 0xFFFFFF);
+        coordinatesLabel = new GuiLabel(mc.fontRenderer, 3, this.width / 2 - 80, this.height / 2 - 41, 40, 10, 0xFFFFFF);
         coordinatesLabel.addLine("Coordinates:");
 
-        boolean returning = state != null;  // true if reusing gui (i.e., returning from another gui)
+        boolean returning = state != null; // true if reusing gui (i.e., returning from another gui)
 
         if (!returning) {
             UIElements.add(colorWheel = new UIEColorWheel(0.5f, 0.5f, 0, 9, 20, 20, true, this::setColor, this));
@@ -197,7 +202,8 @@ public class WaypointCreationMenu extends UI {
         setWpIcon(getWaypointType(), getZoomNeeded(), color == null ? CommonColors.WHITE : color);
     }
 
-    @Override public void onRenderPreUIE(ScreenRenderer renderer) {}
+    @Override
+    public void onRenderPreUIE(ScreenRenderer renderer) {}
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -219,8 +225,8 @@ public class WaypointCreationMenu extends UI {
         zCoordFieldLabel.drawLabel(mc, mouseX, mouseY);
         coordinatesLabel.drawLabel(mc, mouseX, mouseY);
 
-        fontRenderer.drawString("Icon:", this.width/2 - 80, this.height/2, 0xFFFFFF, true);
-        fontRenderer.drawString("Colour:", this.width/2, this.height/2, 0xFFFFFF, true);
+        fontRenderer.drawString("Icon:", this.width / 2 - 80, this.height / 2, 0xFFFFFF, true);
+        fontRenderer.drawString("Colour:", this.width / 2, this.height / 2, 0xFFFFFF, true);
 
         float centreX = this.width / 2f - 60 + 9;
         float centreZ = this.height / 2f + 10 + 9;
@@ -257,11 +263,7 @@ public class WaypointCreationMenu extends UI {
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button == saveButton) {
-            WaypointProfile newWp = new WaypointProfile(
-                    nameField.getText().trim(),
-                    Integer.parseInt(xCoordField.getText().trim()), Integer.parseInt(yCoordField.getText().trim()), Integer.parseInt(zCoordField.getText().trim()),
-                    getColor(), getWaypointType(), getZoomNeeded()
-            );
+            WaypointProfile newWp = new WaypointProfile(nameField.getText().trim(), Integer.parseInt(xCoordField.getText().trim()), Integer.parseInt(yCoordField.getText().trim()), Integer.parseInt(zCoordField.getText().trim()), getColor(), getWaypointType(), getZoomNeeded());
             if (isUpdatingExisting) {
                 newWp.setGroup(wp.getGroup());
                 MapConfig.Waypoints.INSTANCE.waypoints.set(MapConfig.Waypoints.INSTANCE.waypoints.indexOf(wp), newWp);

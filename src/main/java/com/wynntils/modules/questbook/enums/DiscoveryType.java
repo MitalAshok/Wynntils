@@ -6,7 +6,9 @@ package com.wynntils.modules.questbook.enums;
 
 public enum DiscoveryType {
 
-    TERRITORY(0), WORLD(1), SECRET(2);
+    TERRITORY(0),
+    WORLD(1),
+    SECRET(2);
 
     int order;
 

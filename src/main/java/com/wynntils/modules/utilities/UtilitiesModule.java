@@ -60,7 +60,6 @@ public class UtilitiesModule extends Module {
         registerOverlay(new InfoOverlay._4(), Priority.NORMAL);
         registerOverlay(new PlayerInfoOverlay(), Priority.HIGHEST);
 
-
         registerOverlay(new GammaOverlay(), Priority.NORMAL);
         registerOverlay(new LobbyCleanerOverlay(), Priority.LOW);
         registerOverlay(new StopWatchOverlay(), Priority.LOW);

@@ -21,15 +21,14 @@ public class ExpBarOverlay extends Overlay {
         super("Experience Bar", 182, 7, true, 0.5f, 1.0f, 0, -29, OverlayGrowFrom.MIDDLE_CENTRE, RenderGameOverlayEvent.ElementType.JUMPBAR, RenderGameOverlayEvent.ElementType.EXPERIENCE);
     }
 
-
     @Setting.Limitations.FloatLimit(min = 0f, max = 10f)
     @Setting(displayName = "Animation Speed", description = "How fast should the bar changes happen? (0 for instant)")
     public float animated = 2f;
 
     /*
-    @Setting(displayName = "Texture", description = "What texture to use")
-    public ExpTextures texture = ExpTextures.wynn;
-    */
+     * @Setting(displayName = "Texture", description = "What texture to use")
+     * public ExpTextures texture = ExpTextures.wynn;
+     */
 
     @Setting(displayName = "Flip", description = "Should the filling of the bar be flipped")
     public boolean flip = false;
@@ -45,8 +44,7 @@ public class ExpBarOverlay extends Overlay {
     @Override
     public void tick(TickEvent.ClientTickEvent event, long ticks) {
         if (!(visible = (getPlayerInfo().getExperiencePercentage() != -1 && !Reference.onLobby && mc.player.getAir() == 300))) return;
-        if (OverlayConfig.Exp.INSTANCE.animated > 0.0f && OverlayConfig.Exp.INSTANCE.animated < 10.0f)
-            exp -= (OverlayConfig.Exp.INSTANCE.animated * 0.1f) * (exp - getPlayerInfo().getExperiencePercentage());
+        if (OverlayConfig.Exp.INSTANCE.animated > 0.0f && OverlayConfig.Exp.INSTANCE.animated < 10.0f) exp -= (OverlayConfig.Exp.INSTANCE.animated * 0.1f) * (exp - getPlayerInfo().getExperiencePercentage());
         else
             exp = getPlayerInfo().getExperiencePercentage();
         if (ModCore.mc().player.getHorseJumpPower() > 0) exp = ModCore.mc().player.getHorseJumpPower();
@@ -64,11 +62,14 @@ public class ExpBarOverlay extends Overlay {
             case Emerald:
                 drawDefaultBar(0, 5, 50, 59);
                 break;
-            case a: drawDefaultBar(0, 5, 10, 19);
+            case a:
+                drawDefaultBar(0, 5, 10, 19);
                 break;
-            case b: drawDefaultBar(0, 5, 20, 29);
+            case b:
+                drawDefaultBar(0, 5, 20, 29);
                 break;
-            case c: drawDefaultBar(0, 5, 30, 39);
+            case c:
+                drawDefaultBar(0, 5, 30, 39);
                 break;
         }
     }

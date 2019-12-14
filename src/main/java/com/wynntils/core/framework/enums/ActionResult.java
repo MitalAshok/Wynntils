@@ -6,6 +6,8 @@ package com.wynntils.core.framework.enums;
 
 public enum ActionResult {
 
-    SUCCESS, ISSUE, ERROR
+    SUCCESS,
+    ISSUE,
+    ERROR
 
 }

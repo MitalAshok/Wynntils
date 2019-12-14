@@ -94,7 +94,8 @@ public class OtherPlayerProfile {
     }
 
     /**
-     * @return true if the player entity was found on the world and location can be live-updated.
+     * @return true if the player entity was found on the world and location can be
+     *         live-updated.
      */
     public boolean updateLocationFromWorld() {
         EntityPlayer e = PlayerEntityManager.getPlayerByUUID(uuid);
@@ -123,7 +124,8 @@ public class OtherPlayerProfile {
         }
 
         if (updateLocationFromWorld()) {
-            // TODO: tell socket server to stop sending player location if not already stopped
+            // TODO: tell socket server to stop sending player location if not already
+            // stopped
         } else {
             // TODO: tell socket server to start sending player location if stopped
         }
@@ -203,14 +205,16 @@ public class OtherPlayerProfile {
     }
 
     /**
-     * @return Whether the current player is friends with the player in this OtherPlayerProfile
+     * @return Whether the current player is friends with the player in this
+     *         OtherPlayerProfile
      */
     public boolean isFriend() {
         return isFriend;
     }
 
     /**
-     * @return Whether the player in this OtherPlayerProfile is friends with the current player and vice versa
+     * @return Whether the player in this OtherPlayerProfile is friends with the
+     *         current player and vice versa
      */
     public boolean isMutualFriend() {
         return isMutualFriend;

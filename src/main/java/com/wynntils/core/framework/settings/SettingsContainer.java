@@ -40,9 +40,11 @@ public class SettingsContainer {
             }
         }
 
-        try{
+        try {
             fromCloud = SettingsManager.getCloudSettings(m, holder);
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         try {
             tryToLoad();
@@ -57,7 +59,7 @@ public class SettingsContainer {
             return;
         }
 
-        updateValues(fromCloud);  // this makes the syncronization
+        updateValues(fromCloud); // this makes the syncronization
     }
 
     public HashMap<Field, Object> getValues() throws Exception {
@@ -77,7 +79,7 @@ public class SettingsContainer {
     public String getSaveFile() {
         SettingsInfo info = holder.getClass().getAnnotation(SettingsInfo.class);
         if (info == null) return null;
-        return m.getInfo().name() + "-" + (holder instanceof Overlay ? "overlay_" + ((Overlay)holder).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config";
+        return m.getInfo().name() + "-" + (holder instanceof Overlay ? "overlay_" + ((Overlay) holder).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config";
     }
 
     public void setValue(Field f, Object value) throws Exception {
@@ -95,7 +97,9 @@ public class SettingsContainer {
         boolean save = false;
 
         ArrayList<String> fieldsName = new ArrayList<>();
-        for (Field f2 : fields) { fieldsName.add(f2.getName()); }
+        for (Field f2 : fields) {
+            fieldsName.add(f2.getName());
+        }
 
         for (Class<?> clazz = newH.getClass(); SettingsHolder.class.isAssignableFrom(clazz); clazz = clazz.getSuperclass()) {
             for (Field f : clazz.getDeclaredFields()) {
@@ -191,6 +195,8 @@ public class SettingsContainer {
         return this.displayPath;
     }
 
-    public SettingsHolder getHolder() { return holder; }
+    public SettingsHolder getHolder() {
+        return holder;
+    }
 
 }

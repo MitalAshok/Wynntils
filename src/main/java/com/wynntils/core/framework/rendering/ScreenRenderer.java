@@ -19,7 +19,8 @@ import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.*;
 
-/** ScreenRenderer      -SHCM
+/**
+ * ScreenRenderer -SHCM
  * Extend this class whenever you want to render things on the screen
  * without context as to what they are.
  * The things rendered by this class would not be configurable without
@@ -34,17 +35,43 @@ public class ScreenRenderer {
     private static float scale = 1.0f;
     private static float rotation = 0;
     private static boolean mask = false;
-    private static Point drawingOrigin = new Point(0, 0); public static Point drawingOrigin() { return drawingOrigin; }
+    private static Point drawingOrigin = new Point(0, 0);
+
+    public static Point drawingOrigin() {
+        return drawingOrigin;
+    }
+
     private static Point transformationOrigin = new Point(0, 0);
-    public static void transformationOrigin(int x, int y) {transformationOrigin.x = x; transformationOrigin.y = y;}protected static Point transformationOrigin() {return transformationOrigin;}
+
+    public static void transformationOrigin(int x, int y) {
+        transformationOrigin.x = x;
+        transformationOrigin.y = y;
+    }
+
+    protected static Point transformationOrigin() {
+        return transformationOrigin;
+    }
+
     private static RenderItem itemRenderer = null;
 
-    public static boolean isRendering() { return rendering; }
-    public static float getScale() { return scale; }
-    public static float getRotation() { return rotation; }
-    public static boolean isMasking() { return mask; }
+    public static boolean isRendering() {
+        return rendering;
+    }
 
-    /** refresh
+    public static float getScale() {
+        return scale;
+    }
+
+    public static float getRotation() {
+        return rotation;
+    }
+
+    public static boolean isMasking() {
+        return mask;
+    }
+
+    /**
+     * refresh
      * Triggered by a slower loop(client tick), refresh
      * updates the screen resolution to match the window
      * size and sets the font renderer in until its ok.
@@ -54,18 +81,17 @@ public class ScreenRenderer {
     public static void refresh() {
         mc = Minecraft.getMinecraft();
         screen = new ScaledResolution(mc);
-        if (fontRenderer == null)
-            try {
-                fontRenderer = new SmartFontRenderer();
-            } catch (Exception e) {}
-            finally {
-                fontRenderer.onResourceManagerReload(mc.getResourceManager());
-            }
-        if (itemRenderer == null)
-            itemRenderer = Minecraft.getMinecraft().getRenderItem();
+        if (fontRenderer == null) try {
+            fontRenderer = new SmartFontRenderer();
+        } catch (Exception e) {
+        } finally {
+            fontRenderer.onResourceManagerReload(mc.getResourceManager());
+        }
+        if (itemRenderer == null) itemRenderer = Minecraft.getMinecraft().getRenderItem();
     }
 
-    /** void beginGL
+    /**
+     * void beginGL
      * Sets everything needed to start rendering,
      * sets the drawing origin to {x} and {y} and
      * allows the ability to render on the screen
@@ -92,7 +118,8 @@ public class ScreenRenderer {
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
     }
 
-    /** endGL
+    /**
+     * endGL
      * Resets everything related to the ScreenRenderer
      * and stops the ability to render on screen(the
      * 2D plane).
@@ -116,7 +143,8 @@ public class ScreenRenderer {
         rendering = false;
     }
 
-    /** rotate
+    /**
+     * rotate
      * Appends rotation(in degrees) to the rotation
      * field and rotates the following renders around
      * (drawingOrigin+transformationOrigin).
@@ -125,27 +153,29 @@ public class ScreenRenderer {
      */
     public static void rotate(float degrees) {
         if (!rendering) return;
-        GlStateManager.translate((drawingOrigin.x+transformationOrigin.x), (drawingOrigin.y+transformationOrigin.y), 0);
+        GlStateManager.translate((drawingOrigin.x + transformationOrigin.x), (drawingOrigin.y + transformationOrigin.y), 0);
         GlStateManager.rotate(degrees, 0, 0, 1);
-        GlStateManager.translate((-drawingOrigin.x-transformationOrigin.x), (-drawingOrigin.y-transformationOrigin.y), 0);
+        GlStateManager.translate((-drawingOrigin.x - transformationOrigin.x), (-drawingOrigin.y - transformationOrigin.y), 0);
         rotation += degrees;
     }
 
-    /** resetRotation
+    /**
+     * resetRotation
      * Resets the rotation field and makes the
      * following renders render as usual(pre-scaling).
      */
     public static void resetRotation() {
         if (!rendering) return;
         if (rotation != 0.0f) {
-            GlStateManager.translate(drawingOrigin.x+transformationOrigin.x, drawingOrigin.y+transformationOrigin.y, 0);
+            GlStateManager.translate(drawingOrigin.x + transformationOrigin.x, drawingOrigin.y + transformationOrigin.y, 0);
             GlStateManager.rotate(rotation, 0, 0, -1);
-            GlStateManager.translate(-drawingOrigin.x-transformationOrigin.x, -drawingOrigin.y-transformationOrigin.y, 0);
+            GlStateManager.translate(-drawingOrigin.x - transformationOrigin.x, -drawingOrigin.y - transformationOrigin.y, 0);
             rotation = 0;
         }
     }
 
-    /** scale
+    /**
+     * scale
      * Multiplies the scale field(in multiplier amount) by
      * {multiplier} and makes the following renders scale
      * by {multiplier} around (drawingOrigin+transformationOrigin).
@@ -154,28 +184,30 @@ public class ScreenRenderer {
      */
     public static void scale(float multiplier) {
         if (!rendering) return;
-        GlStateManager.translate(drawingOrigin.x+transformationOrigin.x, drawingOrigin.y+transformationOrigin.y, 0);
+        GlStateManager.translate(drawingOrigin.x + transformationOrigin.x, drawingOrigin.y + transformationOrigin.y, 0);
         GlStateManager.scale(multiplier, multiplier, multiplier);
-        GlStateManager.translate(-drawingOrigin.x-transformationOrigin.x, -drawingOrigin.y-transformationOrigin.y, 0);
+        GlStateManager.translate(-drawingOrigin.x - transformationOrigin.x, -drawingOrigin.y - transformationOrigin.y, 0);
         scale *= multiplier;
     }
 
-    /** resetScale
+    /**
+     * resetScale
      * Resets the scale field and makes the
      * following renders render as usual(pre-scaling).
      */
     public static void resetScale() {
         if (!rendering) return;
         if (scale != 1.0f) {
-            float m = 1.0f/scale;
-            GlStateManager.translate(drawingOrigin.x+transformationOrigin.x, drawingOrigin.y+transformationOrigin.y, 0);
+            float m = 1.0f / scale;
+            GlStateManager.translate(drawingOrigin.x + transformationOrigin.x, drawingOrigin.y + transformationOrigin.y, 0);
             GlStateManager.scale(m, m, m);
-            GlStateManager.translate(-drawingOrigin.x-transformationOrigin.x, -drawingOrigin.y-transformationOrigin.y, 0);
+            GlStateManager.translate(-drawingOrigin.x - transformationOrigin.x, -drawingOrigin.y - transformationOrigin.y, 0);
             scale = 1.0f;
         }
     }
 
-    /** createMask
+    /**
+     * createMask
      * Creates a mask that will remove anything drawn after
      * this and before the next {clearMask()}(or {endGL()})
      * and is not inside the mask.
@@ -183,10 +215,10 @@ public class ScreenRenderer {
      * while will allow drawing.
      *
      * @param texture mask texture(please use Textures.Masks)
-     * @param x1 bottom-left x(on screen)
-     * @param y1 bottom-left y(on screen)
-     * @param x2 top-right x(on screen)
-     * @param y2 top-right y(on screen)
+     * @param x1      bottom-left x(on screen)
+     * @param y1      bottom-left y(on screen)
+     * @param x2      top-right x(on screen)
+     * @param y2      top-right y(on screen)
      */
     public static void createMask(Texture texture, int x1, int y1, int x2, int y2) {
         if (!rendering || mask) return;
@@ -216,7 +248,8 @@ public class ScreenRenderer {
         scale(prevScale);
     }
 
-    /** createMask
+    /**
+     * createMask
      * Creates a mask that will remove anything drawn after
      * this and before the next {clearMask()}(or {endGL()})
      * and is not inside the mask.
@@ -224,10 +257,10 @@ public class ScreenRenderer {
      * while will allow drawing.
      *
      * @param color mask color
-     * @param x1 bottom-left x(on screen)
-     * @param y1 bottom-left y(on screen)
-     * @param x2 top-right x(on screen)
-     * @param y2 top-right y(on screen)
+     * @param x1    bottom-left x(on screen)
+     * @param y1    bottom-left y(on screen)
+     * @param x2    top-right x(on screen)
+     * @param y2    top-right y(on screen)
      */
     public static void createMask(CustomColor color, int x1, int y1, int x2, int y2) {
         if (!rendering || mask) return;
@@ -252,7 +285,8 @@ public class ScreenRenderer {
         scale(prevScale);
     }
 
-    /** createMask
+    /**
+     * createMask
      * Creates a mask that will remove anything drawn after
      * this and before the next {clearMask()}(or {endGL()})
      * and is not inside the mask.
@@ -260,10 +294,10 @@ public class ScreenRenderer {
      * while will allow drawing.
      *
      * @param texture mask texture(please use Textures.Masks)
-     * @param x1 bottom-left x(on screen)
-     * @param y1 bottom-left y(on screen)
-     * @param x2 top-right x(on screen)
-     * @param y2 top-right y(on screen)
+     * @param x1      bottom-left x(on screen)
+     * @param y1      bottom-left y(on screen)
+     * @param x2      top-right x(on screen)
+     * @param y2      top-right y(on screen)
      */
     public static void createMask(Texture texture, float x1, float y1, float x2, float y2, float tx1, float ty1, float tx2, float ty2) {
         if (!rendering || mask) return;
@@ -271,14 +305,14 @@ public class ScreenRenderer {
         float prevScale = scale;
         resetScale();
 
-        float xMin  = x1  + drawingOrigin.x,
-                xMax  = x2  + drawingOrigin.x,
-                yMin  = y1  + drawingOrigin.y,
-                yMax  = y2  + drawingOrigin.y,
-                txMin = tx1 / texture.width,
-                txMax = tx2 / texture.width,
-                tyMin = ty1 / texture.height,
-                tyMax = ty2 / texture.height;
+        float xMin = x1 + drawingOrigin.x,
+            xMax = x2 + drawingOrigin.x,
+            yMin = y1 + drawingOrigin.y,
+            yMax = y2 + drawingOrigin.y,
+            txMin = tx1 / texture.width,
+            txMax = tx2 / texture.width,
+            tyMin = ty1 / texture.height,
+            tyMax = ty2 / texture.height;
 
         GlStateManager.enableDepth();
         GlStateManager.colorMask(false, false, false, true);
@@ -303,7 +337,8 @@ public class ScreenRenderer {
         scale(prevScale);
     }
 
-    /** clearMask
+    /**
+     * clearMask
      * Clears the active rendering mask from the screen.
      *
      */
@@ -318,16 +353,19 @@ public class ScreenRenderer {
         mask = false;
     }
 
-    /** float drawString
+    /**
+     * float drawString
      * Draws a string using the current fontRenderer
      *
-     * @param text the text to render
-     * @param x x(from drawingOrigin) to render at
-     * @param y y(from drawingOrigin) to render at
-     * @param color the starting color to render(without codes, its basically the actual text's color)
+     * @param text      the text to render
+     * @param x         x(from drawingOrigin) to render at
+     * @param y         y(from drawingOrigin) to render at
+     * @param color     the starting color to render(without codes, its basically
+     *                  the actual text's color)
      * @param alignment the alignment around {x} and {y} to render the text about
-     * @param shadow should the text have a shadow behind it
-     * @return the length of the rendered text in pixels(not taking scale into account)
+     * @param shadow    should the text have a shadow behind it
+     * @return the length of the rendered text in pixels(not taking scale into
+     *         account)
      */
     public float drawString(String text, float x, float y, CustomColor color, SmartFontRenderer.TextAlignment alignment, SmartFontRenderer.TextShadow shadow) {
         if (!rendering) return -1f;
@@ -339,14 +377,15 @@ public class ScreenRenderer {
     /**
      * Draw a string being corrected split every x pixels, without cutting out words
      *
-     * @param text the text to render
-     * @param maxSize the max pixel size of a sentence
-     * @param x x(from drawingOrigin) to render at
-     * @param y y(from drawingOrigin) to render at
-     * @param offsetY the offset that will increase by every split
-     * @param color the starting color to render(without codes, its basically the actual text's color)
+     * @param text      the text to render
+     * @param maxSize   the max pixel size of a sentence
+     * @param x         x(from drawingOrigin) to render at
+     * @param y         y(from drawingOrigin) to render at
+     * @param offsetY   the offset that will increase by every split
+     * @param color     the starting color to render(without codes, its basically
+     *                  the actual text's color)
      * @param alignment the alignment around {x} and {y} to render the text about
-     * @param shadow should the text have a shadow behind it
+     * @param shadow    should the text have a shadow behind it
      *
      * @return the number of lines rendered
      */
@@ -356,7 +395,7 @@ public class ScreenRenderer {
         for (String s : StringUtils.wrapTextBySize(text, maxSize)) {
             drawString(s, x, currentY, color, alignment, shadow);
 
-            currentY+=offsetY;
+            currentY += offsetY;
             ++lines;
         }
         return lines;
@@ -373,7 +412,8 @@ public class ScreenRenderer {
         return drawString(text, x, y, color, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NORMAL);
     }
 
-    /** float getStringWidth
+    /**
+     * float getStringWidth
      * Gets the length of the string in pixels without
      * drawing it (not taking scale into account).
      *
@@ -386,8 +426,7 @@ public class ScreenRenderer {
         if (text.startsWith("ยง")) {
             if (text.charAt(1) == '[') {
                 return getStringWidth(Arrays.toString(Arrays.copyOfRange(text.split("]"), 1, text.length())));
-            }
-            else {
+            } else {
                 return getStringWidth(text.substring(2));
             }
         }
@@ -395,14 +434,15 @@ public class ScreenRenderer {
         return fontRenderer.getCharWidth(text.charAt(0)) + SmartFontRenderer.CHAR_SPACING + getStringWidth(text.substring(1));
     }
 
-    /** void drawRect
+    /**
+     * void drawRect
      * Draws a rectangle with a filled color.
      *
      * @param color color of the rectangle
-     * @param x1 bottom-left x
-     * @param y1 bottom-left y
-     * @param x2 top-right x
-     * @param y2 top-right y
+     * @param x1    bottom-left x
+     * @param y1    bottom-left y
+     * @param x2    top-right x
+     * @param y2    top-right y
      */
     public void drawRect(CustomColor color, int x1, int y1, int x2, int y2) {
         if (!rendering) return;
@@ -426,19 +466,20 @@ public class ScreenRenderer {
         GlStateManager.color(1f, 1f, 1f, 1f);
     }
 
-    /** void drawRect
+    /**
+     * void drawRect
      * Draws a rectangle with a texture filling with texture
      * being defined by uv 0.0 -> 1.0 values.
      *
      * @param texture the texture to draw
-     * @param x1 bottom-left x(on screen)
-     * @param y1 bottom-left y(on screen)
-     * @param x2 top-right x(on screen)
-     * @param y2 top-right y(on screen)
-     * @param tx1 bottom-left x of uv on texture(0.0 -> 1.0)
-     * @param ty1 bottom-left y of uv on texture(0.0 -> 1.0)
-     * @param tx2 top-right x of uv on texture(0.0 -> 1.0)
-     * @param ty2 top-right y of uv on texture(0.0 -> 1.0)
+     * @param x1      bottom-left x(on screen)
+     * @param y1      bottom-left y(on screen)
+     * @param x2      top-right x(on screen)
+     * @param y2      top-right y(on screen)
+     * @param tx1     bottom-left x of uv on texture(0.0 -> 1.0)
+     * @param ty1     bottom-left y of uv on texture(0.0 -> 1.0)
+     * @param tx2     top-right x of uv on texture(0.0 -> 1.0)
+     * @param ty2     top-right y of uv on texture(0.0 -> 1.0)
      */
     public void drawRect(Texture texture, int x1, int y1, int x2, int y2, float tx1, float ty1, float tx2, float ty2) {
         if (!rendering || texture == null || !texture.loaded) return;
@@ -463,36 +504,39 @@ public class ScreenRenderer {
         GlStateManager.glEnd();
     }
 
-    /** void drawRect
+    /**
+     * void drawRect
      * Draws a rectangle with a texture filling with texture
      * being defined by uv in pixels.
      *
      * @param texture the texture to draw
-     * @param x1 bottom-left x(on screen)
-     * @param y1 bottom-left y(on screen)
-     * @param x2 top-right x(on screen)
-     * @param y2 top-right y(on screen)
-     * @param tx1 bottom-left x of uv on texture(0 -> texture width)
-     * @param ty1 bottom-left y of uv on texture(0 -> texture height)
-     * @param tx2 top-right x of uv on texture(0 -> texture width)
-     * @param ty2 top-right y of uv on texture(0 -> texture height)
+     * @param x1      bottom-left x(on screen)
+     * @param y1      bottom-left y(on screen)
+     * @param x2      top-right x(on screen)
+     * @param y2      top-right y(on screen)
+     * @param tx1     bottom-left x of uv on texture(0 -> texture width)
+     * @param ty1     bottom-left y of uv on texture(0 -> texture height)
+     * @param tx2     top-right x of uv on texture(0 -> texture width)
+     * @param ty2     top-right y of uv on texture(0 -> texture height)
      */
     public void drawRect(Texture texture, int x1, int y1, int x2, int y2, int tx1, int ty1, int tx2, int ty2) {
-        drawRect(texture, x1, y1, x2, y2, (float)tx1/texture.width, (float)ty1/texture.height, (float)tx2/texture.width, (float)ty2/texture.height);
+        drawRect(texture, x1, y1, x2, y2, (float) tx1 / texture.width, (float) ty1 / texture.height, (float) tx2 / texture.width, (float) ty2 / texture.height);
     }
 
-    /** void drawRect
+    /**
+     * void drawRect
      * Overload to {{drawRect}} that matches the rectangle's size
      * to its texture mapping's size(pixels).
      *
-     * @param width width of both the texture part and the rectangle
+     * @param width  width of both the texture part and the rectangle
      * @param height height of both the texture part and the rectangle
      */
     public void drawRect(Texture texture, int x, int y, int tx, int ty, int width, int height) {
-        drawRect(texture, x, y, x+width, y+height, tx, ty, tx+width, ty+height);
+        drawRect(texture, x, y, x + width, y + height, tx, ty, tx + width, ty + height);
     }
 
-    /** void drawRectF
+    /**
+     * void drawRectF
      * Overload to {{drawRect}} that renders using floats,
      * note that the uv are in pixels and both the uv and the
      * position on screen are floats.
@@ -506,14 +550,14 @@ public class ScreenRenderer {
 
         texture.bind();
 
-        float xMin  = x1  + drawingOrigin.x,
-              xMax  = x2  + drawingOrigin.x,
-              yMin  = y1  + drawingOrigin.y,
-              yMax  = y2  + drawingOrigin.y,
-              txMin = tx1 / texture.width,
-              txMax = tx2 / texture.width,
-              tyMin = ty1 / texture.height,
-              tyMax = ty2 / texture.height;
+        float xMin = x1 + drawingOrigin.x,
+            xMax = x2 + drawingOrigin.x,
+            yMin = y1 + drawingOrigin.y,
+            yMax = y2 + drawingOrigin.y,
+            txMin = tx1 / texture.width,
+            txMax = tx2 / texture.width,
+            tyMin = ty1 / texture.height,
+            tyMax = ty2 / texture.height;
 
         GlStateManager.glBegin(GL_QUADS);
         GlStateManager.glTexCoord2f(txMin, tyMin);
@@ -532,21 +576,21 @@ public class ScreenRenderer {
      * Draws a rectangle with a filled color using floats.
      *
      * @param color color of the rectangle
-     * @param x1 bottom-left x
-     * @param y1 bottom-left y
-     * @param x2 top-right x
-     * @param y2 top-right y
-     * */
+     * @param x1    bottom-left x
+     * @param y1    bottom-left y
+     * @param x2    top-right x
+     * @param y2    top-right y
+     */
     public void drawRectF(CustomColor color, float x1, float y1, float x2, float y2) {
         if (!rendering) return;
         GlStateManager.enableAlpha();
         GlStateManager.disableTexture2D();
         color.applyColor();
 
-        float xMin  = Math.min(x1, x2) + drawingOrigin.x,
-              xMax  = Math.max(x1, x2) + drawingOrigin.x,
-              yMin  = Math.min(y1, y2) + drawingOrigin.y,
-              yMax  = Math.max(y1, y2) + drawingOrigin.y;
+        float xMin = Math.min(x1, x2) + drawingOrigin.x,
+            xMax = Math.max(x1, x2) + drawingOrigin.x,
+            yMin = Math.min(y1, y2) + drawingOrigin.y,
+            yMax = Math.max(y1, y2) + drawingOrigin.y;
 
         GlStateManager.glBegin(GL_QUADS);
         GlStateManager.glVertex3f(xMin, yMin, 0);
@@ -566,10 +610,10 @@ public class ScreenRenderer {
 
         GlStateManager.glLineWidth(lineWidth);
 
-        float xMin  = Math.min(x1, x2) + drawingOrigin.x,
-                xMax  = Math.max(x1, x2) + drawingOrigin.x,
-                yMin  = Math.min(y1, y2) + drawingOrigin.y,
-                yMax  = Math.max(y1, y2) + drawingOrigin.y;
+        float xMin = Math.min(x1, x2) + drawingOrigin.x,
+            xMax = Math.max(x1, x2) + drawingOrigin.x,
+            yMin = Math.min(y1, y2) + drawingOrigin.y,
+            yMax = Math.max(y1, y2) + drawingOrigin.y;
         GlStateManager.glBegin(GL_LINE_LOOP);
         GlStateManager.glVertex3f(xMin, yMin, 0);
         GlStateManager.glVertex3f(xMin, yMax, 0);
@@ -579,18 +623,22 @@ public class ScreenRenderer {
         GlStateManager.enableTexture2D();
     }
 
-    /** drawProgressBar
-     * Draws a textured progress bar, if you dont know how to use it, use the method after.
+    /**
+     * drawProgressBar
+     * Draws a textured progress bar, if you dont know how to use it, use the method
+     * after.
      *
-     * @param texture the texture to use
-     * @param x1 left x on screen
-     * @param y1 top y on screen
-     * @param x2 right x on screen
-     * @param y2 bottom right on screen
-     * @param ty1 texture top y for the part
-     * @param ty2 texture bottom y for the part
-     * @param progress progress of the bar, 0.0f to 1.0f is left to right and 0.0f to -1.0f is right to left
-     * @param background is it drawing the background or not(whole ty part is background)
+     * @param texture    the texture to use
+     * @param x1         left x on screen
+     * @param y1         top y on screen
+     * @param x2         right x on screen
+     * @param y2         bottom right on screen
+     * @param ty1        texture top y for the part
+     * @param ty2        texture bottom y for the part
+     * @param progress   progress of the bar, 0.0f to 1.0f is left to right and 0.0f
+     *                   to -1.0f is right to left
+     * @param background is it drawing the background or not(whole ty part is
+     *                   background)
      */
     public void drawProgressBar(Texture texture, int x1, int y1, int x2, int y2, int ty1, int ty2, float progress, boolean background) {
         if (!rendering || !texture.loaded) return;
@@ -600,13 +648,13 @@ public class ScreenRenderer {
             GlStateManager.enableTexture2D();
             texture.bind();
             float xMin = Math.min(x1, x2) + drawingOrigin.x,
-                  xMax = Math.max(x1, x2) + drawingOrigin.x,
-                  yMin = Math.min(y1, y2) + drawingOrigin.y,
-                  yMax = Math.max(y1, y2) + drawingOrigin.y,
-                  txMin = 0.0f,
-                  txMax = 1.0f,
-                  tyMin = (float) Math.min(ty1, ty2) / texture.height,
-                  tyMax = (float) Math.max(ty1, ty2) / texture.height;
+                xMax = Math.max(x1, x2) + drawingOrigin.x,
+                yMin = Math.min(y1, y2) + drawingOrigin.y,
+                yMax = Math.max(y1, y2) + drawingOrigin.y,
+                txMin = 0.0f,
+                txMax = 1.0f,
+                tyMin = (float) Math.min(ty1, ty2) / texture.height,
+                tyMax = (float) Math.max(ty1, ty2) / texture.height;
 
             GlStateManager.glBegin(GL_QUADS);
             GlStateManager.glTexCoord2f(txMin, tyMin);
@@ -622,14 +670,14 @@ public class ScreenRenderer {
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
             texture.bind();
-            float xMin =  Math.min(x1, x2) + drawingOrigin.x,
-                  xMax =  Math.max(x1, x2) + drawingOrigin.x,
-                  yMin =  Math.min(y1, y2) + drawingOrigin.y,
-                  yMax =  Math.max(y1, y2) + drawingOrigin.y - 1.5f,
-                  txMin = 0.0f,
-                  txMax = 1.0f,
-                  tyMin = (float) Math.min(ty1, ty2) / texture.height,
-                  tyMax = (float) Math.max(ty1, ty2) / texture.height;
+            float xMin = Math.min(x1, x2) + drawingOrigin.x,
+                xMax = Math.max(x1, x2) + drawingOrigin.x,
+                yMin = Math.min(y1, y2) + drawingOrigin.y,
+                yMax = Math.max(y1, y2) + drawingOrigin.y - 1.5f,
+                txMin = 0.0f,
+                txMax = 1.0f,
+                tyMin = (float) Math.min(ty1, ty2) / texture.height,
+                tyMax = (float) Math.max(ty1, ty2) / texture.height;
 
             if (progress < 1.0f && progress > -1.0f) {
                 if (progress < 0.0f) {
@@ -653,17 +701,20 @@ public class ScreenRenderer {
         }
     }
 
-    /** drawProgressBar
-     * Draws a progress bar(ty1 and ty2 now specify both textures with background being on top of the bar)
+    /**
+     * drawProgressBar
+     * Draws a progress bar(ty1 and ty2 now specify both textures with background
+     * being on top of the bar)
      *
-     * @param texture the texture to use
-     * @param x1 left x on screen
-     * @param y1 top y on screen
-     * @param x2 right x on screen
-     * @param y2 bottom right on screen
-     * @param ty1 texture top y for the part(top of background)
-     * @param ty2 texture bottom y for the part(bottom of bar)
-     * @param progress progress of the bar, 0.0f to 1.0f is left to right and 0.0f to -1.0f is right to left
+     * @param texture  the texture to use
+     * @param x1       left x on screen
+     * @param y1       top y on screen
+     * @param x2       right x on screen
+     * @param y2       bottom right on screen
+     * @param ty1      texture top y for the part(top of background)
+     * @param ty2      texture bottom y for the part(bottom of bar)
+     * @param progress progress of the bar, 0.0f to 1.0f is left to right and 0.0f
+     *                 to -1.0f is right to left
      */
     public void drawProgressBar(Texture texture, int x1, int y1, int x2, int y2, int ty1, int ty2, float progress) {
         int half = (ty1 + ty2) / 2;
@@ -671,22 +722,24 @@ public class ScreenRenderer {
         drawProgressBar(texture, x1, y1, x2, y2, half + 1, ty2, progress, false);
     }
 
-    /** drawProgressBar
+    /**
+     * drawProgressBar
      * Draws a non textured progress bar
      *
      * @param backColor color for the background
-     * @param color color for the bar
-     * @param x1 left x on screen
-     * @param y1 top y on screen
-     * @param x2 right x on screen
-     * @param y2 bottom right on screen
-     * @param progress progress of the bar, 0.0f to 1.0f is left to right and 0.0f to -1.0f is right to left
+     * @param color     color for the bar
+     * @param x1        left x on screen
+     * @param y1        top y on screen
+     * @param x2        right x on screen
+     * @param y2        bottom right on screen
+     * @param progress  progress of the bar, 0.0f to 1.0f is left to right and 0.0f
+     *                  to -1.0f is right to left
      */
     public void drawProgressBar(CustomColor backColor, CustomColor color, int x1, int y1, int x2, int y2, float progress) {
         drawRect(backColor, x1, y1, x2, y2);
 
-        float xMin  = Math.min(x1, x2),
-              xMax  = Math.max(x1, x2);
+        float xMin = Math.min(x1, x2),
+            xMax = Math.max(x1, x2);
 
         if (progress < 0.0f) {
             xMin += (1.0f + progress) * (xMax - xMin);
@@ -694,7 +747,7 @@ public class ScreenRenderer {
             xMax -= (1.0f - progress) * (xMax - xMin);
         }
 
-        drawRectF(color, xMin, (float)y1, xMax, (float)y2);
+        drawRectF(color, xMin, (float) y1, xMax, (float) y2);
     }
 
     public void color(CustomColor color) {
@@ -742,8 +795,7 @@ public class ScreenRenderer {
         itemRenderer.zLevel = 200.0F;
         net.minecraft.client.gui.FontRenderer font = is.getItem().getFontRenderer(is);
         if (font == null) font = fontRenderer;
-        if (effects)
-            itemRenderer.renderItemAndEffectIntoGUI(is, x + drawingOrigin.x, y + drawingOrigin.y);
+        if (effects) itemRenderer.renderItemAndEffectIntoGUI(is, x + drawingOrigin.x, y + drawingOrigin.y);
         else
             itemRenderer.renderItemIntoGUI(is, x + drawingOrigin.x, y + drawingOrigin.y);
         itemRenderer.renderItemOverlayIntoGUI(font, is, x + drawingOrigin.x, y + drawingOrigin.y, text.isEmpty() ? count ? Integer.toString(is.getCount()) : null : text);

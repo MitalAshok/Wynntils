@@ -55,7 +55,8 @@ public class MainMenuButtons {
             return;
         }
 
-        lastButton.x = to.width / 2 + 104; lastButton.y = to.height / 4 + 48 + 24;
+        lastButton.x = to.width / 2 + 104;
+        lastButton.y = to.height / 4 + 48 + 24;
         buttonList.add(lastButton);
     }
 
@@ -151,7 +152,8 @@ public class MainMenuButtons {
             pinger.pingPendingNetworks();
         }
 
-        // Modified from net.minecraft.client.gui.ServerListEntryNormal$prepareServerIcon
+        // Modified from
+        // net.minecraft.client.gui.ServerListEntryNormal$prepareServerIcon
         ResourceLocation getServerIcon() {
             String currentIcon = server.getBase64EncodedIconData();
             if (Objects.equals(currentIcon, lastIcon)) return icon == null ? UNKNOWN_SERVER : serverIcon;
@@ -168,23 +170,18 @@ public class MainMenuButtons {
             ByteBuf bytebuf = Unpooled.copiedBuffer(currentIcon, StandardCharsets.UTF_8);
             ByteBuf bytebuf1 = null;
             BufferedImage bufferedimage;
-            label99:
-            {
-                try
-                {
+            label99: {
+                try {
                     bytebuf1 = Base64.decode(bytebuf);
                     bufferedimage = TextureUtil.readBufferedImage(new ByteBufInputStream(bytebuf1));
                     Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
                     Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
                     break label99;
-                }
-                catch (Throwable throwable) {
+                } catch (Throwable throwable) {
                     Reference.LOGGER.error("Invalid icon for server {} ({})", server.serverName, server.serverIP, throwable);
                     server.setBase64EncodedIconData(null);
                     serverList.saveServerList();
-                }
-                finally
-                {
+                } finally {
                     bytebuf.release();
 
                     if (bytebuf1 != null) {

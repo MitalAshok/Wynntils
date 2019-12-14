@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class PlayerInfo {
 
     private static PlayerInfo instance;
-    private static final int[] xpNeeded = new int[] {110,190,275,385,505,645,790,940,1100,1370,1570,1800,2090,2400,2720,3100,3600,4150,4800,5300,5900,6750,7750,8900,10200,11650,13300,15200,17150,19600,22100,24900,28000,31500,35500,39900,44700,50000,55800,62000,68800,76400,84700,93800,103800,114800,126800,140000,154500,170300,187600,206500,227000,249500,274000,300500,329500,361000,395000,432200,472300,515800,562800,613700,668600,728000,792000,860000,935000,1040400,1154400,1282600,1414800,1567500,1730400,1837000,1954800,2077600,2194400,2325600,2455000,2645000,2845000,3141100,3404710,3782160,4151400,4604100,5057300,5533840,6087120,6685120,7352800,8080800,8725600,9578400,10545600,11585600,12740000,14418250,16280000,21196500,200268440};
+    private static final int[] xpNeeded = new int[] { 110, 190, 275, 385, 505, 645, 790, 940, 1100, 1370, 1570, 1800, 2090, 2400, 2720, 3100, 3600, 4150, 4800, 5300, 5900, 6750, 7750, 8900, 10200, 11650, 13300, 15200, 17150, 19600, 22100, 24900, 28000, 31500, 35500, 39900, 44700, 50000, 55800, 62000, 68800, 76400, 84700, 93800, 103800, 114800, 126800, 140000, 154500, 170300, 187600, 206500, 227000, 249500, 274000, 300500, 329500, 361000, 395000, 432200, 472300, 515800, 562800, 613700, 668600, 728000, 792000, 860000, 935000, 1040400, 1154400, 1282600, 1414800, 1567500, 1730400, 1837000, 1954800, 2077600, 2194400, 2325600, 2455000, 2645000, 2845000, 3141100, 3404710, 3782160, 4151400, 4604100, 5057300, 5533840, 6087120, 6685120, 7352800, 8080800, 8725600, 9578400, 10545600, 11585600, 12740000, 14418250, 16280000, 21196500, 200268440 };
     public static final DecimalFormat perFormat = new DecimalFormat("##.#");
     private static final Pattern actionbarPattern = Pattern.compile("(?:§❤ *([0-9]+)/([0-9]+))?.*? {2,}(?:§([LR])§-(?:§([LR])§-§([LR])?)?)?.*".replace("§", "(?:§[0-9a-fklmnor])*"));
     private static final boolean[] noSpell = new boolean[0];
@@ -145,22 +145,26 @@ public class PlayerInfo {
         return currentClass == ClassType.NONE ? -1 : health;
     }
 
-    public int getCurrentMana() { return currentClass == ClassType.NONE ? -1 : mc.player.getFoodStats().getFoodLevel(); }
+    public int getCurrentMana() {
+        return currentClass == ClassType.NONE ? -1 : mc.player.getFoodStats().getFoodLevel();
+    }
 
     public int getMaxHealth() {
         return currentClass == ClassType.NONE ? -1 : maxHealth;
     }
 
-    public float getExperiencePercentage() { return currentClass == ClassType.NONE ? -1 : experiencePercentage; }
+    public float getExperiencePercentage() {
+        return currentClass == ClassType.NONE ? -1 : experiencePercentage;
+    }
 
     public int getXpNeededToLevelUp() {
         // Quick fix for crash bug - more investigation to be done.
         try {
             if (mc.player != null
-                    && mc.player.experienceLevel != 0
-                    && currentClass != ClassType.NONE
-                    && mc.player.experienceLevel <= xpNeeded.length
-                    && lastLevel != mc.player.experienceLevel) {
+                && mc.player.experienceLevel != 0
+                && currentClass != ClassType.NONE
+                && mc.player.experienceLevel <= xpNeeded.length
+                && lastLevel != mc.player.experienceLevel) {
                 lastLevel = mc.player.experienceLevel;
                 lastXp = xpNeeded[mc.player.experienceLevel - 1];
             }
@@ -171,13 +175,21 @@ public class PlayerInfo {
         }
     }
 
-    public String getCurrentXPAsPercentage() { return currentClass == ClassType.NONE || mc.player == null ? "" : perFormat.format(mc.player.experience * 100); }
+    public String getCurrentXPAsPercentage() {
+        return currentClass == ClassType.NONE || mc.player == null ? "" : perFormat.format(mc.player.experience * 100);
+    }
 
-    public int getCurrentXP() { return currentClass == ClassType.NONE  || mc.player == null? -1 : (int)((getXpNeededToLevelUp()) * mc.player.experience); }
+    public int getCurrentXP() {
+        return currentClass == ClassType.NONE || mc.player == null ? -1 : (int) ((getXpNeededToLevelUp()) * mc.player.experience);
+    }
 
-    public int getLevel() { return currentClass == ClassType.NONE ? -1 : level; }
+    public int getLevel() {
+        return currentClass == ClassType.NONE ? -1 : level;
+    }
 
-    public int getMaxMana() {return currentClass == ClassType.NONE ? -1 : 20;}
+    public int getMaxMana() {
+        return currentClass == ClassType.NONE ? -1 : 20;
+    }
 
     public PartyContainer getPlayerParty() {
         return playerParty;
@@ -211,11 +223,11 @@ public class PlayerInfo {
         Matcher m = (level == 1 ? level1SpellPattern : lowLevelSpellPattern).matcher(TextFormatting.getTextWithoutFormattingCodes(subtitle));
         if (!m.matches() || m.group(1).equals("?")) return (lastSpell = noSpell);
         boolean spell1 = m.group(1).equals(right) ? SPELL_RIGHT : SPELL_LEFT;
-        if (m.group(2).equals("?")) return (lastSpell = new boolean[]{ spell1 });
+        if (m.group(2).equals("?")) return (lastSpell = new boolean[] { spell1 });
         boolean spell2 = m.group(2).equals(right) ? SPELL_RIGHT : SPELL_LEFT;
-        if (m.group(3).equals("?")) return (lastSpell = new boolean[]{ spell1, spell2 });
+        if (m.group(3).equals("?")) return (lastSpell = new boolean[] { spell1, spell2 });
         boolean spell3 = m.group(3).equals(right) ? SPELL_RIGHT : SPELL_LEFT;
-        return (lastSpell = new boolean[]{ spell1, spell2, spell3 });
+        return (lastSpell = new boolean[] { spell1, spell2, spell3 });
     }
 
     /**
@@ -238,8 +250,7 @@ public class PlayerInfo {
     }
 
     public static PlayerInfo getPlayerInfo() {
-        if (instance == null)
-            return new PlayerInfo(Minecraft.getMinecraft());
+        if (instance == null) return new PlayerInfo(Minecraft.getMinecraft());
         else
             return instance;
     }
@@ -258,15 +269,18 @@ public class PlayerInfo {
     public static class UnprocessedAmount {
         public int current;
         public int maximum;
+
         public UnprocessedAmount(int current, int maximum) {
             this.current = current;
             this.maximum = maximum;
         }
     }
+
     /**
-     * @return UnprocessedAmount((total weight of unprocessed materials), (maximum weight that can be held)).
+     * @return UnprocessedAmount((total weight of unprocessed materials), (maximum
+     *         weight that can be held)).
      *
-     * If there are no unprocessed materials, maximum will be -1.
+     *         If there are no unprocessed materials, maximum will be -1.
      */
     public UnprocessedAmount getUnprocessedAmount() {
         int maximum = -1;
@@ -298,7 +312,8 @@ public class PlayerInfo {
     /**
      * @return The maximum number of soul points the current player can have
      *
-     * Note: If veteran, this should always be 15, but currently might return the wrong value
+     *         Note: If veteran, this should always be 15, but currently might
+     *         return the wrong value
      */
     public int getMaxSoulPoints() {
         int maxIfNotVeteran = 10 + MathHelper.clamp(getLevel() / 15, 0, 5);
@@ -311,7 +326,7 @@ public class PlayerInfo {
     /**
      * @return The current number of soul points the current player has
      *
-     * -1 if unable to determine
+     *         -1 if unable to determine
      */
     public int getSoulPoints() {
         if (currentClass == ClassType.NONE || mc.player == null) return -1;
@@ -325,10 +340,11 @@ public class PlayerInfo {
     /**
      * @return Time in game ticks (1/20th of a second, 50ms) until next soul point
      *
-     * -1 if unable to determine
+     *         -1 if unable to determine
      *
-     * Also check that {@code {@link #getMaxSoulPoints()} >= {@link #getSoulPoints()}},
-     * in which case soul points are already full
+     *         Also check that {@code {@link #getMaxSoulPoints()} >= {@link
+     *         #getSoulPoints()}},
+     *         in which case soul points are already full
      */
     public int getTicksToNextSoulPoint() {
         if (currentClass == ClassType.NONE || mc.world == null) return -1;

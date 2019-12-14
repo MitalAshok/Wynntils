@@ -16,7 +16,6 @@ import net.minecraftforge.client.IClientCommand;
 
 public class CommandToken extends CommandBase implements IClientCommand {
 
-
     @Override
     public boolean allowUsageWithoutPrefix(ICommandSender sender, String message) {
         return false;
@@ -41,10 +40,8 @@ public class CommandToken extends CommandBase implements IClientCommand {
 
             TextComponentString token = new TextComponentString(WebManager.getAccount().getToken());
 
-            token.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,
-                    "https://account.wynntils.com/register.php?token=" + WebManager.getAccount().getToken()));
-            token.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new TextComponentString("Click me to register an account.")));
+            token.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://account.wynntils.com/register.php?token=" + WebManager.getAccount().getToken()));
+            token.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click me to register an account.")));
 
             token.getStyle().setColor(TextFormatting.DARK_AQUA);
             token.getStyle().setUnderlined(true);

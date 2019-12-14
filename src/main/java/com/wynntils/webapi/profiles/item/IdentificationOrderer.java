@@ -39,7 +39,8 @@ public class IdentificationOrderer {
     /**
      * Order and returns a list of string based on the provided ids
      *
-     * @param holder a map containg as key the "short" id name and as value the id lore
+     * @param holder a map containg as key the "short" id name and as value the id
+     *               lore
      * @param groups if ids should be grouped
      * @return a list with the ordered lore
      */
@@ -48,16 +49,14 @@ public class IdentificationOrderer {
         if (holder.isEmpty()) return result;
 
         // order based on the priority first
-        List<Map.Entry<String, String>> ordered = holder.entrySet().stream()
-                .sorted(Comparator.comparingInt(c -> getOrder(c.getKey())))
-                .collect(Collectors.toList());
+        List<Map.Entry<String, String>> ordered = holder.entrySet().stream().sorted(Comparator.comparingInt(c -> getOrder(c.getKey()))).collect(Collectors.toList());
 
         if (groups) {
-            int lastGroup = getGroup(ordered.get(0).getKey());  // first key group to avoid wrong spaces
+            int lastGroup = getGroup(ordered.get(0).getKey()); // first key group to avoid wrong spaces
             for (Map.Entry<String, String> keys : ordered) {
-                int currentGroup = getGroup(keys.getKey());  // next key group
+                int currentGroup = getGroup(keys.getKey()); // next key group
 
-                if (currentGroup != lastGroup) result.add(" ");  // adds a space before if the group is different
+                if (currentGroup != lastGroup) result.add(" "); // adds a space before if the group is different
 
                 result.add(keys.getValue());
                 lastGroup = currentGroup;

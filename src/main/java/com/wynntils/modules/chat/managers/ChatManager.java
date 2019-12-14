@@ -83,8 +83,7 @@ public class ChatManager {
         }
 
         // popup sound
-        if (in.getUnformattedText().contains(" requires your ") && in.getUnformattedText().contains(" skill to be at least "))
-            ModCore.mc().player.playSound(popOffSound, 1f, 1f);
+        if (in.getUnformattedText().contains(" requires your ") && in.getUnformattedText().contains(" skill to be at least ")) ModCore.mc().player.playSound(popOffSound, 1f, 1f);
 
         // wynnic translator
         if (StringUtils.hasWynnic(in.getUnformattedText())) {
@@ -222,10 +221,7 @@ public class ChatManager {
             for (ITextComponent textComponent : in.getSiblings()) {
                 if (textComponent.getUnformattedComponentText().startsWith("/")) {
                     String command = textComponent.getUnformattedComponentText();
-                    textComponent.getStyle()
-                            .setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                            .setUnderlined(true)
-                            .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Join!")));
+                    textComponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)).setUnderlined(true).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Join!")));
                 }
             }
         }
@@ -235,10 +231,7 @@ public class ChatManager {
             for (ITextComponent textComponent : in.getSiblings()) {
                 if (textComponent.getUnformattedComponentText().startsWith("/")) {
                     String command = textComponent.getUnformattedComponentText();
-                    textComponent.getStyle()
-                            .setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                            .setUnderlined(true)
-                            .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Trade!")));
+                    textComponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)).setUnderlined(true).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Trade!")));
                 }
             }
         }
@@ -248,10 +241,7 @@ public class ChatManager {
             for (ITextComponent textComponent : in.getSiblings()) {
                 if (textComponent.getUnformattedComponentText().startsWith("/")) {
                     String command = textComponent.getUnformattedComponentText();
-                    textComponent.getStyle()
-                            .setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                            .setUnderlined(true)
-                            .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Duel!")));
+                    textComponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)).setUnderlined(true).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Duel!")));
                 }
             }
         }
@@ -263,9 +253,9 @@ public class ChatManager {
             String command = "/compass ";
             List<ITextComponent> crdMsg = new ArrayList<>();
 
-            for (ITextComponent texts: in.getSiblings()) {
+            for (ITextComponent texts : in.getSiblings()) {
                 Matcher m = coordinateReg.matcher(texts.getFormattedText());
-                if (!m.find())  continue;
+                if (!m.find()) continue;
 
                 int index = in.getSiblings().indexOf(texts);
 
@@ -280,10 +270,7 @@ public class ChatManager {
                 command += crdText.substring(m.start(1), m.end(1)).replaceAll("[ ,]", "") + " ";
                 command += crdText.substring(m.start(3), m.end(3)).replaceAll("[ ,]", "");
                 ITextComponent clickableText = new TextComponentString(crdText.substring(m.start(), m.end()));
-                clickableText.getStyle()
-                        .setColor(TextFormatting.DARK_AQUA)
-                        .setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                        .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString(command)));
+                clickableText.getStyle().setColor(TextFormatting.DARK_AQUA).setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString(command)));
                 crdMsg.add(clickableText);
 
                 // Post-text

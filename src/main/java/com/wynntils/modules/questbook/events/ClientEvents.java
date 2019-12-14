@@ -26,13 +26,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class ClientEvents implements Listener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onChat(GameEvent e)  {
+    public void onChat(GameEvent e) {
         if (e instanceof GameEvent.QuestCompleted.MiniQuestCompleted) {
             QuestManager.scanMiniquests();
         }
         QuestManager.requestAnalyse();
     }
-
 
     @SubscribeEvent
     public void onClassChange(WynnClassChangeEvent e) {
@@ -51,8 +50,8 @@ public class ClientEvents implements Listener {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void clickOnQuestBookItem(PacketEvent<CPacketPlayerTryUseItem> e) {
         if (!QuestBookConfig.INSTANCE.allowCustomQuestbook
-                || !Reference.onWorld || Reference.onNether || Reference.onWars
-                || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
+            || !Reference.onWorld || Reference.onNether || Reference.onWars
+            || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
 
         openQuestBook = true;
         e.setCanceled(true);
@@ -61,8 +60,8 @@ public class ClientEvents implements Listener {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void clickOnQuestBookItemOnBlock(PacketEvent<CPacketPlayerTryUseItemOnBlock> e) {
         if (!QuestBookConfig.INSTANCE.allowCustomQuestbook
-                || !Reference.onWorld || Reference.onNether || Reference.onWars
-                || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
+            || !Reference.onWorld || Reference.onNether || Reference.onWars
+            || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
 
         openQuestBook = true;
         e.setCanceled(true);
@@ -71,8 +70,8 @@ public class ClientEvents implements Listener {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void clickOnQuestBookEntity(PacketEvent<CPacketUseEntity> e) {
         if (!QuestBookConfig.INSTANCE.allowCustomQuestbook
-                || !Reference.onWorld || Reference.onNether || Reference.onWars
-                || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
+            || !Reference.onWorld || Reference.onNether || Reference.onWars
+            || Minecraft.getMinecraft().player.inventory.currentItem != 7) return;
 
         openQuestBook = true;
         e.setCanceled(true);
@@ -88,7 +87,7 @@ public class ClientEvents implements Listener {
             openQuestBook = false;
 
             QuestBookPages.MAIN.getPage().open(true);
-            QuestManager.wasBookOpened();  // Request the first reading if possible
+            QuestManager.wasBookOpened(); // Request the first reading if possible
         }
     }
 

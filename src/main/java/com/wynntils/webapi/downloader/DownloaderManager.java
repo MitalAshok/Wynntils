@@ -30,10 +30,10 @@ public class DownloaderManager {
     /**
      * Simple queue an download
      *
-     * @param title Title to show at the GUI
-     * @param url Download URL
-     * @param f Where the file will be saved
-     * @param action The action that will be executed
+     * @param title    Title to show at the GUI
+     * @param url      Download URL
+     * @param f        Where the file will be saved
+     * @param action   The action that will be executed
      * @param onFinish Runnable when finish, boolean indicates success
      */
     public static void queueDownload(String title, String url, File f, DownloadAction action, Consumer<Boolean> onFinish) {
@@ -84,13 +84,16 @@ public class DownloaderManager {
         progression = 0;
 
         new Thread(() -> {
-            try{
-                HttpURLConnection st = (HttpURLConnection)new URL(pf.getUrl()).openConnection();
+            try {
+                HttpURLConnection st = (HttpURLConnection) new URL(pf.getUrl()).openConnection();
                 st.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
                 st.connect();
 
                 if (st.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    pf.onFinish.accept(false); currentPhase = DownloadPhase.WAITING; progression = 0; futureDownloads.remove(0);
+                    pf.onFinish.accept(false);
+                    currentPhase = DownloadPhase.WAITING;
+                    progression = 0;
+                    futureDownloads.remove(0);
                     return;
                 }
 
@@ -113,7 +116,7 @@ public class DownloaderManager {
 
                 while ((count = fis.read(data)) != -1) {
                     total += count;
-                    progression = (int)(total * 100 / fileLength);
+                    progression = (int) (total * 100 / fileLength);
                     fos.write(data, 0, count);
                 }
 
@@ -148,7 +151,7 @@ public class DownloaderManager {
                         while ((length = zin.read(buffer)) > 0) {
                             fout.write(buffer, 0, length);
 
-                            progression = (int)(channel.position() * 100 / fileSaved.length());
+                            progression = (int) (channel.position() * 100 / fileSaved.length());
                         }
 
                         zin.closeEntry();
@@ -174,7 +177,13 @@ public class DownloaderManager {
                 progression = 0;
 
                 startDownloading();
-            }catch (Exception ex) { ex.printStackTrace(); pf.onFinish.accept(false); currentPhase = DownloadPhase.WAITING; progression = 0; futureDownloads.remove(0); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                pf.onFinish.accept(false);
+                currentPhase = DownloadPhase.WAITING;
+                progression = 0;
+                futureDownloads.remove(0);
+            }
         }).start();
     }
 

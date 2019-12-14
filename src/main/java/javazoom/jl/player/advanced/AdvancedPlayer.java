@@ -52,7 +52,7 @@ public class AdvancedPlayer {
             this.listener.playbackStarted(this.createEvent(PlaybackEvent.STARTED));
         }
 
-        while(var1-- > 0 && var2) {
+        while (var1-- > 0 && var2) {
             var2 = this.decodeFrame();
         }
 
@@ -99,7 +99,7 @@ public class AdvancedPlayer {
                 if (var2 == null) {
                     return false;
                 } else {
-                    SampleBuffer var3 = (SampleBuffer)this.decoder.decodeFrame(var2, this.bitstream);
+                    SampleBuffer var3 = (SampleBuffer) this.decoder.decodeFrame(var2, this.bitstream);
                     synchronized (this) {
                         var1 = this.audio;
                         if (var1 != null) {

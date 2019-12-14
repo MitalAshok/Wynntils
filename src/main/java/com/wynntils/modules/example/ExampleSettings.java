@@ -13,11 +13,11 @@ import com.wynntils.core.framework.settings.instances.SettingsClass;
  */
 @SettingsInfo(name = "example_settings", displayPath = "Example Settings")
 public class ExampleSettings extends SettingsClass {
-    /** You must ALWAYS put an INSTANCE
-     *  of the class!
+    /**
+     * You must ALWAYS put an INSTANCE
+     * of the class!
      */
     public static ExampleSettings INSTANCE;
-
 
     /**
      * Normal config with the @Setting annotation
@@ -45,8 +45,8 @@ public class ExampleSettings extends SettingsClass {
      * Example:
      *
      * public void changeMyConfigValue() {
-     *     myField = true;
-     *     saveSettings(ExampleModule.getModule());
+     * myField = true;
+     * saveSettings(ExampleModule.getModule());
      * }
      *
      * Easy, isn't?

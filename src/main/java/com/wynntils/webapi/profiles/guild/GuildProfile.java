@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class GuildProfile {
 
-    ArrayList <GuildMember> members;
+    ArrayList<GuildMember> members;
 
     String name;
     String prefix;
@@ -20,7 +20,13 @@ public class GuildProfile {
     int territories;
 
     public GuildProfile(String name, String prefix, double xp, int level, Date created, String createdFriendly, int territories, ArrayList<GuildMember> members) {
-        this.name = name; this.prefix = prefix; this.xp = xp; this.level = level; this.created = created; this.createdFriendly = createdFriendly; this.territories = territories;
+        this.name = name;
+        this.prefix = prefix;
+        this.xp = xp;
+        this.level = level;
+        this.created = created;
+        this.createdFriendly = createdFriendly;
+        this.territories = territories;
         this.members = members;
     }
 

@@ -27,10 +27,12 @@ public class HealthBarOverlay extends Overlay {
 //    @Setting(displayName = "Animation Speed", description = "How fast should the bar changes happen(0 for instant)")
 //    public float animated = 2f;
 
-    /* Temp in UtilitiesConfig so users can change textures on the fly
-    @Setting(displayName = "Texture", description = "What texture to use")
-    public HealthTextures texture = HealthTextures.a;
-    */
+    /*
+     * Temp in UtilitiesConfig so users can change textures on the fly
+     * 
+     * @Setting(displayName = "Texture", description = "What texture to use")
+     * public HealthTextures texture = HealthTextures.a;
+     */
 
     @Setting(displayName = "Flip", description = "Should the filling of the bar be flipped?")
     public boolean flip = false;
@@ -58,17 +60,23 @@ public class HealthBarOverlay extends Overlay {
     @Override
     public void render(RenderGameOverlayEvent.Pre event) {
         switch (OverlayConfig.Health.INSTANCE.healthTexture) {
-            case Wynn: drawDefaultBar(-1, 8, 0, 17, textColor);
+            case Wynn:
+                drawDefaultBar(-1, 8, 0, 17, textColor);
                 break;
-            case a: drawDefaultBar(-1, 7, 18, 33, textColor);
+            case a:
+                drawDefaultBar(-1, 7, 18, 33, textColor);
                 break;
-            case b: drawDefaultBar(-1, 8, 34, 51, textColor);
+            case b:
+                drawDefaultBar(-1, 8, 34, 51, textColor);
                 break;
-            case c: drawDefaultBar(-1, 7, 52, 67, textColor);
+            case c:
+                drawDefaultBar(-1, 7, 52, 67, textColor);
                 break;
-            case d: drawDefaultBar(-1, 7, 68, 83, textColor);
+            case d:
+                drawDefaultBar(-1, 7, 68, 83, textColor);
                 break;
-            case Grune: drawDefaultBar(-1, 7, 84, 99, CommonColors.GREEN);
+            case Grune:
+                drawDefaultBar(-1, 7, 84, 99, CommonColors.GREEN);
                 break;
             case Aether:
                 drawDefaultBar(-1, 7, 100, 115, textColor);
@@ -84,10 +92,9 @@ public class HealthBarOverlay extends Overlay {
 
     private void drawDefaultBar(int y1, int y2, int ty1, int ty2, CustomColor cc) {
         if (OverlayConfig.Health.INSTANCE.overlayRotation == OverlayRotation.NORMAL) {
-            drawString(getPlayerInfo().getCurrentHealth() + " ❤ " + getPlayerInfo().getMaxHealth(), textPositionOffset.a  - (81-OverlayConfig.Health.INSTANCE.width), textPositionOffset.b, cc, SmartFontRenderer.TextAlignment.MIDDLE, OverlayConfig.Health.INSTANCE.textShadow);
+            drawString(getPlayerInfo().getCurrentHealth() + " ❤ " + getPlayerInfo().getMaxHealth(), textPositionOffset.a - (81 - OverlayConfig.Health.INSTANCE.width), textPositionOffset.b, cc, SmartFontRenderer.TextAlignment.MIDDLE, OverlayConfig.Health.INSTANCE.textShadow);
         }
         rotate(OverlayConfig.Health.INSTANCE.overlayRotation.getDegrees());
         drawProgressBar(Textures.Overlays.bars_health, -OverlayConfig.Health.INSTANCE.width, y1, 0, y2, ty1, ty2, (flip ? -health : health) / (float) getPlayerInfo().getMaxHealth());
     }
 }
-

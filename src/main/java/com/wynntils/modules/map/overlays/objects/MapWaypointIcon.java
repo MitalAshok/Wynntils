@@ -43,7 +43,7 @@ public class MapWaypointIcon extends MapTextureIcon {
 
         setSize(WaypointType.LOOTCHEST_T1, 136, 35, 154, 53);
         setSize(WaypointType.LOOTCHEST_T2, 118, 35, 136, 53);
-        setSize(WaypointType.LOOTCHEST_T3,  82, 35, 100, 53);
+        setSize(WaypointType.LOOTCHEST_T3, 82, 35, 100, 53);
         setSize(WaypointType.LOOTCHEST_T4, 100, 35, 118, 53);
         setSize(WaypointType.DIAMOND, 172, 37, 190, 55);
         setSize(WaypointType.FLAG, 154, 36, 172, 54);
@@ -66,7 +66,8 @@ public class MapWaypointIcon extends MapTextureIcon {
     }
 
     /**
-     * Return a MapWaypointIcon that can render a WaypointType being free from position information
+     * Return a MapWaypointIcon that can render a WaypointType being free from
+     * position information
      */
     public static MapWaypointIcon getFree(WaypointType type) {
         return getFree(type, null);
@@ -76,53 +77,65 @@ public class MapWaypointIcon extends MapTextureIcon {
         return new MapWaypointIcon(new WaypointProfile("", 0, 0, 0, color, type, 0));
     }
 
-    @Override public AssetsTexture getTexture() {
+    @Override
+    public AssetsTexture getTexture() {
         return Textures.Map.map_icons;
     }
 
-    @Override public int getPosX() {
-        return (int)wp.getX();
+    @Override
+    public int getPosX() {
+        return (int) wp.getX();
     }
 
-    @Override public int getPosZ() {
-        return (int)wp.getZ();
+    @Override
+    public int getPosZ() {
+        return (int) wp.getZ();
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return wp.getName();
     }
 
-    @Override public int getTexPosX() {
+    @Override
+    public int getTexPosX() {
         return sizeMapping[wp.getType().ordinal() * 4 + texPosXIndex];
     }
 
-    @Override public int getTexPosZ() {
+    @Override
+    public int getTexPosZ() {
         return sizeMapping[wp.getType().ordinal() * 4 + texPosZIndex];
     }
 
-    @Override public int getTexSizeX() {
+    @Override
+    public int getTexSizeX() {
         return sizeMapping[wp.getType().ordinal() * 4 + texSizeXIndex];
     }
 
-    @Override public int getTexSizeZ() {
+    @Override
+    public int getTexSizeZ() {
         return sizeMapping[wp.getType().ordinal() * 4 + texSizeZIndex];
     }
 
-    @Override public float getSizeX() {
+    @Override
+    public float getSizeX() {
         int i = wp.getType().ordinal() * 4;
         return (sizeMapping[i + texSizeXIndex] - sizeMapping[i + texPosXIndex]) / 2.5f;
     }
 
-    @Override public float getSizeZ() {
+    @Override
+    public float getSizeZ() {
         int i = wp.getType().ordinal() * 4;
         return (sizeMapping[i + texSizeZIndex] - sizeMapping[i + texPosZIndex]) / 2.5f;
     }
 
-    @Override public int getZoomNeeded() {
+    @Override
+    public int getZoomNeeded() {
         return wp.getZoomNeeded();
     }
 
-    @Override public boolean isEnabled(boolean forMinimap) {
+    @Override
+    public boolean isEnabled(boolean forMinimap) {
         return wp.getZoomNeeded() != HIDDEN_ZOOM;
     }
 
@@ -144,7 +157,6 @@ public class MapWaypointIcon extends MapTextureIcon {
     }
 
     private static List<MapIcon> waypoints = null;
-
 
     public static List<MapIcon> getWaypoints() {
         if (waypoints == null) {

@@ -47,8 +47,10 @@ public class QuestsPage extends QuestBookPage {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        int x = width / 2; int y = height / 2;
-        int posX = (x - mouseX); int posY = (y - mouseY);
+        int x = width / 2;
+        int y = height / 2;
+        int posX = (x - mouseX);
+        int posY = (y - mouseY);
         List<String> hoveredText = new ArrayList<>();
 
         ScreenRenderer.beginGL(0, 0);
@@ -233,13 +235,15 @@ public class QuestsPage extends QuestBookPage {
                             // Stay on max scroll for 20 * 40 animation ticks after reaching the end
                             scrollAmount = maxScroll;
                         } else if (maxScroll <= scrollAmount) {
-                            // And stay on minimum scroll for 20 * 20 animation ticks after looping back to the start
+                            // And stay on minimum scroll for 20 * 20 animation ticks after looping back to
+                            // the start
                             scrollAmount = 0;
                         }
 
                         GL11.glEnable(GL11.GL_SCISSOR_TEST);
                         {
-                            // Scissor test is in screen coordinates, so y is inverted and scale needs to be manually applied
+                            // Scissor test is in screen coordinates, so y is inverted and scale needs to be
+                            // manually applied
                             ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
                             double scaleW = Minecraft.getMinecraft().displayWidth / res.getScaledWidth_double();
                             double scaleH = Minecraft.getMinecraft().displayHeight / res.getScaledHeight_double();
@@ -255,10 +259,8 @@ public class QuestsPage extends QuestBookPage {
                 }
             } else {
                 String textToDisplay;
-                if (
-                    QuestManager.getCurrentQuestsData().size() == 0 || searchBarText.equals("") ||
-                    (showingMiniQuests && QuestManager.getCurrentQuestsData().values().stream().noneMatch(QuestInfo::isMiniQuest))
-                ) {
+                if (QuestManager.getCurrentQuestsData().size() == 0 || searchBarText.equals("") ||
+                    (showingMiniQuests && QuestManager.getCurrentQuestsData().values().stream().noneMatch(QuestInfo::isMiniQuest))) {
                     textToDisplay = String.format("Loading %s...\nIf nothing appears soon, try pressing the reload button.", showingMiniQuests ? "mini-quests" : "quests");
                 } else {
                     textToDisplay = String.format("No %s found!\nTry searching for something else.", showingMiniQuests ? "mini-quests" : "quests");
@@ -292,12 +294,12 @@ public class QuestsPage extends QuestBookPage {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         ScaledResolution res = new ScaledResolution(mc);
-        int posX = ((res.getScaledWidth()/2) - mouseX); int posY = ((res.getScaledHeight()/2) - mouseY);
+        int posX = ((res.getScaledWidth() / 2) - mouseX);
+        int posY = ((res.getScaledHeight() / 2) - mouseY);
 
         if (overQuest != null) {
             if (mouseButton != 1) {
-                if (overQuest.getStatus() == QuestStatus.COMPLETED || overQuest.getStatus() == QuestStatus.CANNOT_START)
-                    return;
+                if (overQuest.getStatus() == QuestStatus.COMPLETED || overQuest.getStatus() == QuestStatus.CANNOT_START) return;
                 if (QuestManager.getTrackedQuest() != null && QuestManager.getTrackedQuest().getName().equals(overQuest.getName())) {
                     QuestManager.setTrackedQuest(null);
                     Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ENTITY_IRONGOLEM_HURT, 1f));
@@ -329,7 +331,7 @@ public class QuestsPage extends QuestBookPage {
                 }
 
                 if (overQuest.isMiniQuest()) {
-                    url += "Quests#Miniquests";  // Don't encode #
+                    url += "Quests#Miniquests"; // Don't encode #
                 } else {
                     url += URLEncoder.encode(path.replace(' ', '_'), "UTF-8");
                 }
@@ -339,7 +341,8 @@ public class QuestsPage extends QuestBookPage {
                     try {
                         Desktop.getDesktop().browse(new URI(url));
                         opened = true;
-                    } catch (Exception ignored) { }
+                    } catch (Exception ignored) {
+                    }
                 }
 
                 if (!opened) {
@@ -422,12 +425,8 @@ public class QuestsPage extends QuestBookPage {
 
     private enum SortMethod {
         LEVEL(
-            Comparator.comparing(QuestInfo::getStatus)
-            .thenComparing(q -> q.getLevelType() != QuestLevelType.COMBAT).thenComparingInt(QuestInfo::getMinLevel),
-            130, 281, 152, 303, Arrays.asList(
-            "Sort by Level",  // Replace with translation keys during l10n
-            "Lowest level quests first"
-        )),
+            Comparator.comparing(QuestInfo::getStatus).thenComparing(q -> q.getLevelType() != QuestLevelType.COMBAT).thenComparingInt(QuestInfo::getMinLevel), 130, 281, 152, 303, Arrays.asList("Sort by Level", // Replace with translation keys during l10n
+                "Lowest level quests first")),
         DISTANCE(Comparator.comparing(QuestInfo::getStatus).thenComparingLong(q -> {
             EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player == null) {
@@ -440,15 +439,14 @@ public class QuestsPage extends QuestBookPage {
             long dX = (long) (player.posX - q.getX());
             long dZ = (long) (player.posZ - q.getZ());
             return dX * dX + dZ * dZ;
-        }).thenComparing(q -> q.getLevelType() != QuestLevelType.COMBAT).thenComparingInt(QuestInfo::getMinLevel),
-            174, 281, 196, 303, Arrays.asList(
-            "Sort by Distance",
-            "Closest quests first"
-        ));
+        }).thenComparing(q -> q.getLevelType() != QuestLevelType.COMBAT).thenComparingInt(QuestInfo::getMinLevel), 174, 281, 196, 303, Arrays.asList("Sort by Distance", "Closest quests first"));
 
         SortMethod(Comparator<QuestInfo> comparator, int tx1, int ty1, int tx2, int ty2, List<String> hoverText) {
             this.comparator = comparator;
-            this.tx1 = tx1; this.ty1 = ty1; this.tx2 = tx2; this.ty2 = ty2;
+            this.tx1 = tx1;
+            this.ty1 = ty1;
+            this.tx2 = tx2;
+            this.ty2 = ty2;
             this.hoverText = hoverText;
         }
 

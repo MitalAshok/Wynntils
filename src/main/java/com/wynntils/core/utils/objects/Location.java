@@ -13,7 +13,9 @@ public class Location {
     double x, y, z;
 
     public Location(double x, double y, double z) {
-        this.x = x; this.y = y; this.z = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public double getX() {
@@ -97,6 +99,6 @@ public class Location {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new double[]{ x, y, z });
+        return Arrays.hashCode(new double[] { x, y, z });
     }
 }

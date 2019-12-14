@@ -174,7 +174,8 @@ public class MapPathWaypointIcon extends MapIcon {
         }
 
         if (!profile.isCircular) {
-            // Render first and last segment differently (Ends are square instead of cut off)
+            // Render first and last segment differently (Ends are square instead of cut
+            // off)
             ++i;
             --len;
 
@@ -202,7 +203,8 @@ public class MapPathWaypointIcon extends MapIcon {
         }
 
         if (profile.isCircular) {
-            // Add the first part of the first segment so there isn't a triangular hole at the end
+            // Add the first part of the first segment so there isn't a triangular hole at
+            // the end
             PathSegment segment = path[0];
             float perpendicularX = segment.perpendicularUnitX * width;
             float perpendicularZ = segment.perpendicularUnitZ * width;
@@ -228,7 +230,6 @@ public class MapPathWaypointIcon extends MapIcon {
     private PathSegment[] getPath(float blockScale) {
         PathSegment[] cached = pathCache.getOrDefault(blockScale, null);
         if (cached != null) return cached;
-
 
         int posX = getPosX();
         int posZ = getPosZ();
@@ -270,7 +271,8 @@ public class MapPathWaypointIcon extends MapIcon {
 
     /**
      * Represents one segment of the path (Connecting two points, `from` and `to`)
-     * `perpendicularUnit` is a vector perpendicular to the segment, to give it width.
+     * `perpendicularUnit` is a vector perpendicular to the segment, to give it
+     * width.
      */
     private static class PathSegment {
         float fromX;

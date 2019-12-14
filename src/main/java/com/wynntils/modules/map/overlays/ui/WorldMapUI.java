@@ -65,19 +65,14 @@ public class WorldMapUI extends GuiMovementScreen {
         compassIcon = new WorldMapIcon(MapIcon.getCompass());
 
         icons = new ArrayList<>(apiMapIcons.size() + wpMapIcons.size() + pathWpMapIcons.size() + friendsIcons.size());
-        for (MapIcon i : Iterables.concat(
-            apiMapIcons,
-            wpMapIcons,
-            pathWpMapIcons,
-            friendsIcons
-        )) {
+        for (MapIcon i : Iterables.concat(apiMapIcons, wpMapIcons, pathWpMapIcons, friendsIcons)) {
             icons.add(new WorldMapIcon(i));
         }
 
         // HeyZeer0: Handles the territories
         territories = WebManager.getTerritories().values().stream().map(c -> new MapTerritory(c).setRenderer(renderer)).collect(Collectors.toList());
 
-        updateCenterPosition((float)mc.player.posX, (float)mc.player.posZ);
+        updateCenterPosition((float) mc.player.posX, (float) mc.player.posZ);
 
         if (MapConfig.INSTANCE.hideCompletedQuests) {
             // Request analyse if not already done to
@@ -107,25 +102,27 @@ public class WorldMapUI extends GuiMovementScreen {
         Keyboard.enableRepeatEvents(false);
     }
 
-    float minX = 0; float maxX = 0;
-    float minZ = 0; float maxZ = 0;
+    float minX = 0;
+    float maxX = 0;
+    float minZ = 0;
+    float maxZ = 0;
 
     protected void forEachIcon(Consumer<WorldMapIcon> c) {
         icons.forEach(c);
-        if (CompassManager.getCompassLocation() != null)
-            c.accept(compassIcon);
+        if (CompassManager.getCompassLocation() != null) c.accept(compassIcon);
     }
 
     protected void updateCenterPosition(float centerPositionX, float centerPositionZ) {
-        this.centerPositionX = centerPositionX; this.centerPositionZ = centerPositionZ;
+        this.centerPositionX = centerPositionX;
+        this.centerPositionZ = centerPositionZ;
 
         MapProfile map = MapModule.getModule().getMainMap();
 
-        minX = map.getTextureXPosition(centerPositionX) - ((width)/2.0f) - (width*zoom/100.0f);  // <--- min texture x point
-        minZ = map.getTextureZPosition(centerPositionZ) - ((height)/2.0f) - (height*zoom/100.0f);  // <--- min texture z point
+        minX = map.getTextureXPosition(centerPositionX) - ((width) / 2.0f) - (width * zoom / 100.0f); // <--- min texture x point
+        minZ = map.getTextureZPosition(centerPositionZ) - ((height) / 2.0f) - (height * zoom / 100.0f); // <--- min texture z point
 
-        maxX = map.getTextureXPosition(centerPositionX) + ((width)/2.0f) + (width*zoom/100.0f);  // <--- max texture x point
-        maxZ = map.getTextureZPosition(centerPositionZ) + ((height)/2.0f) + (height*zoom/100.0f);  // <--- max texture z point
+        maxX = map.getTextureXPosition(centerPositionX) + ((width) / 2.0f) + (width * zoom / 100.0f); // <--- max texture x point
+        maxZ = map.getTextureZPosition(centerPositionZ) + ((height) / 2.0f) + (height * zoom / 100.0f); // <--- max texture z point
 
         forEachIcon(c -> c.updateAxis(map, width, height, maxX, minX, maxZ, minZ, zoom));
         territories.forEach(c -> c.updateAxis(map, width, height, maxX, minX, maxZ, minZ, zoom));
@@ -169,7 +166,7 @@ public class WorldMapUI extends GuiMovementScreen {
     protected void updatePosition(int mouseX, int mouseY, boolean canMove) {
         // dragging
         if (canMove && lastMouseX != -Integer.MAX_VALUE) {
-            float acceleration = 1f / getScaleFactor();  // <---- this is basically 1.0~10 || Min = 1.0 Max = 2.0
+            float acceleration = 1f / getScaleFactor(); // <---- this is basically 1.0~10 || Min = 1.0 Max = 2.0
             updateCenterPosition(centerPositionX += (lastMouseX - mouseX) * acceleration, centerPositionZ += (lastMouseY - mouseY) * acceleration);
         }
         lastMouseX = mouseX;
@@ -185,15 +182,17 @@ public class WorldMapUI extends GuiMovementScreen {
         createMask();
 
         MapProfile map = MapModule.getModule().getMainMap();
-        float minX = this.minX / (float)map.getImageWidth(); float maxX = this.maxX / (float)map.getImageWidth();
-        float minZ = this.minZ / (float)map.getImageHeight(); float maxZ = this.maxZ / (float)map.getImageHeight();
+        float minX = this.minX / (float) map.getImageWidth();
+        float maxX = this.maxX / (float) map.getImageWidth();
+        float minZ = this.minZ / (float) map.getImageHeight();
+        float maxZ = this.maxZ / (float) map.getImageHeight();
 
-        try{
+        try {
             GlStateManager.enableAlpha();
             GlStateManager.color(1, 1, 1, 1f);
             GlStateManager.enableTexture2D();
 
-            map.bindTexture();  // <--- binds the texture
+            map.bindTexture(); // <--- binds the texture
             GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
             GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
 
@@ -212,7 +211,8 @@ public class WorldMapUI extends GuiMovementScreen {
                 tessellator.draw();
             }
 
-        }catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         clearMask();
     }
@@ -235,7 +235,7 @@ public class WorldMapUI extends GuiMovementScreen {
         float playerPostionX = (map.getTextureXPosition(mc.player.posX) - minX) / (maxX - minX);
         float playerPostionZ = (map.getTextureZPosition(mc.player.posZ) - minZ) / (maxZ - minZ);
 
-        if (playerPostionX > 0 && playerPostionX < 1 && playerPostionZ > 0 && playerPostionZ < 1) {  // <--- player position
+        if (playerPostionX > 0 && playerPostionX < 1 && playerPostionZ > 0 && playerPostionZ < 1) { // <--- player position
             playerPostionX = width * playerPostionX;
             playerPostionZ = height * playerPostionZ;
 
@@ -278,8 +278,8 @@ public class WorldMapUI extends GuiMovementScreen {
         renderer.drawString(worldX + ", " + worldZ, width / 2, height - 20, CommonColors.WHITE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE);
     }
 
-    private static final int MAX_ZOOM = 300;  // Note that this is the most zoomed out
-    private static final int MIN_ZOOM = -10;  // And this is the most zoomed in
+    private static final int MAX_ZOOM = 300; // Note that this is the most zoomed out
+    private static final int MIN_ZOOM = -10; // And this is the most zoomed in
     private static final float ZOOM_SCALE_FACTOR = 1.1f;
 
     private void zoomBy(int by) {

@@ -15,7 +15,7 @@ public class MD5Verification {
     String md5;
 
     public MD5Verification(File f) {
-        try{
+        try {
             InputStream fis = new FileInputStream(f);
 
             byte[] buffer = new byte[1024];
@@ -32,7 +32,9 @@ public class MD5Verification {
             fis.close();
 
             md5 = hexDigest(md.digest());
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public MD5Verification(byte[] data) {
@@ -41,10 +43,13 @@ public class MD5Verification {
             md.update(data);
 
             md5 = hexDigest(md.digest());
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private static final char[] hex = "0123456789abcdef".toCharArray();
+
     private static String hexDigest(byte[] digest) {
         char[] hexChars = new char[32];
         for (int i = 0; i < 16; ++i) {

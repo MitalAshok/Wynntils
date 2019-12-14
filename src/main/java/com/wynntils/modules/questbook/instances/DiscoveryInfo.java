@@ -19,7 +19,11 @@ public class DiscoveryInfo {
     private final DiscoveryType type;
 
     public DiscoveryInfo(String name, int minLevel, String description, List<String> lore, DiscoveryType type) {
-        this.name = name; this.minLevel = minLevel; this.description = description; this.lore = lore; this.type = type;
+        this.name = name;
+        this.minLevel = minLevel;
+        this.description = description;
+        this.lore = lore;
+        this.type = type;
 
         ArrayList<String> splittedDescription = new ArrayList<>();
         StringBuilder currentMessage = new StringBuilder();
@@ -32,7 +36,7 @@ public class DiscoveryInfo {
                 chars = x.length();
                 continue;
             }
-            chars+= x.length() ;
+            chars += x.length();
             currentMessage.append(x).append(' ');
         }
         splittedDescription.add(currentMessage.toString());

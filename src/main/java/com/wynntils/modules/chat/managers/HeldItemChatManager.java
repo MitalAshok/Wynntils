@@ -21,8 +21,8 @@ import net.minecraft.util.text.event.HoverEvent;
 
 public class HeldItemChatManager {
 
-    private static final int MESSAGE_ID = 1711716819;  // HeldItemChatManager.class.getName().hashCode()
-    private static final int DISPLAY_TIME = 1000;  // ms to show message
+    private static final int MESSAGE_ID = 1711716819; // HeldItemChatManager.class.getName().hashCode()
+    private static final int DISPLAY_TIME = 1000; // ms to show message
 
     private static boolean hasMessage = false;
     private static long startedHolding = Long.MIN_VALUE;
@@ -40,14 +40,12 @@ public class HeldItemChatManager {
 
     private static ITextComponent getMessage() {
         Minecraft mc = Minecraft.getMinecraft();
-        if (
-            !ChatConfig.INSTANCE.heldItemChat ||
+        if (!ChatConfig.INSTANCE.heldItemChat ||
             mc.player == null || mc.world == null ||
             mc.player.inventory.mainInventory.get(6).getItem() != Items.COMPASS ||
             mc.player.inventory.mainInventory.get(7).getItem() != Items.WRITTEN_BOOK ||
             mc.player.inventory.mainInventory.get(8).getItem() != Items.NETHER_STAR ||
-            PlayerInfo.getPlayerInfo().getCurrentClass() == ClassType.NONE
-        ) {
+            PlayerInfo.getPlayerInfo().getCurrentClass() == ClassType.NONE) {
             reset();
             return null;
         }
@@ -61,10 +59,13 @@ public class HeldItemChatManager {
         if (System.currentTimeMillis() < startedHolding + DISPLAY_TIME) return null;
 
         switch (mc.player.inventory.currentItem) {
-            case 6: return getCompassMessage();
+            case 6:
+                return getCompassMessage();
             // case 7: return getQuestBookMessage();
-            case 8: return getSoulPointsMessage();
-            default: return null;
+            case 8:
+                return getSoulPointsMessage();
+            default:
+                return null;
         }
     }
 
@@ -121,10 +122,7 @@ public class HeldItemChatManager {
 
         int distance = MathHelper.floor(MathHelper.sqrt((compassX - playerX) * (compassX - playerX) + (compassZ - playerZ) * (compassZ - playerZ)));
 
-        ITextComponent showOnMap = add(text, new TextComponentString(String.format(
-            TextFormatting.DARK_AQUA + "%d, %d" + TextFormatting.RESET + ": %dm away",
-            MathHelper.floor(compassX), MathHelper.floor(compassZ), distance
-        )));
+        ITextComponent showOnMap = add(text, new TextComponentString(String.format(TextFormatting.DARK_AQUA + "%d, %d" + TextFormatting.RESET + ": %dm away", MathHelper.floor(compassX), MathHelper.floor(compassZ), distance)));
 
         text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click to show on main map")));
         text.getStyle().setClickEvent(TextAction.getStaticEvent(OnOpenMapAtCompassClick.class));
@@ -153,18 +151,13 @@ public class HeldItemChatManager {
         add(text, getCancelComponent());
         text = add(text, new TextComponentString("\n"));
 
-        text = add(text, new TextComponentString(String.format(
-            "§6§l%d§6/§l%d§r ",
-            currentSoulPoints, maxSoulPoints
-        )));
+        text = add(text, new TextComponentString(String.format("§6§l%d§6/§l%d§r ", currentSoulPoints, maxSoulPoints)));
 
         if (currentSoulPoints >= maxSoulPoints) {
             add(text, new TextComponentString("§e[§lFULL§e]"));
         } else {
             int seconds = (time / 20) % 60;
-            add(text, new TextComponentString(String.format(
-                "§e[§l%s§e:§l%s§e]", Integer.toString(time / (20 * 60)), String.format("%02d", seconds)
-            )));
+            add(text, new TextComponentString(String.format("§e[§l%s§e:§l%s§e]", Integer.toString(time / (20 * 60)), String.format("%02d", seconds))));
         }
 
         return base;

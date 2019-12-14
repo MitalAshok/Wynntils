@@ -15,6 +15,7 @@ public class UIEList extends UIElement {
     public UIEList(float anchorX, float anchorY, int offsetX, int offsetY) {
         this(new ArrayList<>(), anchorX, anchorY, offsetX, offsetY);
     }
+
     public UIEList(List<UIElement> elements, float anchorX, float anchorY, int offsetX, int offsetY) {
         super(anchorX, anchorY, offsetX, offsetY);
         this.elements = elements;

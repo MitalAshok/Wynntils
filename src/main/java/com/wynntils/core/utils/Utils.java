@@ -44,9 +44,9 @@ public class Utils {
     /**
      * Runs a runnable after the determined time
      *
-     * @param r the runnable
+     * @param r        the runnable
      * @param timeUnit the time unit
-     * @param amount the amount of the specified time unit
+     * @param amount   the amount of the specified time unit
      */
     public static void runAfter(Runnable r, TimeUnit timeUnit, long amount) {
         executorService.scheduleAtFixedRate(r, 0, amount, timeUnit);
@@ -67,7 +67,7 @@ public class Utils {
         executorService.submit(r);
     }
 
-    private static final String[] directions = new String[]{ "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
+    private static final String[] directions = new String[] { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
 
     /**
      * Get short direction string for a given yaw
@@ -81,12 +81,11 @@ public class Utils {
         return 0 <= index && index < 8 ? directions[index] : directions[0];
     }
 
-
     /**
      * Copy a file from a location to another
      *
      * @param sourceFile The source file
-     * @param destFile Where it will be
+     * @param destFile   Where it will be
      */
     public static void copyFile(File sourceFile, File destFile) throws IOException {
         if (destFile == null || !destFile.exists()) {
@@ -111,7 +110,7 @@ public class Utils {
     }
 
     public static String getPlayerHPBar(EntityPlayer entityPlayer) {
-        int health = (int) (0.3f + (entityPlayer.getHealth() / entityPlayer.getMaxHealth()) * 15);  // 0.3f for better experience rounding off near full hp
+        int health = (int) (0.3f + (entityPlayer.getHealth() / entityPlayer.getMaxHealth()) * 15); // 0.3f for better experience rounding off near full hp
         String healthBar = TextFormatting.DARK_RED + "[" + TextFormatting.RED + "|||||||||||||||" + TextFormatting.DARK_RED + "]";
         healthBar = healthBar.substring(0, 5 + Math.min(health, 15)) + TextFormatting.DARK_GRAY + healthBar.substring(5 + Math.min(health, 15));
         if (health < 8) { healthBar = healthBar.replace(TextFormatting.RED.toString(), TextFormatting.GOLD.toString()); }
@@ -222,14 +221,23 @@ public class Utils {
 
     public static void clearClipboard() {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new Transferable() {
-            public DataFlavor[] getTransferDataFlavors() { return new DataFlavor[0]; }
-            public boolean isDataFlavorSupported(DataFlavor flavor) { return false; }
-            public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException { throw new UnsupportedFlavorException(flavor); }
+            public DataFlavor[] getTransferDataFlavors() {
+                return new DataFlavor[0];
+            }
+
+            public boolean isDataFlavorSupported(DataFlavor flavor) {
+                return false;
+            }
+
+            public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+                throw new UnsupportedFlavorException(flavor);
+            }
         }, null);
     }
 
     /**
-     * @return A String read from the clipboard, or null if the clipboard does not contain a string
+     * @return A String read from the clipboard, or null if the clipboard does not
+     *         contain a string
      */
     public static String pasteFromClipboard() {
         try {
@@ -245,7 +253,8 @@ public class Utils {
 
     /**
      * Given a list of text fields, blur the currently focused field and focus the
-     * next one. Focuses the first one if there is no focused field or the last field is focused.
+     * next one. Focuses the first one if there is no focused field or the last
+     * field is focused.
      */
     public static void tab(List<GuiTextField> tabList) {
         int focusIndex = -1;
@@ -267,6 +276,6 @@ public class Utils {
     }
 
     // Alias if using already imported org.apache.commons.lang3.StringUtils
-    public static class StringUtils extends com.wynntils.core.utils.StringUtils { }
+    public static class StringUtils extends com.wynntils.core.utils.StringUtils {}
 
 }

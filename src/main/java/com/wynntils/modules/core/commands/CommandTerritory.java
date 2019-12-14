@@ -69,10 +69,10 @@ public class CommandTerritory extends CommandBase implements IClientCommand {
 
         TerritoryProfile tp = selectedTerritory.get();
 
-        int xMiddle = tp.getStartX() + ((tp.getEndX() - tp.getStartX())/2);
-        int zMiddle = tp.getStartZ() + ((tp.getEndZ() - tp.getStartZ())/2);
+        int xMiddle = tp.getStartX() + ((tp.getEndX() - tp.getStartX()) / 2);
+        int zMiddle = tp.getStartZ() + ((tp.getEndZ() - tp.getStartZ()) / 2);
 
-        CompassManager.setCompassLocation(new Location(xMiddle, 0, zMiddle));  // update compass location
+        CompassManager.setCompassLocation(new Location(xMiddle, 0, zMiddle)); // update compass location
 
         TextComponentString success = new TextComponentString("The compass is now pointing towards " + territoryName + " (" + xMiddle + ", " + zMiddle + ")");
         success.getStyle().setColor(TextFormatting.GREEN);
@@ -93,9 +93,7 @@ public class CommandTerritory extends CommandBase implements IClientCommand {
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, WebManager.getTerritories().values().stream().map((territoryProfile) ->
-                territoryProfile.getFriendlyName().replace(' ', '_')
-            ).collect(Collectors.toList()));
+            return getListOfStringsMatchingLastWord(args, WebManager.getTerritories().values().stream().map((territoryProfile) -> territoryProfile.getFriendlyName().replace(' ', '_')).collect(Collectors.toList()));
         } else if (args.length > 1) {
             String temp = String.join(" ", args).toLowerCase();
             List<String> result = getListOfStringsMatchingLastWord(args, WebManager.getTerritories().values().stream().map(territoryProfile -> {

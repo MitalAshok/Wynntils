@@ -33,8 +33,7 @@ public class TerritoryFeedOverlay extends Overlay {
     @Override
     public void tick(TickEvent.ClientTickEvent event, long ticks) {
         if (currentMessage != null) {
-            if (System.currentTimeMillis() - animationStartTime >= OverlayConfig.TerritoryFeed.INSTANCE.animationLength * 1000)
-                currentMessage = null;
+            if (System.currentTimeMillis() - animationStartTime >= OverlayConfig.TerritoryFeed.INSTANCE.animationLength * 1000) currentMessage = null;
         } else if (!messageList.isEmpty()) {
             currentMessage = messageList.remove();
             animationStartTime = System.currentTimeMillis();

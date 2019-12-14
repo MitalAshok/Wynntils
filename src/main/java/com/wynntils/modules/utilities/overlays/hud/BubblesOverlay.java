@@ -39,9 +39,9 @@ public class BubblesOverlay extends Overlay {
     @Override
     public void tick(TickEvent.ClientTickEvent event, long ticks) {
         if (!(visible = (mc.player.getAir() != 300 && !Reference.onLobby))) return;
-        if (OverlayConfig.Bubbles.INSTANCE.animated > 0.0f && OverlayConfig.Bubbles.INSTANCE.animated < 10.0f && !(amount >= 300))
-            amount -= (OverlayConfig.Bubbles.INSTANCE.animated * 0.1f) * (amount - mc.player.getAir());
-        else amount = getPlayerInfo().getCurrentHealth();
+        if (OverlayConfig.Bubbles.INSTANCE.animated > 0.0f && OverlayConfig.Bubbles.INSTANCE.animated < 10.0f && !(amount >= 300)) amount -= (OverlayConfig.Bubbles.INSTANCE.animated * 0.1f) * (amount - mc.player.getAir());
+        else
+            amount = getPlayerInfo().getCurrentHealth();
 
         if (amount <= 0) amount = 0;
     }
@@ -60,11 +60,14 @@ public class BubblesOverlay extends Overlay {
             case Saphire:
                 drawDefaultBar(0, 5, 50, 59);
                 break;
-            case a: drawDefaultBar(0, 5, 10, 19);
+            case a:
+                drawDefaultBar(0, 5, 10, 19);
                 break;
-            case b: drawDefaultBar(0, 5, 20, 29);
+            case b:
+                drawDefaultBar(0, 5, 20, 29);
                 break;
-            case c: drawDefaultBar(0, 5, 30, 39);
+            case c:
+                drawDefaultBar(0, 5, 30, 39);
                 break;
         }
     }

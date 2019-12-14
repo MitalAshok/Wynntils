@@ -45,7 +45,7 @@ public class WorldMapSettingsUI extends GuiScreen {
 
     @Override
     public void initGui() {
-        int rightAlign = 7 + (this.width-399)/2;
+        int rightAlign = 7 + (this.width - 399) / 2;
         int yOffset = 35;
         int maxHeight = Math.max(this.height - 90, yOffset + 17);
         page = 0;
@@ -61,10 +61,10 @@ public class WorldMapSettingsUI extends GuiScreen {
         }).thenComparing(i -> StringUtils.countMatches(i, ' ')).thenComparing(StringUtils::reverse));
 
         for (int i = 0, keysSize = keys.size(); i < keysSize; ++i) {
-            int x = rightAlign + (i%3) * 137;
-            int y = yOffset + (i/3) * 20;
+            int x = rightAlign + (i % 3) * 137;
+            int y = yOffset + (i / 3) * 20;
             if (y + 16 > maxHeight) {
-                yOffset = 35 - (i/3) * 20;
+                yOffset = 35 - (i / 3) * 20;
                 y = 35;
                 ++maxPage;
             }
@@ -74,12 +74,12 @@ public class WorldMapSettingsUI extends GuiScreen {
             this.settingButtons.add(button);
         }
 
-        this.buttonList.add(textureButton = new GuiButton(99, rightAlign + 120, this.height-65, 55, 18, MapConfig.INSTANCE.iconTexture.name()));
-        this.buttonList.add(new GuiButton(100, this.width/2 - 71, this.height-40, 45, 18, "Cancel"));
-        this.buttonList.add(new GuiButton(101, this.width/2 - 23, this.height-40, 45, 18, "Default"));
-        this.buttonList.add(new GuiButton(102, this.width/2 + 25, this.height-40, 45, 18, "Save"));
-        this.buttonList.add(nextPageButton = new GuiButton(103, this.width/2 + 2, this.height - 90, 20, 20, ">"));
-        this.buttonList.add(previousPageButton = new GuiButton(104, this.width/2 - 22, this.height - 90, 20, 20, "<"));
+        this.buttonList.add(textureButton = new GuiButton(99, rightAlign + 120, this.height - 65, 55, 18, MapConfig.INSTANCE.iconTexture.name()));
+        this.buttonList.add(new GuiButton(100, this.width / 2 - 71, this.height - 40, 45, 18, "Cancel"));
+        this.buttonList.add(new GuiButton(101, this.width / 2 - 23, this.height - 40, 45, 18, "Default"));
+        this.buttonList.add(new GuiButton(102, this.width / 2 + 25, this.height - 40, 45, 18, "Save"));
+        this.buttonList.add(nextPageButton = new GuiButton(103, this.width / 2 + 2, this.height - 90, 20, 20, ">"));
+        this.buttonList.add(previousPageButton = new GuiButton(104, this.width / 2 - 22, this.height - 90, 20, 20, "<"));
         nextPageButton.enabled = maxPage > 0;
         previousPageButton.enabled = false;
     }
@@ -89,11 +89,11 @@ public class WorldMapSettingsUI extends GuiScreen {
         drawDefaultBackground();
         int topY = this.buttonList.get(0).y;
         this.fontRenderer.drawString(TextFormatting.WHITE + "Enable/Disable Map Icons", (this.width - 349) / 2, topY - 15, 0xffFFFFFF);
-        this.fontRenderer.drawString(TextFormatting.WHITE + "Map Icon Textures:", (this.width - 349) / 2, this.height-60, 0xffFFFFFF);
+        this.fontRenderer.drawString(TextFormatting.WHITE + "Map Icon Textures:", (this.width - 349) / 2, this.height - 60, 0xffFFFFFF);
 
         // Draw labels rotated 45 degrees
         GlStateManager.pushMatrix();
-        GlStateManager.translate((this.width-399)/2 + 286, 29f, 0f);
+        GlStateManager.translate((this.width - 399) / 2 + 286, 29f, 0f);
         GlStateManager.rotate(-45, 0, 0, 1);
         this.fontRenderer.drawString("Main map", 0, 0, 0xFFFFFFFF);
         GlStateManager.translate(11 / MathHelper.SQRT_2, 17 / MathHelper.SQRT_2, 0f);
@@ -108,19 +108,15 @@ public class WorldMapSettingsUI extends GuiScreen {
             if (btn.isMouseOver()) {
                 String visiblePrefix = TextFormatting.GREEN + "Visible";
                 String invisiblePrefix = TextFormatting.GRAY + "Not visible";
-                drawHoveringText(Arrays.asList(
-                    btn.displayString,
-                    (btn.onMainMap() ? visiblePrefix : invisiblePrefix) + TextFormatting.RESET + " on main map",
-                    (btn.onMinimap() ? visiblePrefix : invisiblePrefix) + TextFormatting.RESET + " on minimap"
-                ), mouseX, mouseY, fontRenderer);
+                drawHoveringText(Arrays.asList(btn.displayString, (btn.onMainMap() ? visiblePrefix : invisiblePrefix) + TextFormatting.RESET + " on main map", (btn.onMinimap() ? visiblePrefix : invisiblePrefix) + TextFormatting.RESET + " on minimap"), mouseX, mouseY, fontRenderer);
             }
         }
     }
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (keyCode == Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode() ||  // DEFAULT: E
-                keyCode == MapModule.getModule().getMapKey().getKeyBinding().getKeyCode()) {  // DEFAULT: M
+        if (keyCode == Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode() || // DEFAULT: E
+            keyCode == MapModule.getModule().getMapKey().getKeyBinding().getKeyCode()) { // DEFAULT: M
             Utils.displayGuiScreen(new MainWorldMapUI());
         }
         super.keyTyped(typedChar, keyCode);

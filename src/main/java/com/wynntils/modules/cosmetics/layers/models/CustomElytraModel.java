@@ -15,8 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class CustomElytraModel extends ModelBase
-{
+public class CustomElytraModel extends ModelBase {
     private final ModelRenderer rightWing;
     private final ModelRenderer leftWing = new ModelRenderer(this, 22, 0);
 
@@ -34,24 +33,24 @@ public class CustomElytraModel extends ModelBase
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableCull();
 
-        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isChild()) {
+        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isChild()) {
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.translate(0.0F, 1.5F, -0.1F);
             this.leftWing.render(scale);
             this.rightWing.render(scale);
             GlStateManager.popMatrix();
-        }
-        else
-        {
+        } else {
             this.leftWing.render(scale);
             this.rightWing.render(scale);
         }
     }
 
     /**
-     * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
-     * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
+     * Sets the model's various rotation angles. For bipeds, par1 and par2 are used
+     * for animating the movement of arms
+     * and legs, where par1 represents the time(so that arms and legs swing back and
+     * forth) and par2 represents how
      * "far" arms and legs can swing at most.
      */
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
@@ -61,25 +60,24 @@ public class CustomElytraModel extends ModelBase
         float f2 = 0.0F;
         float f3 = 0.0F;
 
-        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isElytraFlying()) {
+        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isElytraFlying()) {
             float f4 = 1.0F;
 
             if (entityIn.motionY < 0.0D) {
                 Vec3d vec3d = (new Vec3d(entityIn.motionX, entityIn.motionY, entityIn.motionZ)).normalize();
-                f4 = 1.0F - (float)Math.pow(-vec3d.y, 1.5D);
+                f4 = 1.0F - (float) Math.pow(-vec3d.y, 1.5D);
             }
 
             f = f4 * 0.34906584F + (1.0F - f4) * f;
-            f1 = f4 * -((float)Math.PI / 2F) + (1.0F - f4) * f1;
-        }
-        else if (entityIn.isSneaking()) {
-            f = ((float)Math.PI * 2F / 9F);
-            f1 = -((float)Math.PI / 4F);
+            f1 = f4 * -((float) Math.PI / 2F) + (1.0F - f4) * f1;
+        } else if (entityIn.isSneaking()) {
+            f = ((float) Math.PI * 2F / 9F);
+            f1 = -((float) Math.PI / 4F);
             f2 = 3F;
             f3 = 0.08726646F;
         } else if (entityIn.isSprinting()) {
-            f = ((float)Math.PI * 2F / 9F);
-            f1 = -((float)Math.PI / 4F);
+            f = ((float) Math.PI * 2F / 9F);
+            f1 = -((float) Math.PI / 4F);
             f2 = 1F;
             f3 = 0.08726646F;
         }
@@ -88,16 +86,14 @@ public class CustomElytraModel extends ModelBase
         this.leftWing.rotationPointY = f2;
 
         if (entityIn instanceof AbstractClientPlayer) {
-            AbstractClientPlayer abstractclientplayer = (AbstractClientPlayer)entityIn;
-            abstractclientplayer.rotateElytraX = (float)((double)abstractclientplayer.rotateElytraX + (double)(f - abstractclientplayer.rotateElytraX) * 0.1D);
-            abstractclientplayer.rotateElytraY = (float)((double)abstractclientplayer.rotateElytraY + (double)(f3 - abstractclientplayer.rotateElytraY) * 0.1D);
-            abstractclientplayer.rotateElytraZ = (float)((double)abstractclientplayer.rotateElytraZ + (double)(f1 - abstractclientplayer.rotateElytraZ) * 0.1D);
+            AbstractClientPlayer abstractclientplayer = (AbstractClientPlayer) entityIn;
+            abstractclientplayer.rotateElytraX = (float) ((double) abstractclientplayer.rotateElytraX + (double) (f - abstractclientplayer.rotateElytraX) * 0.1D);
+            abstractclientplayer.rotateElytraY = (float) ((double) abstractclientplayer.rotateElytraY + (double) (f3 - abstractclientplayer.rotateElytraY) * 0.1D);
+            abstractclientplayer.rotateElytraZ = (float) ((double) abstractclientplayer.rotateElytraZ + (double) (f1 - abstractclientplayer.rotateElytraZ) * 0.1D);
             this.leftWing.rotateAngleX = abstractclientplayer.rotateElytraX;
             this.leftWing.rotateAngleY = abstractclientplayer.rotateElytraY;
             this.leftWing.rotateAngleZ = abstractclientplayer.rotateElytraZ;
-        }
-        else
-        {
+        } else {
             this.leftWing.rotateAngleX = f;
             this.leftWing.rotateAngleZ = f1;
             this.leftWing.rotateAngleY = f3;

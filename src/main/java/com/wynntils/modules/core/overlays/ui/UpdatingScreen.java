@@ -21,7 +21,7 @@ import java.net.URLDecoder;
 
 public class UpdatingScreen extends GuiScreen {
 
-    private static final int DOT_TIME = 200;  // ms between "." -> ".." -> "..."
+    private static final int DOT_TIME = 200; // ms between "." -> ".." -> "..."
 
     private boolean failed = false;
     private GuiButton backButton;
@@ -75,7 +75,6 @@ public class UpdatingScreen extends GuiScreen {
                         Reference.LOGGER.error("Couldn't create update file directory");
                         return;
                     }
-
 
                     String[] urlParts = url.split("/");
 
@@ -151,19 +150,19 @@ public class UpdatingScreen extends GuiScreen {
 
         if (failed) {
             setChangelogs();
-            drawCenteredString(mc.fontRenderer, TextFormatting.RED + "Update download failed", this.width/2, this.width/2, 0xFFFFFFFF);
+            drawCenteredString(mc.fontRenderer, TextFormatting.RED + "Update download failed", this.width / 2, this.width / 2, 0xFFFFFFFF);
         } else {
-            int left = Math.max(this.width/2 - 100, 10);
-            int right = Math.min(this.width/2 + 100, this.width - 10);
-            int top = this.height/2 - 2 - MathHelper.ceil(mc.fontRenderer.FONT_HEIGHT / 2f);
-            int bottom = this.height/2 + 2 + MathHelper.floor(mc.fontRenderer.FONT_HEIGHT / 2f);
+            int left = Math.max(this.width / 2 - 100, 10);
+            int right = Math.min(this.width / 2 + 100, this.width - 10);
+            int top = this.height / 2 - 2 - MathHelper.ceil(mc.fontRenderer.FONT_HEIGHT / 2f);
+            int bottom = this.height / 2 + 2 + MathHelper.floor(mc.fontRenderer.FONT_HEIGHT / 2f);
             drawRect(left - 1, top - 1, right + 1, bottom + 1, 0xFFC0C0C0);
             int progressPoint = MathHelper.clamp(MathHelper.floor(progress * (right - left) + left), left, right);
             drawRect(left, top, progressPoint, bottom, 0xFFCB3D35);
             drawRect(progressPoint, top, right, bottom, 0xFFFFFFFF);
 
             String label = String.format("%d%%", MathHelper.clamp(MathHelper.floor(progress * 100), 0, 100));
-            mc.fontRenderer.drawString(label, (this.width - mc.fontRenderer.getStringWidth(label))/2, top + 3, 0xFF000000);
+            mc.fontRenderer.drawString(label, (this.width - mc.fontRenderer.getStringWidth(label)) / 2, top + 3, 0xFF000000);
             int x = (this.width - mc.fontRenderer.getStringWidth(String.format("Downloading %s", DOTS[DOTS.length - 1]))) / 2;
             String title = String.format("Downloading %s", DOTS[((int) (System.currentTimeMillis() % (DOT_TIME * DOTS.length))) / DOT_TIME]);
             drawString(mc.fontRenderer, title, x, top - mc.fontRenderer.FONT_HEIGHT - 2, 0xFFFFFFFF);

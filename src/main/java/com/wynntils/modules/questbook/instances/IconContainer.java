@@ -32,6 +32,6 @@ public enum IconContainer {
     }
 
     public int getHeight() {
-        return highlightVariant ? (y2 - y1)/2 : y2 - y1;
+        return highlightVariant ? (y2 - y1) / 2 : y2 - y1;
     }
 }

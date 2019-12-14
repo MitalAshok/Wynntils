@@ -41,15 +41,20 @@ public class GuildAndFriendManager {
     }
 
     public enum As {
-        FRIEND, GUILD
+        FRIEND,
+        GUILD
     }
 
     public static void changePlayer(String name, boolean to, As as, boolean tryResolving) {
         OtherPlayerProfile p = OtherPlayerProfile.getInstanceByName(name);
         if (p != null) {
             switch (as) {
-                case FRIEND: p.setIsFriend(to); break;
-                case GUILD: p.setInGuild(to); break;
+                case FRIEND:
+                    p.setIsFriend(to);
+                    break;
+                case GUILD:
+                    p.setInGuild(to);
+                    break;
             }
             return;
         }
@@ -57,8 +62,12 @@ public class GuildAndFriendManager {
         UnresolvedInfo newInfo = new UnresolvedInfo();
         UnresolvedInfo u = unresolvedNames.getOrDefault(name, newInfo);
         switch (as) {
-            case FRIEND: u.isFriend = to ? Boolean.TRUE : Boolean.FALSE; break;
-            case GUILD: u.inGuild = to ? Boolean.TRUE : Boolean.FALSE; break;
+            case FRIEND:
+                u.isFriend = to ? Boolean.TRUE : Boolean.FALSE;
+                break;
+            case GUILD:
+                u.inGuild = to ? Boolean.TRUE : Boolean.FALSE;
+                break;
         }
 
         if (u == newInfo) unresolvedNames.put(name, newInfo);

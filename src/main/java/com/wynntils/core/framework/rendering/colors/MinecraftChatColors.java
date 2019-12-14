@@ -30,6 +30,7 @@ public class MinecraftChatColors extends CustomColor.SetBase {
     public static final MinecraftChatColors YELLOW = new MinecraftChatColors(0xFFFF55);
     public static final MinecraftChatColors WHITE = new MinecraftChatColors(0xFFFFFF);
 
+    //@formatter:off
     private static final MinecraftChatColors[] colors = {
         BLACK,     DARK_BLUE,    DARK_GREEN, DARK_AQUA,
         DARK_RED,  DARK_PURPLE,  GOLD,       GRAY,
@@ -43,6 +44,7 @@ public class MinecraftChatColors extends CustomColor.SetBase {
         "DARK_GRAY", "BLUE",         "GREEN",      "AQUA",
         "RED",       "LIGHT_PURPLE", "YELLOW",     "WHITE"
     };
+    //@formatter:on
 
     private static final HashMap<String, MinecraftChatColors> aliases = new HashMap<>();
 

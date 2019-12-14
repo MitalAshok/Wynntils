@@ -41,14 +41,10 @@ public class RarityColorOverlay implements Listener {
     @SubscribeEvent
     public void onPlayerInventory(GuiOverlapEvent.InventoryOverlap.DrawGuiContainerForegroundLayer e) {
         for (Slot s : e.getGui().inventorySlots.inventorySlots) {
-            if (!UtilitiesConfig.Items.INSTANCE.accesoryHighlight && s.slotNumber >= 9 && s.slotNumber <= 12)
-                continue;
-            if (!UtilitiesConfig.Items.INSTANCE.hotbarHighlight && s.slotNumber >= 36 && s.slotNumber <= 41)
-                continue;
-            if (!UtilitiesConfig.Items.INSTANCE.armorHighlight && s.slotNumber >= 5 && s.slotNumber <= 8)
-                continue;
-            if (!UtilitiesConfig.Items.INSTANCE.mainHighlightInventory && s.slotNumber >= 13 && s.slotNumber <= 35)
-                continue;
+            if (!UtilitiesConfig.Items.INSTANCE.accesoryHighlight && s.slotNumber >= 9 && s.slotNumber <= 12) continue;
+            if (!UtilitiesConfig.Items.INSTANCE.hotbarHighlight && s.slotNumber >= 36 && s.slotNumber <= 41) continue;
+            if (!UtilitiesConfig.Items.INSTANCE.armorHighlight && s.slotNumber >= 5 && s.slotNumber <= 8) continue;
+            if (!UtilitiesConfig.Items.INSTANCE.mainHighlightInventory && s.slotNumber >= 13 && s.slotNumber <= 35) continue;
 
             ItemStack is = s.getStack();
             String lore = ItemUtils.getStringLore(is);
@@ -60,30 +56,51 @@ public class RarityColorOverlay implements Listener {
             } else if (lore.contains("Reward") || StringUtils.containsIgnoreCase(lore, "rewards")) {
                 continue;
             } else if (lore.contains(TextFormatting.RED + "Fabled") && UtilitiesConfig.Items.INSTANCE.fabledHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.b;
             } else if (lore.contains(TextFormatting.AQUA + "Legendary") && UtilitiesConfig.Items.INSTANCE.legendaryHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.b;
             } else if (lore.contains(TextFormatting.DARK_PURPLE + "Mythic") && UtilitiesConfig.Items.INSTANCE.mythicHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.b;
             } else if (lore.contains(TextFormatting.LIGHT_PURPLE + "Rare") && UtilitiesConfig.Items.INSTANCE.rareHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.b;
             } else if (lore.contains(TextFormatting.YELLOW + "Unique") && UtilitiesConfig.Items.INSTANCE.uniqueHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.b;
             } else if (lore.contains(TextFormatting.GREEN + "Set") && UtilitiesConfig.Items.INSTANCE.setHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.setHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.setHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.setHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.setHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.setHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.setHighlightColor.b;
             } else if (lore.contains(TextFormatting.WHITE + "Normal") && UtilitiesConfig.Items.INSTANCE.normalHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.b;
             } else if (name.matches("^(" + TextFormatting.DARK_AQUA + ".*%.*)$")) {
-                r = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.b;
             } else if (name.endsWith(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫" + TextFormatting.DARK_GRAY + "✫✫" + TextFormatting.GOLD + "]") && UtilitiesConfig.Items.INSTANCE.ingredientHighlight && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.b;
             } else if ((name.endsWith(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫✫" + TextFormatting.DARK_GRAY + "✫" + TextFormatting.GOLD + "]") && UtilitiesConfig.Items.INSTANCE.ingredientHighlight || name.endsWith(TextFormatting.DARK_PURPLE + " [" + TextFormatting.LIGHT_PURPLE + "✫✫" + TextFormatting.DARK_GRAY + "✫" + TextFormatting.DARK_PURPLE + "]") && UtilitiesConfig.Items.INSTANCE.ingredientHighlight) && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.b;
             } else if ((name.endsWith(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫✫✫" + TextFormatting.GOLD + "]") || name.endsWith(TextFormatting.DARK_AQUA + " [" + TextFormatting.AQUA + "✫✫✫" + TextFormatting.DARK_AQUA + "]")) && UtilitiesConfig.Items.INSTANCE.ingredientHighlight && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.b;
             } else if (isPowder(is)) {
-                if (UtilitiesConfig.Items.INSTANCE.minPowderTier == 0 || getPowderTier(is) < UtilitiesConfig.Items.INSTANCE.minPowderTier)
-                    continue;
+                if (UtilitiesConfig.Items.INSTANCE.minPowderTier == 0 || getPowderTier(is) < UtilitiesConfig.Items.INSTANCE.minPowderTier) continue;
                 r = getPowderColor(is)[0];
                 g = getPowderColor(is)[1];
                 b = getPowderColor(is)[2];
@@ -93,7 +110,8 @@ public class RarityColorOverlay implements Listener {
 
             // start rendering
             ScreenRenderer renderer = new ScreenRenderer();
-            ScreenRenderer.beginGL(0, 0); {
+            ScreenRenderer.beginGL(0, 0);
+            {
                 color(r, g, b, UtilitiesConfig.Items.INSTANCE.inventoryAlpha / 100);
                 glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_BLEND);
                 RenderHelper.disableStandardItemLighting();
@@ -102,7 +120,8 @@ public class RarityColorOverlay implements Listener {
 
                 glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
                 color(1.0f, 1.0f, 1.0f, 1.0f);
-            } ScreenRenderer.endGL();
+            }
+            ScreenRenderer.endGL();
         }
     }
 
@@ -112,15 +131,11 @@ public class RarityColorOverlay implements Listener {
         for (Slot s : guiContainer.inventorySlots.inventorySlots) {
             if (s.inventory.getDisplayName().equals(ModCore.mc().player.inventory.getDisplayName())) {
                 playerInvSlotNumber++;
-                if (playerInvSlotNumber <= 4 && playerInvSlotNumber >= 1 && !UtilitiesConfig.Items.INSTANCE.accesoryHighlight)
-                    continue;
-                if (playerInvSlotNumber <= 27 && playerInvSlotNumber >= 5 && !UtilitiesConfig.Items.INSTANCE.mainHighlightInventory)
-                    continue;
-                if (playerInvSlotNumber <= 36 && playerInvSlotNumber >= 28 && !UtilitiesConfig.Items.INSTANCE.hotbarHighlight)
-                    continue;
+                if (playerInvSlotNumber <= 4 && playerInvSlotNumber >= 1 && !UtilitiesConfig.Items.INSTANCE.accesoryHighlight) continue;
+                if (playerInvSlotNumber <= 27 && playerInvSlotNumber >= 5 && !UtilitiesConfig.Items.INSTANCE.mainHighlightInventory) continue;
+                if (playerInvSlotNumber <= 36 && playerInvSlotNumber >= 28 && !UtilitiesConfig.Items.INSTANCE.hotbarHighlight) continue;
             } else {
-                if (!UtilitiesConfig.Items.INSTANCE.mainHighlightChest)
-                    continue;
+                if (!UtilitiesConfig.Items.INSTANCE.mainHighlightChest) continue;
             }
 
             ItemStack is = s.getStack();
@@ -131,44 +146,79 @@ public class RarityColorOverlay implements Listener {
             if (is.isEmpty()) {
                 continue;
             } else if (UtilitiesConfig.Items.INSTANCE.filterEnabled && !professionFilter.equals("-") && lore.contains(professionFilter)) {
-                r = 0.078f; g = 0.35f; b = 0.8f;
+                r = 0.078f;
+                g = 0.35f;
+                b = 0.8f;
             } else if (lore.contains(TextFormatting.RED + "Fabled") && UtilitiesConfig.Items.INSTANCE.fabledHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.fabledHighlightColor.b;
             } else if (lore.contains(TextFormatting.AQUA + "Legendary") && UtilitiesConfig.Items.INSTANCE.legendaryHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.lengendaryHighlightColor.b;
             } else if (lore.contains(TextFormatting.DARK_PURPLE + "Mythic") && UtilitiesConfig.Items.INSTANCE.mythicHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.mythicHighlightColor.b;
             } else if (lore.contains(TextFormatting.LIGHT_PURPLE + "Rare") && UtilitiesConfig.Items.INSTANCE.rareHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.rareHighlightColor.b;
             } else if (lore.contains(TextFormatting.YELLOW + "Unique") && UtilitiesConfig.Items.INSTANCE.uniqueHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.uniqueHighlightColor.b;
             } else if (lore.contains(TextFormatting.GREEN + "Set") && UtilitiesConfig.Items.INSTANCE.setHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.setHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.setHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.setHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.setHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.setHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.setHighlightColor.b;
             } else if (lore.contains(TextFormatting.WHITE + "Normal") && UtilitiesConfig.Items.INSTANCE.normalHighlight) {
-                r = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.normalHighlightColor.b;
             } else if (UtilitiesConfig.Items.INSTANCE.highlightCosmeticDuplicates && guiContainer.getSlotUnderMouse() != null && lore.contains("Reward") && guiContainer.getSlotUnderMouse().slotNumber != s.slotNumber && guiContainer.getSlotUnderMouse().getStack().getDisplayName().equals(is.getDisplayName())) {
-                r = 0f; g = 1f; b = 0f;
+                r = 0f;
+                g = 1f;
+                b = 0f;
             } else if (lore.contains(TextFormatting.GOLD + "Epic") && lore.contains("Reward") && UtilitiesConfig.Items.INSTANCE.epicEffectsHighlight) {
-                r = 1; g = 0.666f; b = 0;
+                r = 1;
+                g = 0.666f;
+                b = 0;
             } else if (lore.contains(TextFormatting.RED + "Godly") && lore.contains("Reward") && UtilitiesConfig.Items.INSTANCE.godlyEffectsHighlight) {
-                r = 1; g = 0; b = 0;
+                r = 1;
+                g = 0;
+                b = 0;
             } else if (lore.contains(TextFormatting.LIGHT_PURPLE + "Rare") && lore.contains("Reward") && UtilitiesConfig.Items.INSTANCE.rareEffectsHighlight) {
-                r = 1; g = 0; b = 1;
+                r = 1;
+                g = 0;
+                b = 1;
             } else if (lore.contains(TextFormatting.WHITE + "Common") && lore.contains("Reward") && UtilitiesConfig.Items.INSTANCE.commonEffectsHighlight) {
-                r = 1; g = 1; b = 1;
+                r = 1;
+                g = 1;
+                b = 1;
             } else if (lore.contains(TextFormatting.DARK_RED + " Black Market") && lore.contains("Reward") && UtilitiesConfig.Items.INSTANCE.blackMarketEffectsHighlight) {
-                r = 0; g = 0; b = 0;
+                r = 0;
+                g = 0;
+                b = 0;
             } else if (name.matches("^(" + TextFormatting.DARK_AQUA + ".*%.*)$")) {
-                r = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.craftedHighlightColor.b;
             } else if (name.contains(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫" + TextFormatting.DARK_GRAY + "✫✫" + TextFormatting.GOLD + "]") && UtilitiesConfig.Items.INSTANCE.ingredientHighlight && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientOneHighlightColor.b;
             } else if ((name.contains(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫✫" + TextFormatting.DARK_GRAY + "✫" + TextFormatting.GOLD + "]") || name.contains(TextFormatting.DARK_PURPLE + " [" + TextFormatting.LIGHT_PURPLE + "✫✫" + TextFormatting.DARK_GRAY + "✫" + TextFormatting.DARK_PURPLE + "]")) && UtilitiesConfig.Items.INSTANCE.ingredientHighlight && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientTwoHighlightColor.b;
             } else if ((name.contains(TextFormatting.GOLD + " [" + TextFormatting.YELLOW + "✫✫✫" + TextFormatting.GOLD + "]") || name.contains(TextFormatting.DARK_AQUA + " [" + TextFormatting.AQUA + "✫✫✫" + TextFormatting.DARK_AQUA + "]")) && UtilitiesConfig.Items.INSTANCE.ingredientHighlight && !(is.getCount() == 0)) {
-                r = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.r; g = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.g; b = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.b;
+                r = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.r;
+                g = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.g;
+                b = UtilitiesConfig.Items.INSTANCE.ingredientThreeHighlightColor.b;
             } else if (isPowder(is)) {
-                if (UtilitiesConfig.Items.INSTANCE.minPowderTier == 0 || getPowderTier(is) < UtilitiesConfig.Items.INSTANCE.minPowderTier)
-                    continue;
+                if (UtilitiesConfig.Items.INSTANCE.minPowderTier == 0 || getPowderTier(is) < UtilitiesConfig.Items.INSTANCE.minPowderTier) continue;
                 r = getPowderColor(is)[0];
                 g = getPowderColor(is)[1];
                 b = getPowderColor(is)[2];
@@ -178,7 +228,8 @@ public class RarityColorOverlay implements Listener {
 
             // start rendering
             ScreenRenderer renderer = new ScreenRenderer();
-            ScreenRenderer.beginGL(0, 0); {
+            ScreenRenderer.beginGL(0, 0);
+            {
                 color(r, g, b, UtilitiesConfig.Items.INSTANCE.inventoryAlpha / 100);
                 glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_BLEND);
                 RenderHelper.disableStandardItemLighting();
@@ -187,7 +238,8 @@ public class RarityColorOverlay implements Listener {
 
                 glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
                 color(1F, 1F, 1F, 1F);
-            } ScreenRenderer.endGL();
+            }
+            ScreenRenderer.endGL();
         }
     }
 
@@ -215,19 +267,19 @@ public class RarityColorOverlay implements Listener {
         float[] returnVal;
         if (is.getDisplayName().startsWith(TextFormatting.YELLOW.toString())) {
             // Lightning
-            returnVal = new float[]{1f, 1f, 0.333f};
+            returnVal = new float[] { 1f, 1f, 0.333f };
         } else if (is.getDisplayName().startsWith(TextFormatting.AQUA.toString())) {
             // Water
-            returnVal = new float[]{0.333f, 1f, 1f};
+            returnVal = new float[] { 0.333f, 1f, 1f };
         } else if (is.getDisplayName().startsWith(TextFormatting.WHITE.toString())) {
             // Air
-            returnVal = new float[]{1f, 1f, 1f};
+            returnVal = new float[] { 1f, 1f, 1f };
         } else if (is.getDisplayName().startsWith(TextFormatting.DARK_GREEN.toString())) {
             // Earth
-            returnVal = new float[]{0f, 0.666f, 0f};
+            returnVal = new float[] { 0f, 0.666f, 0f };
         } else {
             // Fire
-            returnVal = new float[]{1f, 0.333f, 0.333f};
+            returnVal = new float[] { 1f, 0.333f, 0.333f };
         }
 
         return returnVal;

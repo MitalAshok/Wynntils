@@ -47,11 +47,7 @@ public class ItemProfile {
 
     transient ItemStack guideStack = null;
 
-    public ItemProfile(String displayName,
-                       ItemTier tier, boolean identified, ItemAttackSpeed attackSpeed, ItemInfoContainer itemInfo,
-                       ItemRequirementsContainer requirements, HashMap<String, String> damageTypes,
-                       HashMap<String, Integer> defenseTypes, HashMap<String, IdentificationContainer> statuses,
-                       ArrayList<MajorIdentification> majorIds, String restriction, String lore) {}
+    public ItemProfile(String displayName, ItemTier tier, boolean identified, ItemAttackSpeed attackSpeed, ItemInfoContainer itemInfo, ItemRequirementsContainer requirements, HashMap<String, String> damageTypes, HashMap<String, Integer> defenseTypes, HashMap<String, IdentificationContainer> statuses, ArrayList<MajorIdentification> majorIds, String restriction, String lore) {}
 
     public String getDisplayName() {
         return displayName;
@@ -118,62 +114,42 @@ public class ItemProfile {
         if (stack.isEmpty()) return guideStack = ItemStack.EMPTY;
 
         List<String> itemLore = new ArrayList<>();
-        {  // lore
+        { // lore
             if (attackSpeed != null) itemLore.add(attackSpeed.asLore());
             itemLore.add(" ");
 
-            if (damageTypes.size() > 0) {  // damage types
-                if (damageTypes.containsKey("neutral"))
-                    itemLore.add(GOLD + "✣ Neutral Damage: " + damageTypes.get("neutral"));
-                if (damageTypes.containsKey("fire"))
-                    itemLore.add(RED + "✣ Fire" + GRAY + " Damage: " + damageTypes.get("fire"));
-                if (damageTypes.containsKey("water"))
-                    itemLore.add(AQUA + "✣ Water" + GRAY + " Damage: " + damageTypes.get("water"));
-                if (damageTypes.containsKey("air"))
-                    itemLore.add(WHITE + "✣ Air" + GRAY + " Damage: " + damageTypes.get("air"));
-                if (damageTypes.containsKey("thunder"))
-                    itemLore.add(YELLOW + "✣ Thunder" + GRAY + " Damage: " + damageTypes.get("thunder"));
-                if (damageTypes.containsKey("earth"))
-                    itemLore.add(DARK_GREEN + "✣ Earth" + GRAY + " Damage: " + damageTypes.get("earth"));
+            if (damageTypes.size() > 0) { // damage types
+                if (damageTypes.containsKey("neutral")) itemLore.add(GOLD + "✣ Neutral Damage: " + damageTypes.get("neutral"));
+                if (damageTypes.containsKey("fire")) itemLore.add(RED + "✣ Fire" + GRAY + " Damage: " + damageTypes.get("fire"));
+                if (damageTypes.containsKey("water")) itemLore.add(AQUA + "✣ Water" + GRAY + " Damage: " + damageTypes.get("water"));
+                if (damageTypes.containsKey("air")) itemLore.add(WHITE + "✣ Air" + GRAY + " Damage: " + damageTypes.get("air"));
+                if (damageTypes.containsKey("thunder")) itemLore.add(YELLOW + "✣ Thunder" + GRAY + " Damage: " + damageTypes.get("thunder"));
+                if (damageTypes.containsKey("earth")) itemLore.add(DARK_GREEN + "✣ Earth" + GRAY + " Damage: " + damageTypes.get("earth"));
 
                 itemLore.add(" ");
             }
 
-            if (defenseTypes.size() > 0) {  // defense types
-                if (defenseTypes.containsKey("health"))
-                    itemLore.add(DARK_RED + "❤ Health: " + getDefenseText("health"));
-                if (defenseTypes.containsKey("fire"))
-                    itemLore.add(RED + "✣ Fire" + GRAY + " Defence: " + getDefenseText("fire"));
-                if (defenseTypes.containsKey("water"))
-                    itemLore.add(AQUA + "✣ Water" + GRAY + " Defence: " + getDefenseText("water"));
-                if (defenseTypes.containsKey("air"))
-                    itemLore.add(WHITE + "✣ Air" + GRAY + " Defence: " + getDefenseText("air"));
-                if (defenseTypes.containsKey("thunder"))
-                    itemLore.add(YELLOW + "✣ Thunder" + GRAY + " Defence: " + getDefenseText("thunder"));
-                if (defenseTypes.containsKey("earth"))
-                    itemLore.add(DARK_GREEN + "✣ Earth" + GRAY + " Defence: " + getDefenseText("earth"));
+            if (defenseTypes.size() > 0) { // defense types
+                if (defenseTypes.containsKey("health")) itemLore.add(DARK_RED + "❤ Health: " + getDefenseText("health"));
+                if (defenseTypes.containsKey("fire")) itemLore.add(RED + "✣ Fire" + GRAY + " Defence: " + getDefenseText("fire"));
+                if (defenseTypes.containsKey("water")) itemLore.add(AQUA + "✣ Water" + GRAY + " Defence: " + getDefenseText("water"));
+                if (defenseTypes.containsKey("air")) itemLore.add(WHITE + "✣ Air" + GRAY + " Defence: " + getDefenseText("air"));
+                if (defenseTypes.containsKey("thunder")) itemLore.add(YELLOW + "✣ Thunder" + GRAY + " Defence: " + getDefenseText("thunder"));
+                if (defenseTypes.containsKey("earth")) itemLore.add(DARK_GREEN + "✣ Earth" + GRAY + " Defence: " + getDefenseText("earth"));
 
                 itemLore.add(" ");
             }
 
             // requirements
             if (requirements.hasRequirements(itemInfo.getType())) {
-                if (requirements.requiresQuest())
-                    itemLore.add(GREEN + "✔ " + GRAY + "Quest Req: " + requirements.getQuest());
-                if (requirements.requiresClass(itemInfo.getType()))
-                    itemLore.add(GREEN + "✔ " + GRAY + "Class Req: " + requirements.getRealClass(itemInfo.getType()).getDisplayName());
-                if (requirements.getLevel() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Combat Lv. Min: " + requirements.getLevel());
-                if (requirements.getStrength() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Strength Min: " + requirements.getStrength());
-                if (requirements.getAgility() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Agility Min: " + requirements.getAgility());
-                if (requirements.getDefense() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Defense Min: " + requirements.getDefense());
-                if (requirements.getIntelligence() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Intelligence Min: " + requirements.getIntelligence());
-                if (requirements.getDexterity() != 0)
-                    itemLore.add(GREEN + "✔ " + GRAY + "Dexterity Min: " + requirements.getDexterity());
+                if (requirements.requiresQuest()) itemLore.add(GREEN + "✔ " + GRAY + "Quest Req: " + requirements.getQuest());
+                if (requirements.requiresClass(itemInfo.getType())) itemLore.add(GREEN + "✔ " + GRAY + "Class Req: " + requirements.getRealClass(itemInfo.getType()).getDisplayName());
+                if (requirements.getLevel() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Combat Lv. Min: " + requirements.getLevel());
+                if (requirements.getStrength() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Strength Min: " + requirements.getStrength());
+                if (requirements.getAgility() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Agility Min: " + requirements.getAgility());
+                if (requirements.getDefense() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Defense Min: " + requirements.getDefense());
+                if (requirements.getIntelligence() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Intelligence Min: " + requirements.getIntelligence());
+                if (requirements.getDexterity() != 0) itemLore.add(GREEN + "✔ " + GRAY + "Dexterity Min: " + requirements.getDexterity());
 
                 itemLore.add(" ");
             }
@@ -200,7 +176,7 @@ public class ItemProfile {
             }
 
             // powders
-            if (powderAmount > 0) itemLore.add(GRAY + "["+ powderAmount + " Powder Slots]");
+            if (powderAmount > 0) itemLore.add(GRAY + "[" + powderAmount + " Powder Slots]");
 
             // item tier
             itemLore.add(tier.asLore());
@@ -223,13 +199,13 @@ public class ItemProfile {
             itemLore.forEach(c -> loreList.appendTag(new NBTTagString(c)));
 
             display.setTag("Lore", loreList);
-            display.setString("Name", tier.getColor() + displayName);  // item display name
+            display.setString("Name", tier.getColor() + displayName); // item display name
 
             // armor color
             if (itemInfo.isArmorColorValid()) display.setInteger("color", itemInfo.getArmorColorAsInt());
 
             tag.setTag("display", display);
-            tag.setBoolean("Unbreakable", true);  // this allow items like reliks to have damage
+            tag.setBoolean("Unbreakable", true); // this allow items like reliks to have damage
 
             stack.setTagCompound(tag);
         }
@@ -246,8 +222,7 @@ public class ItemProfile {
     private static String getIDLore(IdentificationContainer id, String idName) {
         int baseValue = id.getBaseValue();
         String lore;
-        if (id.isFixed() || baseValue == 0)
-            lore = (baseValue < 0 ? RED.toString() : baseValue > 0 ? GREEN + "+" : GRAY.toString()) + baseValue;
+        if (id.isFixed() || baseValue == 0) lore = (baseValue < 0 ? RED.toString() : baseValue > 0 ? GREEN + "+" : GRAY.toString()) + baseValue;
         else
             lore = ((id.getMin() < 0 ? RED.toString() : GREEN + "+") + id.getMin()) +
                 ((id.getMax() < 0 ? DARK_RED + " to " + RED : DARK_GREEN + " to " + GREEN + "+") + id.getMax());

@@ -16,7 +16,8 @@ import java.util.zip.CRC32;
 public class StringUtils {
 
     /**
-     * Removes the characters 'À' ('\u00c0') and '\u058e' that is sometimes added in Wynn APIs and
+     * Removes the characters 'À' ('\u00c0') and '\u058e' that is sometimes added in
+     * Wynn APIs and
      * replaces '\u2019' (RIGHT SINGLE QUOTATION MARK) with '\'' (And trims)
      *
      * @param input string
@@ -24,11 +25,7 @@ public class StringUtils {
      */
     public static String normalizeBadString(String input) {
         if (input == null) return "";
-        return input
-            .trim()
-            .replace("À", "").replace("\u058e", "")
-            .replace('\u2019', '\'')
-            .trim();
+        return input.trim().replace("À", "").replace("\u058e", "").replace('\u2019', '\'').trim();
     }
 
     public static String firstCharToUpper(String[] array) {
@@ -59,12 +56,9 @@ public class StringUtils {
                 if (returning.toString().endsWith(endIN)) {
                     return (keepStartAndEndIN ? (startIN + returning) : returning.toString().replace(endIN, ""));
                 }
-            }
-            else
-            {
+            } else {
                 read.append(chr);
-                if (read.toString().endsWith(startIN))
-                    collecting = true;
+                if (read.toString().endsWith(startIN)) collecting = true;
             }
         return "";
     }
@@ -73,19 +67,18 @@ public class StringUtils {
         return new MD5Verification(msg.getBytes(StandardCharsets.UTF_8)).getMd5();
     }
 
-
     public static String[] wrapText(String s, int max) {
         String[] stringArray = s.split(" ");
         StringBuilder result = new StringBuilder();
         int length = 0;
 
-        for (String string: stringArray) {
+        for (String string : stringArray) {
             if (length + string.length() >= max) {
                 result.append('|');
                 length = 0;
             }
             result.append(string).append(' ');
-            length += string.length() + 1;  // +1 for the space following
+            length += string.length() + 1; // +1 for the space following
         }
 
         return result.toString().split("\\|");
@@ -153,12 +146,12 @@ public class StringUtils {
         return String.format("%02d:%02d:%02d.%03d", hour, minute, second, millis);
     }
 
-
     /**
-     * @return `true` if `c` is a valid Unicode code point (in [0, 0x10FFFF] and not a surrogate)
+     * @return `true` if `c` is a valid Unicode code point (in [0, 0x10FFFF] and not
+     *         a surrogate)
      */
     public static boolean isValidCodePoint(int c) {
-                                            /* low surrogates */             /* high surrogates */
+        /* low surrogates */ /* high surrogates */
         return 0 <= c && c <= 0x10FFFF && !(0xD800 <= c && c <= 0xDBFF) && !(0xDC00 <= c && c <= 0xDFFF);
     }
 
@@ -181,7 +174,7 @@ public class StringUtils {
         if (s == null || s.length() > 20 || !numberRegex.matcher(s).matches()) return false;
         if (s.length() < 19) return true;
         try {
-            Long.parseLong(s);  // Could overflow
+            Long.parseLong(s); // Could overflow
         } catch (NumberFormatException ignored) {
             return false;
         }
@@ -196,7 +189,6 @@ public class StringUtils {
         return s.codePoints().map(c -> c < 0x80 ? 1 : c < 0x800 ? 2 : c < 0x10000 ? 3 : 4).sum();
     }
 
-
     public static UUID uuidFromString(String s) {
         if (s.contains("-")) return UUID.fromString(s);
         if (s.length() != 32) throw new IllegalArgumentException("Invalid UUID string: " + s);
@@ -209,12 +201,10 @@ public class StringUtils {
     }
 
     public static boolean isWynnic(int c) {
-        return (
-            (0x249C <= c && c <= 0x24B5) ||
+        return ((0x249C <= c && c <= 0x24B5) ||
             (0x2474 <= c && c <= 0x2476) ||
             (0x247D <= c && c <= 0x247F) ||
-            (0xFF10 <= c && c <= 0xFF12)
-        );
+            (0xFF10 <= c && c <= 0xFF12));
     }
 
     public static boolean hasWynnic(String text) {
@@ -222,7 +212,7 @@ public class StringUtils {
     }
 
     public static String translateCharacterFromWynnic(char wynnic) {
-        return translateCharacterFromWynnic((int) wynnic);  // convert to code point
+        return translateCharacterFromWynnic((int) wynnic); // convert to code point
     }
 
     public static String translateCharacterFromWynnic(int wynnic) {
@@ -233,13 +223,20 @@ public class StringUtils {
         }
 
         switch (wynnic) {
-            case 0x247D: return "10";
-            case 0x247E: return "50";
-            case 0x247F: return "100";
-            case 0xFF10: return ".";
-            case 0xFF11: return "!";
-            case 0xFF12: return "?";
-            default: return "";
+            case 0x247D:
+                return "10";
+            case 0x247E:
+                return "50";
+            case 0x247F:
+                return "100";
+            case 0xFF10:
+                return ".";
+            case 0xFF11:
+                return "!";
+            case 0xFF12:
+                return "?";
+            default:
+                return "";
         }
     }
 

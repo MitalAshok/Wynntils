@@ -54,7 +54,8 @@ public class ClientEvents implements Listener {
      * GuiScreenHorseInventory -> HorseReplacer
      * GuiIngameMenu -> IngameMenuReplacer
      *
-     * Since forge doesn't provides any way to intercept these guis, like events, we need to replace them
+     * Since forge doesn't provides any way to intercept these guis, like events, we
+     * need to replace them
      * this may cause conflicts with other mods that does the same thing
      *
      * @see InventoryReplacer
@@ -62,7 +63,8 @@ public class ClientEvents implements Listener {
      * @see HorseReplacer
      * @see IngameMenuReplacer
      *
-     * All of these "class replacers" emits a bunch of events that you can use to edit the selected GUI
+     *      All of these "class replacers" emits a bunch of events that you can use
+     *      to edit the selected GUI
      *
      * @param e GuiOpenEvent
      */
@@ -94,14 +96,15 @@ public class ClientEvents implements Listener {
 
     /**
      * Detects the user class based on the class selection GUI
-     * This detection happens when the user click on an item that contains the class name pattern, inside the class selection GUI
+     * This detection happens when the user click on an item that contains the class
+     * name pattern, inside the class selection GUI
      *
      * @param e Represents the click event
      */
     @SubscribeEvent
     public void changeClass(GuiOverlapEvent.ChestOverlap.HandleMouseClick e) {
         if (e.getGui().getLowerInv().getName().contains("Select a Class")) {
-            if (e.getMouseButton() == 0 && e.getSlotIn() != null &&  e.getSlotIn().getHasStack() && e.getSlotIn().getStack().hasDisplayName() && e.getSlotIn().getStack().getDisplayName().contains("[>] Select")) {
+            if (e.getMouseButton() == 0 && e.getSlotIn() != null && e.getSlotIn().getHasStack() && e.getSlotIn().getStack().hasDisplayName() && e.getSlotIn().getStack().getDisplayName().contains("[>] Select")) {
                 PlayerInfo.getPlayerInfo().setClassId(e.getSlotId());
 
                 String classLore = ItemUtils.getLore(e.getSlotIn().getStack()).get(1);
@@ -109,9 +112,9 @@ public class ClientEvents implements Listener {
 
                 ClassType selectedClass = ClassType.NONE;
 
-                try{
+                try {
                     selectedClass = ClassType.valueOf(classS.toUpperCase(Locale.ROOT));
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     switch (classS) {
                         case "Hunter":
                             selectedClass = ClassType.ARCHER;
@@ -165,7 +168,7 @@ public class ClientEvents implements Listener {
     GuiScreen lastScreen = null;
 
     /**
-     *  Register the new Main Menu buttons
+     * Register the new Main Menu buttons
      */
     @SubscribeEvent
     public void addMainMenuButtons(GuiScreenEvent.InitGuiEvent.Post e) {
@@ -180,7 +183,7 @@ public class ClientEvents implements Listener {
     }
 
     /**
-     *  Handles the main menu new buttons actions
+     * Handles the main menu new buttons actions
      */
     @SubscribeEvent
     public void mainMenuActionPerformed(GuiScreenEvent.ActionPerformedEvent.Post e) {

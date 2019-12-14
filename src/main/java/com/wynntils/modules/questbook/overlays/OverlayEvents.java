@@ -4,5 +4,4 @@
 
 package com.wynntils.modules.questbook.overlays;
 
-public class OverlayEvents {
-}
+public class OverlayEvents {}

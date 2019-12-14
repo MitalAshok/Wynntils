@@ -35,26 +35,21 @@ public class SettingsManager {
     private static final File configFolder = new File(Reference.MOD_STORAGE_ROOT, "configs");
 
     static {
-        gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeHierarchyAdapter(CustomColor.class, new CustomColorSerializer())
-            .registerTypeAdapter(new TypeToken<ArrayList<PathWaypointProfile>>(){}.getType(), new PathWaypointProfile.Serializer())
-            .create();
+        gson = new GsonBuilder().setPrettyPrinting().registerTypeHierarchyAdapter(CustomColor.class, new CustomColorSerializer()).registerTypeAdapter(new TypeToken<ArrayList<PathWaypointProfile>>() {
+        }.getType(), new PathWaypointProfile.Serializer()).create();
 
-        configFolder.mkdirs();  // if the config folder doesn't exists create the directory
+        configFolder.mkdirs(); // if the config folder doesn't exists create the directory
     }
 
     public static void saveSettings(ModuleContainer m, SettingsHolder obj) throws Exception {
         SettingsInfo info = obj.getClass().getAnnotation(SettingsInfo.class);
-        if (info == null)
-            if (!(obj instanceof Overlay))
-                return;
+        if (info == null) if (!(obj instanceof Overlay)) return;
 
         File f = new File(configFolder, Minecraft.getMinecraft().getSession().getPlayerID());
-        if (!f.exists()) f.mkdirs();  // check if the users folder exists
+        if (!f.exists()) f.mkdirs(); // check if the users folder exists
 
-        f = new File(f, m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay)obj).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config");
-        if (!f.exists()) f.createNewFile();  // create the config file if it doesn't exists
+        f = new File(f, m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay) obj).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config");
+        if (!f.exists()) f.createNewFile(); // create the config file if it doesn't exists
 
         // HeyZeer0: Writting to file
         OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(f), StandardCharsets.UTF_8);
@@ -69,14 +64,12 @@ public class SettingsManager {
 
     public static SettingsHolder getSettings(ModuleContainer m, SettingsHolder obj, SettingsContainer container) throws Exception {
         SettingsInfo info = obj.getClass().getAnnotation(SettingsInfo.class);
-        if (info == null)
-            if (!(obj instanceof Overlay))
-                return obj;
+        if (info == null) if (!(obj instanceof Overlay)) return obj;
 
         File f = new File(configFolder, Minecraft.getMinecraft().getSession().getPlayerID());
-        if (!f.exists()) f.mkdirs();  // check if the users folder exists
+        if (!f.exists()) f.mkdirs(); // check if the users folder exists
 
-        String configFile = m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay)obj).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config";
+        String configFile = m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay) obj).displayName.toLowerCase(Locale.ROOT).replace(' ', '_') : info.name()) + ".config";
         f = new File(f, configFile);
 
         if (!f.exists()) {
@@ -95,11 +88,9 @@ public class SettingsManager {
 
     public static SettingsHolder getCloudSettings(ModuleContainer m, SettingsHolder obj) {
         SettingsInfo info = obj.getClass().getAnnotation(SettingsInfo.class);
-        if (info == null)
-            if (!(obj instanceof Overlay))
-                return obj;
+        if (info == null) if (!(obj instanceof Overlay)) return obj;
 
-        String name = m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay)obj).displayName.toLowerCase().replace(" ", "_") : info.name()) + ".config";
+        String name = m.getInfo().name() + "-" + (obj instanceof Overlay ? "overlay_" + ((Overlay) obj).displayName.toLowerCase().replace(" ", "_") : info.name()) + ".config";
 
         if (WebManager.getAccount() == null) return null;
         if (!WebManager.getAccount().getEncondedConfigs().containsKey(name)) return null;
@@ -120,7 +111,8 @@ public class SettingsManager {
     }
 
     /**
-     * HeyZeer0: This interpretates the common colors class, into/from the 'rgba(r,g,b,a)' format
+     * HeyZeer0: This interpretates the common colors class, into/from the
+     * 'rgba(r,g,b,a)' format
      */
     private static class CustomColorSerializer implements JsonDeserializer<CustomColor>, JsonSerializer<CustomColor> {
 

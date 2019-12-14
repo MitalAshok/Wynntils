@@ -157,7 +157,7 @@ public class WarTimerOverlay extends Overlay {
                 if (territory == null) {
                     EntityPlayerSP pl = ModCore.mc().player;
                     for (TerritoryProfile pf : WebManager.getTerritories().values()) {
-                        if (pf.insideArea((int)pl.posX, (int)pl.posZ)) {
+                        if (pf.insideArea((int) pl.posX, (int) pl.posZ)) {
                             territory = pf.getFriendlyName();
                             return;
                         }
@@ -229,6 +229,11 @@ public class WarTimerOverlay extends Overlay {
     }
 
     public enum WarStage {
-        WAITING, WAITING_FOR_TIMER, WAR_STARTING, WAITING_FOR_MOB_TIMER, WAITING_FOR_MOBS, IN_WAR
+        WAITING,
+        WAITING_FOR_TIMER,
+        WAR_STARTING,
+        WAITING_FOR_MOB_TIMER,
+        WAITING_FOR_MOBS,
+        IN_WAR
     }
 }

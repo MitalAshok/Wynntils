@@ -43,7 +43,8 @@ public class KeyManager {
             ModCore.mc().displayGuiScreen(ui);
         });
 
-        lockInventoryKey = UtilitiesModule.getModule().registerKeyBinding("Lock Slot", Keyboard.KEY_H, "Wynntils", true, () -> {});
+        lockInventoryKey = UtilitiesModule.getModule().registerKeyBinding("Lock Slot", Keyboard.KEY_H, "Wynntils", true, () -> {
+        });
 
         zoomInKey = CoreModule.getModule().registerKeyBinding("Zoom In", Keyboard.KEY_EQUALS, "Wynntils", true, () -> {
             MiniMapOverlay.zoomBy(+1);

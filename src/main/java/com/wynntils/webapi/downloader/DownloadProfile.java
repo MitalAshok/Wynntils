@@ -11,10 +11,17 @@ import java.util.function.Consumer;
 
 public class DownloadProfile {
 
-    String title, url; File location; DownloadAction action; Consumer<Boolean> onFinish;
+    String title, url;
+    File location;
+    DownloadAction action;
+    Consumer<Boolean> onFinish;
 
     public DownloadProfile(String title, String url, File location, DownloadAction action, Consumer<Boolean> onFinish) {
-        this.title = title; this.url = url; this.location = location; this.action = action; this.onFinish = onFinish;
+        this.title = title;
+        this.url = url;
+        this.location = location;
+        this.action = action;
+        this.onFinish = onFinish;
     }
 
     public String getUrl() {

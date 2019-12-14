@@ -16,7 +16,8 @@ public class StopWatchOverlay extends Overlay {
 
     // detects if the key is pressed for 2s and clean the stopwatch
     private static final LongPress longPressDetection = new LongPress(2000, () -> {
-        startTime = -1; lastTime = -1;
+        startTime = -1;
+        lastTime = -1;
     });
 
     private static long startTime = -1;
@@ -42,7 +43,7 @@ public class StopWatchOverlay extends Overlay {
     }
 
     @Override
-        public void render(RenderGameOverlayEvent.Pre event) {
+    public void render(RenderGameOverlayEvent.Pre event) {
         longPressDetection.tick(KeyManager.getStopwatchKey().getKeyBinding().isKeyDown());
 
         if ((startTime == -1 && lastTime == -1) || longPressDetection.isFinished()) return;

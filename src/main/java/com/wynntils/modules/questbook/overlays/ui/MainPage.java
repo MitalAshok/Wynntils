@@ -28,8 +28,10 @@ public class MainPage extends QuestBookPage {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        int x = width / 2; int y = height / 2;
-        int posX = (x - mouseX); int posY = (y - mouseY);
+        int x = width / 2;
+        int y = height / 2;
+        int posX = (x - mouseX);
+        int posY = (y - mouseY);
         List<String> hoveredText = new ArrayList<>();
 
         ScreenRenderer.beginGL(0, 0);
@@ -47,11 +49,10 @@ public class MainPage extends QuestBookPage {
 
         ScreenRenderer.beginGL(0, 0);
         {
-            render.drawRect(Textures.UIs.quest_book, x-168, y-81, 34, 222, 168, 33);
+            render.drawRect(Textures.UIs.quest_book, x - 168, y - 81, 34, 222, 168, 33);
 
             String guild;
-            if (WebManager.getPlayerProfile() != null)
-                guild = WebManager.getPlayerProfile().getGuildRank() != null ? WebManager.getPlayerProfile().getGuildName() + " " + WebManager.getPlayerProfile().getGuildRank().getStars() : WebManager.getPlayerProfile().getGuildName();
+            if (WebManager.getPlayerProfile() != null) guild = WebManager.getPlayerProfile().getGuildRank() != null ? WebManager.getPlayerProfile().getGuildName() + " " + WebManager.getPlayerProfile().getGuildRank().getStars() : WebManager.getPlayerProfile().getGuildName();
             else
                 guild = "";
             render.drawString(TextFormatting.DARK_AQUA + guild, x + 80, y - 53, CommonColors.CYAN, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
@@ -63,7 +64,7 @@ public class MainPage extends QuestBookPage {
             int boxTop = y - 18;
             int boxBottom = y + 12;
             selected = 0;
-            for (QuestBookPages val: QuestBookPages.values()) {
+            for (QuestBookPages val : QuestBookPages.values()) {
                 QuestBookPage qbp = val.getPage();
                 if (qbp.getIcon() == null || !(val.getSlotNb() > (currentPage - 1) * 4 && val.getSlotNb() <= (currentPage) * 4)) continue;
 
@@ -76,7 +77,7 @@ public class MainPage extends QuestBookPage {
                 } else {
                     render.drawRect(unselected_cube, leftX, boxTop, leftX + 30, boxBottom);
                 }
-                render.drawRect(Textures.UIs.quest_book, leftX + (15 - qbp.getIcon().getWidth()/2), boxTop + (15 - qbp.getIcon().getHeight()/2), qbp.getIcon().getX1(), qbp.getIcon().getY1(hovering), qbp.getIcon().getWidth(), qbp.getIcon().getHeight());
+                render.drawRect(Textures.UIs.quest_book, leftX + (15 - qbp.getIcon().getWidth() / 2), boxTop + (15 - qbp.getIcon().getHeight() / 2), qbp.getIcon().getX1(), qbp.getIcon().getY1(hovering), qbp.getIcon().getWidth(), qbp.getIcon().getHeight());
                 if (hovering) {
                     hoveredText = qbp.getHoveredDescription();
                 }
@@ -116,8 +117,7 @@ public class MainPage extends QuestBookPage {
 
             render.drawString("Select an option to continue", x - 81, y - 30, CommonColors.BLACK, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
 
-            render.drawSplitString("Welcome to Wynntils. You can see your statistics on the right or select some of the options above for more features",
-                    155, x - 150, y + 30, 10, CommonColors.BLACK, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NONE);
+            render.drawSplitString("Welcome to Wynntils. You can see your statistics on the right or select some of the options above for more features", 155, x - 150, y + 30, 10, CommonColors.BLACK, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NONE);
 
             render.drawRect(Textures.UIs.quest_book, x + 20, y - 90, 224, 253, 17, 18);
             render.drawRect(Textures.UIs.quest_book, x + 48, y - 90, 224, 253, 17, 18);

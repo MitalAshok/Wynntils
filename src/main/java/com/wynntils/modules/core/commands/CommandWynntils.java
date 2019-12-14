@@ -49,7 +49,7 @@ public class CommandWynntils extends CommandBase implements IClientCommand {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length <= 0) {
-            execute(server, sender, new String[]{"help"});
+            execute(server, sender, new String[] { "help" });
             return;
         }
 
@@ -63,11 +63,7 @@ public class CommandWynntils extends CommandBase implements IClientCommand {
                 TextComponentString c = new TextComponentString("You can donate to Wynntils at: ");
                 c.getStyle().setColor(TextFormatting.AQUA);
                 TextComponentString url = new TextComponentString("https://www.patreon.com/Wynntils");
-                url.getStyle()
-                        .setColor(TextFormatting.LIGHT_PURPLE)
-                        .setUnderlined(true)
-                        .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.patreon.com/Wynntils"))
-                        .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click here to open in your browser.")));
+                url.getStyle().setColor(TextFormatting.LIGHT_PURPLE).setUnderlined(true).setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.patreon.com/Wynntils")).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click here to open in your browser.")));
 
                 sender.sendMessage(c.appendSibling(url));
                 break;
@@ -98,16 +94,16 @@ public class CommandWynntils extends CommandBase implements IClientCommand {
                 addCommandDescription(text, "-", "territory", "This makes your compass point towards a specified territory.");
                 sender.sendMessage(text);
                 break;
-                /*Since we combine all arguments, to get the second page of help the case could be "help2" for "/wynntils help 2".*/
+            /*
+             * Since we combine all arguments, to get the second page of help the case could
+             * be "help2" for "/wynntils help 2".
+             */
             case "discord":
                 TextComponentString msg = new TextComponentString("You're welcome to join our Discord server at:\n");
                 msg.getStyle().setColor(TextFormatting.GOLD);
                 WebReader apiUrls = WebManager.getApiUrls();
                 TextComponentString link = new TextComponentString(apiUrls == null ? "<Wynntils servers are down>" : apiUrls.get("DiscordInvite"));
-                link.getStyle()
-                        .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, WebManager.getApiUrls().get("DiscordInvite")))
-                        .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click here to join our Discord server.")))
-                        .setColor(TextFormatting.DARK_AQUA);
+                link.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, WebManager.getApiUrls().get("DiscordInvite"))).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Click here to join our Discord server."))).setColor(TextFormatting.DARK_AQUA);
                 sender.sendMessage(msg.appendSibling(link));
                 break;
             case "version":
@@ -140,7 +136,7 @@ public class CommandWynntils extends CommandBase implements IClientCommand {
 
                 break;
             default:
-                execute(server, sender, new String[] {"help"});
+                execute(server, sender, new String[] { "help" });
         }
     }
 

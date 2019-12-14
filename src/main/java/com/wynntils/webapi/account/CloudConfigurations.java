@@ -33,7 +33,8 @@ public class CloudConfigurations {
     private Gson gson = new Gson();
 
     public CloudConfigurations(ScheduledExecutorService service, String token) {
-        this.service = service; this.token = token;
+        this.service = service;
+        this.token = token;
     }
 
     private final List<ConfigContainer> toUpload = new ArrayList<>();
@@ -78,7 +79,7 @@ public class CloudConfigurations {
                 try {
                     outputStream = st.getOutputStream();
                     IOUtils.write(bodyBytes, outputStream);
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 } finally {
                     IOUtils.closeQuietly(outputStream);
@@ -108,7 +109,7 @@ public class CloudConfigurations {
         ArrayList<ConfigContainer> withoutDuplicates = new ArrayList<>(toUpload.size());
 
         // Newer configs trump older configs so reverse iterate
-        for (int i = toUpload.size(); i-- > 0; ) {
+        for (int i = toUpload.size(); i-- > 0;) {
             ConfigContainer cc = toUpload.get(i);
             if (seen.add(cc.fileName)) {
                 withoutDuplicates.add(cc);
@@ -124,7 +125,8 @@ public class CloudConfigurations {
         String fileName, base64;
 
         ConfigContainer(String fileName, String base64) {
-            this.fileName = fileName; this.base64 = base64;
+            this.fileName = fileName;
+            this.base64 = base64;
         }
 
     }

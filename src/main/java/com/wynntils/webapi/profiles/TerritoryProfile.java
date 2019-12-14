@@ -43,7 +43,6 @@ public class TerritoryProfile {
 
         this.acquired = acquired;
 
-
         if (endX < startX) {
             this.startX = endX;
             this.endX = startX;
@@ -134,7 +133,8 @@ public class TerritoryProfile {
 
             String guild;
             if (territory.get("guild").isJsonNull()) guild = "Unknown";
-            else guild = territory.get("guild").getAsString();
+            else
+                guild = territory.get("guild").getAsString();
 
             Date acquired = null;
             try {
@@ -149,13 +149,15 @@ public class TerritoryProfile {
 
             String guildPrefix;
             if (territory.get("guildPrefix").isJsonNull()) guildPrefix = "UNK";
-            else guildPrefix= territory.get("guildPrefix").getAsString();
+            else
+                guildPrefix = territory.get("guildPrefix").getAsString();
 
             int level = territory.get("level").getAsInt();
 
             String guildColor;
             if (territory.get("guildColor").isJsonNull()) guildColor = null;
-            else guildColor = territory.get("guildColor").getAsString();
+            else
+                guildColor = territory.get("guildColor").getAsString();
 
             return new TerritoryProfile(territoryName, friendlyName, guildPrefix, guildColor, level, startX, startZ, endX, endZ, guild, attacker, acquired);
         }

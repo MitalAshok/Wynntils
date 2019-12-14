@@ -47,11 +47,15 @@ public class MapTerritory {
         if ((initX > 0 && initX < 1) || (initY > 0 && initY < 1) || (endX > 0 && endX < 1) || (endY > 0 && endY < 1)) {
             shouldRender = true;
 
-            initX*=width; initY*=height;
-            endX*=width; endY*=height;
+            initX *= width;
+            initY *= height;
+            endX *= width;
+            endY *= height;
 
-            this.initX = initX; this.initY = initY;
-            this.endX = endX; this.endY = endY;
+            this.initX = initX;
+            this.initY = initY;
+            this.endX = endX;
+            this.endY = endY;
             return;
         }
 
@@ -68,13 +72,12 @@ public class MapTerritory {
             renderer.drawRectWBordersF(color.setA(1), initX, initY, endX, endY, 2f);
         }
 
-        float ppX = initX + ((endX - initX)/2f);
-        float ppY = initY + ((endY - initY)/2f);
+        float ppX = initX + ((endX - initX) / 2f);
+        float ppY = initY + ((endY - initY) / 2f);
 
         boolean Hovering = (mouseX > initX && mouseX < endX && mouseY > initY && mouseY < endY);
 
-        if ((MapConfig.WorldMap.INSTANCE.showTerritoryName || Hovering) && alpha > 0)
-            renderer.drawString(territory.getFriendlyName(), ppX, ppY - 10, territoryNameColour.setA(alpha), SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE);
+        if ((MapConfig.WorldMap.INSTANCE.showTerritoryName || Hovering) && alpha > 0) renderer.drawString(territory.getFriendlyName(), ppX, ppY - 10, territoryNameColour.setA(alpha), SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE);
 
         if (MapConfig.WorldMap.INSTANCE.useGuildShortNames) alpha = 1;
         if (alpha <= 0) return;

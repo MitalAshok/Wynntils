@@ -47,11 +47,13 @@ public class MusicManager {
             }
         }
 
-        try{
+        try {
             WebManager.getCurrentAvailableSongs().forEach(c -> availableMusics.put(c.getAsHash(), c));
 
             isListUpdated = true;
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void checkForMusic(String location) {
@@ -71,22 +73,24 @@ public class MusicManager {
         for (MusicProfile mp : availableMusics.values()) {
             if (mp.getName().contains("(") && mp.getName().contains(")")) {
                 Matcher mc = regex.matcher(mp.getName());
-                while(mc.find()) {
+                while (mc.find()) {
                     String value = mc.group(1).replace("(", "").replace(")", "");
                     String toSearch = location.contains(" ") ? location.split(" ")[0] : location;
-                    if (value.equalsIgnoreCase(location)) {  // perfect match
+                    if (value.equalsIgnoreCase(location)) { // perfect match
                         direct = Optional.of(mp);
-                    } else if (value.startsWith(toSearch)) {  // match by first word
+                    } else if (value.startsWith(toSearch)) { // match by first word
                         firstWord = Optional.of(mp);
-                    } else if (value.startsWith(location)) {  // match by entire location
+                    } else if (value.startsWith(location)) { // match by entire location
                         lessPossible = Optional.of(mp);
                     }
                 }
             }
         }
 
-        if (direct.isPresent()) { selected = direct.get();
-        } else if (firstWord.isPresent()) { selected = firstWord.get();
+        if (direct.isPresent()) {
+            selected = direct.get();
+        } else if (firstWord.isPresent()) {
+            selected = firstWord.get();
         } else if (lessPossible.isPresent()) { selected = lessPossible.get(); }
 
         if (selected == null) return;

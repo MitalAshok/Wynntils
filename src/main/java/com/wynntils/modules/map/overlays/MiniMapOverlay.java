@@ -31,8 +31,8 @@ public class MiniMapOverlay extends Overlay {
         super("Mini Map", 100, 100, true, 0, 0, 10, 10, OverlayGrowFrom.TOP_LEFT);
     }
 
-    private static final int MAX_ZOOM = 100;  // Note that this is the most zoomed out
-    private static final int MIN_ZOOM = -10;  // And this is the most zoomed in
+    private static final int MAX_ZOOM = 100; // Note that this is the most zoomed out
+    private static final int MIN_ZOOM = -10; // And this is the most zoomed in
     private static final double ZOOM_SCALE_FACTOR = 1.05;
 
     public static void zoomBy(int by) {
@@ -64,21 +64,23 @@ public class MiniMapOverlay extends Overlay {
         int zoom = MapConfig.INSTANCE.mapZoom;
 
         // texture position
-        float minX = map.getTextureXPosition(mc.player.posX) - extraFactor * (mapSize/2f + zoom);  // <--- min texture x point
-        float minZ = map.getTextureZPosition(mc.player.posZ) - extraFactor * (mapSize/2f + zoom);  // <--- min texture z point
+        float minX = map.getTextureXPosition(mc.player.posX) - extraFactor * (mapSize / 2f + zoom); // <--- min texture x point
+        float minZ = map.getTextureZPosition(mc.player.posZ) - extraFactor * (mapSize / 2f + zoom); // <--- min texture z point
 
-        float maxX = map.getTextureXPosition(mc.player.posX) + extraFactor * (mapSize/2f + zoom);  // <--- max texture x point
-        float maxZ = map.getTextureZPosition(mc.player.posZ) + extraFactor * (mapSize/2f + zoom);  // <--- max texture z point
+        float maxX = map.getTextureXPosition(mc.player.posX) + extraFactor * (mapSize / 2f + zoom); // <--- max texture x point
+        float maxZ = map.getTextureZPosition(mc.player.posZ) + extraFactor * (mapSize / 2f + zoom); // <--- max texture z point
 
-        minX /= (float)map.getImageWidth(); maxX /= (float)map.getImageWidth();
-        minZ /= (float)map.getImageHeight(); maxZ /= (float)map.getImageHeight();
+        minX /= (float) map.getImageWidth();
+        maxX /= (float) map.getImageWidth();
+        minZ /= (float) map.getImageHeight();
+        maxZ /= (float) map.getImageHeight();
 
-        float centerX = minX + ((maxX - minX)/2);
-        float centerZ = minZ + ((maxZ - minZ)/2);
+        float centerX = minX + ((maxX - minX) / 2);
+        float centerZ = minZ + ((maxZ - minZ) / 2);
 
         if (centerX > 1 || centerX < 0 || centerZ > 1 || centerZ < 0) return;
 
-        try{
+        try {
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
 
@@ -94,11 +96,11 @@ public class MiniMapOverlay extends Overlay {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 
             // rotation axis
-            transformationOrigin(mapSize/2, mapSize/2);
+            transformationOrigin(mapSize / 2, mapSize / 2);
             if (MapConfig.INSTANCE.followPlayerRotation) rotate(180 - MathHelper.fastFloor(mc.player.rotationYaw));
 
             // map quad
-            float extraSize = (extraFactor - 1f) * mapSize/2f;  // How many extra pixels multiplying by extraFactor added on each side
+            float extraSize = (extraFactor - 1f) * mapSize / 2f; // How many extra pixels multiplying by extraFactor added on each side
 
             int option = MapConfig.INSTANCE.renderUsingLinear ? GL11.GL_LINEAR : GL11.GL_NEAREST;
             GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, option);
@@ -118,7 +120,6 @@ public class MiniMapOverlay extends Overlay {
                 tessellator.draw();
             }
 
-
             resetRotation();
 
             // Draw map icons
@@ -133,13 +134,14 @@ public class MiniMapOverlay extends Overlay {
                 final float sinRotationRadians = (float) Math.sin(rotationRadians);
                 final float cosRotationRadians = (float) -Math.cos(rotationRadians);
 
-                // These two points for a box bigger than the actual minimap so the icons outside
+                // These two points for a box bigger than the actual minimap so the icons
+                // outside
                 // can quickly be filtered out
-                final int minFastWorldX = (int) (mc.player.posX - extraFactor * (mapSize/2f + zoom));
-                final int minFastWorldZ = (int) (mc.player.posZ - extraFactor * (mapSize/2f + zoom));
+                final int minFastWorldX = (int) (mc.player.posX - extraFactor * (mapSize / 2f + zoom));
+                final int minFastWorldZ = (int) (mc.player.posZ - extraFactor * (mapSize / 2f + zoom));
 
-                final int maxFastWorldX = (int) (mc.player.posX + extraFactor * (mapSize/2f + zoom)) + 1;
-                final int maxFastWorldZ = (int) (mc.player.posZ + extraFactor * (mapSize/2f + zoom)) + 1;
+                final int maxFastWorldX = (int) (mc.player.posX + extraFactor * (mapSize / 2f + zoom)) + 1;
+                final int maxFastWorldZ = (int) (mc.player.posZ + extraFactor * (mapSize / 2f + zoom)) + 1;
 
                 Consumer<MapIcon> consumer = c -> {
                     if (!c.isEnabled(true)) return;
@@ -147,10 +149,8 @@ public class MiniMapOverlay extends Overlay {
                     int posZ = c.getPosZ();
                     float sizeX = c.getSizeX();
                     float sizeZ = c.getSizeZ();
-                    if (
-                        !(minFastWorldX <= posX + sizeX && posX - sizeX <= maxFastWorldX) ||
-                        !(minFastWorldZ <= posZ + sizeZ && posZ - sizeZ <= maxFastWorldZ)
-                    ) {
+                    if (!(minFastWorldX <= posX + sizeX && posX - sizeX <= maxFastWorldX) ||
+                        !(minFastWorldZ <= posZ + sizeZ && posZ - sizeZ <= maxFastWorldZ)) {
                         return;
                     }
                     float dx = (float) (posX - mc.player.posX) * scaleFactor;
@@ -207,11 +207,10 @@ public class MiniMapOverlay extends Overlay {
 
                     if (distanceSq > 16000000f) {
                         rendering = false;
-                    } if (MapConfig.INSTANCE.mapFormat == MapConfig.MapFormat.SQUARE) {
-                        if (!(
-                                -maxDistance <= dx && dx <= maxDistance &&
-                                -maxDistance <= dz && dz <= maxDistance
-                        )) {
+                    }
+                    if (MapConfig.INSTANCE.mapFormat == MapConfig.MapFormat.SQUARE) {
+                        if (!(-maxDistance <= dx && dx <= maxDistance &&
+                            -maxDistance <= dz && dz <= maxDistance)) {
                             // Scale them in so that `|newDx| <= maxDistance && |newDz| <= maxDistance`
                             scaled = true;
                             float scale = maxDistance / Math.max(Math.abs(dx), Math.abs(dz));
@@ -263,7 +262,7 @@ public class MiniMapOverlay extends Overlay {
 
             MapConfig.Textures.INSTANCE.pointerColor.applyColor();
             GlStateManager.enableAlpha();
-            drawRectF(Textures.Map.map_pointers, (mapSize/2f) - type.dWidth, (mapSize/2f) - type.dHeight, (mapSize/2f) + type.dWidth, (mapSize/2f) + type.dHeight, 0, type.yStart, type.width, type.yStart + type.height);
+            drawRectF(Textures.Map.map_pointers, (mapSize / 2f) - type.dWidth, (mapSize / 2f) - type.dHeight, (mapSize / 2f) + type.dWidth, (mapSize / 2f) + type.dHeight, 0, type.yStart, type.width, type.yStart + type.height);
             GlStateManager.color(1, 1, 1, 1);
 
             resetRotation();
@@ -274,7 +273,7 @@ public class MiniMapOverlay extends Overlay {
                 } else if (MapConfig.Textures.INSTANCE.textureType == MapConfig.TextureType.Wynn) {
                     drawRect(Textures.Map.wynn_map_textures, -3, -3, mapSize + 3, mapSize + 3, 0, 0, 112, 112);
                 } else if (MapConfig.Textures.INSTANCE.textureType == MapConfig.TextureType.Gilded) {
-                    drawRect(Textures.Map.gilded_map_textures, -1, -1, mapSize+1, mapSize+1, 0, 263, 262, 524);
+                    drawRect(Textures.Map.gilded_map_textures, -1, -1, mapSize + 1, mapSize + 1, 0, 263, 262, 524);
                 }
             } else if (MapConfig.INSTANCE.mapFormat == MapConfig.MapFormat.CIRCLE) {
                 if (MapConfig.Textures.INSTANCE.textureType == MapConfig.TextureType.Paper) {
@@ -282,7 +281,7 @@ public class MiniMapOverlay extends Overlay {
                 } else if (MapConfig.Textures.INSTANCE.textureType == MapConfig.TextureType.Wynn) {
                     // todo texture
                 } else if (MapConfig.Textures.INSTANCE.textureType == MapConfig.TextureType.Gilded) {
-                    drawRect(Textures.Map.gilded_map_textures, -1, -1, mapSize+1, mapSize+1, 0, 0, 262, 262);
+                    drawRect(Textures.Map.gilded_map_textures, -1, -1, mapSize + 1, mapSize + 1, 0, 0, 262, 262);
                 }
             }
 
@@ -294,7 +293,8 @@ public class MiniMapOverlay extends Overlay {
                     float northDX = mapCentre * MathHelper.sin(yawRadians);
                     float northDY = mapCentre * MathHelper.cos(yawRadians);
                     if (MapConfig.INSTANCE.mapFormat == MapConfig.MapFormat.SQUARE) {
-                        // Scale by sec((offset from 90 degree angle)) to map to tangent from offset point
+                        // Scale by sec((offset from 90 degree angle)) to map to tangent from offset
+                        // point
                         float circleToSquareScale = MathHelper.cos((float) Math.toRadians((mc.player.rotationYaw % 360f + 405f) % 90f - 45f));
                         northDX /= circleToSquareScale;
                         northDY /= circleToSquareScale;
@@ -317,12 +317,11 @@ public class MiniMapOverlay extends Overlay {
             }
 
             if (MapConfig.INSTANCE.showCoords) {
-                drawString(
-                        String.join(", ", Integer.toString((int) mc.player.posX), Integer.toString((int) mc.player.posY), Integer.toString((int) mc.player.posZ)),
-                        mapSize / 2f, mapSize + 6, CommonColors.WHITE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE
-                );
+                drawString(String.join(", ", Integer.toString((int) mc.player.posX), Integer.toString((int) mc.player.posY), Integer.toString((int) mc.player.posZ)), mapSize / 2f, mapSize + 6, CommonColors.WHITE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.OUTLINE);
             }
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

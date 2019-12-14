@@ -73,7 +73,7 @@ public class LowHealthVignetteOverlay extends Overlay {
 
         switch (OverlayConfig.Health.INSTANCE.healthVignetteEffect) {
             case Pulse:
-                animation = (animation + .4f)%40;
+                animation = (animation + .4f) % 40;
                 value = threshold - currentHealth * INTENSITY + .01f * Math.abs(20 - animation);
                 break;
             case Growing:
@@ -83,7 +83,6 @@ public class LowHealthVignetteOverlay extends Overlay {
                 value = INTENSITY;
                 break;
         }
-
 
     }
 }

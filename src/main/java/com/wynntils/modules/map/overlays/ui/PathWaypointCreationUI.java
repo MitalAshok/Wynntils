@@ -91,7 +91,7 @@ public class PathWaypointCreationUI extends WorldMapUI {
             colorWheel.setColor(profile.getColor());
         }
 
-        buttonList.add(hiddenBox = new GuiCheckBox(5, this.width - 143,  72, "Hidden", hidden));  // TODO: check align
+        buttonList.add(hiddenBox = new GuiCheckBox(5, this.width - 143, 72, "Hidden", hidden)); // TODO: check align
         buttonList.add(circularBox = new GuiCheckBox(6, this.width - 83, 72, "Circular", profile.isCircular));
 
         helpText = new GuiLabel(mc.fontRenderer, 1, 22, this.height - 36, 120, 10, 0xFFFFFF);
@@ -271,7 +271,6 @@ public class PathWaypointCreationUI extends WorldMapUI {
 
         ScreenRenderer.endGL();
 
-
         if (nameField != null) nameField.drawTextBox();
 
         nameFieldLabel.drawLabel(mc, mouseX, mouseY);
@@ -299,7 +298,8 @@ public class PathWaypointCreationUI extends WorldMapUI {
             mc.displayGuiScreen(new PathWaypointCreationUI(originalProfile));
         } else if (btn == clearButton) {
             int sz;
-            while ((sz = profile.size()) != 0) profile.removePoint(sz - 1);
+            while ((sz = profile.size()) != 0)
+                profile.removePoint(sz - 1);
             onChange();
         } else if (btn == hiddenBox) {
             hidden = hiddenBox.isChecked();

@@ -17,13 +17,17 @@ public class MusicProfile {
     File f = null;
 
     public MusicProfile(String name, String downloadUrl, long size) {
-        this.name = name; this.downloadUrl = downloadUrl; this.size = size;
+        this.name = name;
+        this.downloadUrl = downloadUrl;
+        this.size = size;
 
         this.nameWithoutMP3 = name.replace(".mp3", "");
     }
 
     public MusicProfile(File f) {
-        this.name = f.getName(); this.downloadUrl = null; this.size = f.length();
+        this.name = f.getName();
+        this.downloadUrl = null;
+        this.size = f.length();
         this.nameWithoutMP3 = name.replace(".mp3", "");
 
         this.f = f;

@@ -30,11 +30,14 @@ public class MapProfile {
 
     int textureId = -20;
 
-    double centerX = 0; double centerZ = 0;
-    int imageWidth = 0; int imageHeight = 0;
+    double centerX = 0;
+    double centerZ = 0;
+    int imageWidth = 0;
+    int imageHeight = 0;
 
     public MapProfile(String url, String name) {
-        this.url = url; this.mapFile = new File(mapLocation, name + ".png");
+        this.url = url;
+        this.mapFile = new File(mapLocation, name + ".png");
 
         if (!mapFile.exists()) downloadDirect = true;
     }
@@ -48,28 +51,26 @@ public class MapProfile {
         }
 
         WebRequestHandler handler = new WebRequestHandler();
-        handler.addRequest(new WebRequestHandler.Request(url, "main_map.info")
-            .cacheTo(new File(mapLocation, "main-map.txt"))
-            .handleWebReader(reader -> {
-                centerX = Double.parseDouble(reader.get("CenterX"));
-                centerZ = Double.parseDouble(reader.get("CenterZ"));
-                if (!downloadDirect) {
-                    if (new MD5Verification(mapFile).equals(reader.get("MD5"))) {
-                        readyToUse = true;
-                        return true;
-                    }
+        handler.addRequest(new WebRequestHandler.Request(url, "main_map.info").cacheTo(new File(mapLocation, "main-map.txt")).handleWebReader(reader -> {
+            centerX = Double.parseDouble(reader.get("CenterX"));
+            centerZ = Double.parseDouble(reader.get("CenterZ"));
+            if (!downloadDirect) {
+                if (new MD5Verification(mapFile).equals(reader.get("MD5"))) {
+                    readyToUse = true;
+                    return true;
                 }
+            }
 
-                DownloaderManager.queueDownload("Wynntils Map", reader.get("DownloadLocation"), mapLocation, DownloadAction.SAVE, c -> readyToUse = c);
-                return true;
-            })
-        );
+            DownloaderManager.queueDownload("Wynntils Map", reader.get("DownloadLocation"), mapLocation, DownloadAction.SAVE, c -> readyToUse = c);
+            return true;
+        }));
         handler.dispatchAsync();
     }
 
     private void setTexture() throws Exception {
         BufferedImage img = ImageIO.read(mapFile);
-        imageHeight = img.getHeight(); imageWidth = img.getWidth();
+        imageHeight = img.getHeight();
+        imageWidth = img.getWidth();
 
         textureId = TextureUtil.uploadTextureImageAllocate(TextureUtil.glGenTextures(), img, false, false);
     }
@@ -82,11 +83,11 @@ public class MapProfile {
     }
 
     public float getTextureXPosition(double posX) {
-        return (float)(posX - centerX + imageWidth);
+        return (float) (posX - centerX + imageWidth);
     }
 
     public float getTextureZPosition(double posZ) {
-        return (float)(posZ - centerZ + imageHeight);
+        return (float) (posZ - centerZ + imageHeight);
     }
 
     public int getWorldXPosition(double textureX) {

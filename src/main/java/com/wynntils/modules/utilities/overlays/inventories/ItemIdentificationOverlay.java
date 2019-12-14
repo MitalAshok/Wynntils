@@ -138,7 +138,6 @@ public class ItemIdentificationOverlay implements Listener {
             }
         }
 
-
         // copying some parts of the old lore (stops on ids, powder or quality)
         boolean ignoreNext = false;
         for (String oldLore : ItemUtils.getLore(stack)) {
@@ -198,8 +197,7 @@ public class ItemIdentificationOverlay implements Listener {
 
         // add item lores
         if (idLore.size() > 0) {
-            newLore.addAll(IdentificationOrderer.INSTANCE.order(idLore,
-                    UtilitiesConfig.INSTANCE.addItemIdentificationSpacing));
+            newLore.addAll(IdentificationOrderer.INSTANCE.order(idLore, UtilitiesConfig.INSTANCE.addItemIdentificationSpacing));
 
             newLore.add(" ");
 
@@ -223,10 +221,9 @@ public class ItemIdentificationOverlay implements Listener {
             int rollAmount = (wynntils.hasKey("rerollAmount") ? wynntils.getInteger("rerollAmount") : 0) + 1;
             if (rollAmount != 0) quality += " [" + rollAmount + "] ";
 
-            quality +=
-                    GREEN + "["
-                            + decimalFormat.format(item.getTier().getRerollPrice(item.getRequirements().getLevel(), rollAmount))
-                            + EmeraldSymbols.E + "]";
+            quality += GREEN + "["
+                + decimalFormat.format(item.getTier().getRerollPrice(item.getRequirements().getLevel(), rollAmount))
+                + EmeraldSymbols.E + "]";
         }
 
         newLore.add(quality);
@@ -249,7 +246,8 @@ public class ItemIdentificationOverlay implements Listener {
                 if (mean >= 97d) specialDisplay += AQUA;
                 else if (mean >= 80d) specialDisplay += GREEN;
                 else if (mean >= 30) specialDisplay += YELLOW;
-                else specialDisplay += RED;
+                else
+                    specialDisplay += RED;
 
                 specialDisplay += " [" + (hasInvalidIDs ? "~" : Integer.toString((int) mean)) + "%]";
             }
@@ -330,28 +328,27 @@ public class ItemIdentificationOverlay implements Listener {
         String suffix;
 
         switch (idType) {
-            case MIN_MAX:  // [min, max]
+            case MIN_MAX: // [min, max]
                 if (baseValue < 0) suffix = DARK_RED + "[" + RED + "" + min + ", " + max + DARK_RED + "]";
-                else suffix = DARK_GREEN + "[" + GREEN + "" + min + ", " + max + DARK_GREEN + "]";
+                else
+                    suffix = DARK_GREEN + "[" + GREEN + "" + min + ", " + max + DARK_GREEN + "]";
                 break;
 
-            case UPGRADE_CHANCES:  // ⇧% ⇩% ★%
+            case UPGRADE_CHANCES: // ⇧% ⇩% ★%
                 IdentificationContainer.ReidentificationChances chances = id.getChances(currentValue);
                 double increasePct = chances.increase.getNumerator() * 100D / chances.increase.getDenominator();
                 double decreasePct = chances.decrease.getNumerator() * 100D / chances.decrease.getDenominator();
                 double perfectPct = id.getPerfectChance().multiplyBy(Fraction.getFraction(100, 1)).doubleValue();
-                suffix = String.format(
-                    AQUA + "\u21E7%.0f%% " + RED + "\u21E9%.0f%% " + GOLD + "\u2605%.1f%%",
-                    increasePct, decreasePct, perfectPct
-                );
+                suffix = String.format(AQUA + "\u21E7%.0f%% " + RED + "\u21E9%.0f%% " + GOLD + "\u2605%.1f%%", increasePct, decreasePct, perfectPct);
                 break;
 
-            default:  // [id%]
+            default: // [id%]
                 double value = id.getRelativeValue(currentValue) * 100;
                 if (value >= 97d) suffix = AQUA.toString();
                 else if (value >= 80d) suffix = GREEN.toString();
                 else if (value >= 30) suffix = YELLOW.toString();
-                else suffix = RED.toString();
+                else
+                    suffix = RED.toString();
                 suffix += "[" + (value > 100 || value < 0 ? "~" : Integer.toString((int) value)) + "%]";
         }
 
@@ -362,7 +359,8 @@ public class ItemIdentificationOverlay implements Listener {
         SelectedIdentification idType;
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) idType = SelectedIdentification.MIN_MAX;
         else if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) idType = SelectedIdentification.UPGRADE_CHANCES;
-        else idType = SelectedIdentification.PERCENTAGES;
+        else
+            idType = SelectedIdentification.PERCENTAGES;
 
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("wynntils")) {
             NBTTagCompound compound = stack.getTagCompound().getCompoundTag("wynntils");
@@ -380,19 +378,20 @@ public class ItemIdentificationOverlay implements Listener {
 
         NBTTagCompound mainTag = new NBTTagCompound();
 
-        {  // main data
-            mainTag.setString("originName", StringUtils.normalizeBadString(getTextWithoutFormattingCodes(stack.getDisplayName())));  // this replace allow market items to be scanned
+        { // main data
+            mainTag.setString("originName", StringUtils.normalizeBadString(getTextWithoutFormattingCodes(stack.getDisplayName()))); // this replace allow market items to be scanned
             mainTag.setString("currentType", idType.toString());
             mainTag.setBoolean("shouldUpdate", true);
         }
 
         NBTTagCompound idTag = new NBTTagCompound();
-        {  // lore data
+        { // lore data
             for (String loreLine : ItemUtils.getLore(stack)) {
                 String lColor = getTextWithoutFormattingCodes(loreLine);
 
                 // ids
-                { Matcher idMatcher = ID_PATTERN.matcher(lColor);
+                {
+                    Matcher idMatcher = ID_PATTERN.matcher(lColor);
                     if (idMatcher.find()) {
                         String idName = idMatcher.group("ID");
                         boolean isRaw = idMatcher.group("Suffix") == null;
@@ -407,7 +406,8 @@ public class ItemIdentificationOverlay implements Listener {
                 }
 
                 // rerolls
-                { Matcher rerollMatcher = ITEM_QUALITY.matcher(lColor);
+                {
+                    Matcher rerollMatcher = ITEM_QUALITY.matcher(lColor);
                     if (rerollMatcher.find()) {
                         if (rerollMatcher.group("Rolls") == null) continue;
 
@@ -420,13 +420,13 @@ public class ItemIdentificationOverlay implements Listener {
                 if (lColor.contains("] Powder Slots")) mainTag.setString("powderSlots", loreLine);
 
                 // market
-                { Matcher market = MARKET_PRICE.matcher(lColor);
+                {
+                    Matcher market = MARKET_PRICE.matcher(lColor);
                     if (!market.find()) continue;
 
                     NBTTagCompound marketTag = new NBTTagCompound();
 
-                    if (market.group("Quantity") != null)
-                        marketTag.setInteger("quantity", Integer.parseInt(market.group("Quantity").replace(",", "")));
+                    if (market.group("Quantity") != null) marketTag.setInteger("quantity", Integer.parseInt(market.group("Quantity").replace(",", "")));
 
                     marketTag.setInteger("price", Integer.parseInt(market.group("Value").replace(",", "")));
 
@@ -451,7 +451,7 @@ public class ItemIdentificationOverlay implements Listener {
         String[] splitName = longIdName.split(" ");
         StringBuilder result = new StringBuilder(raw ? "raw" : "");
         for (String r : splitName) {
-            if (r.startsWith("[")) continue;  // ignore ids
+            if (r.startsWith("[")) continue; // ignore ids
             result.append(Character.toUpperCase(r.charAt(0))).append(r.substring(1).toLowerCase(Locale.ROOT));
         }
 
@@ -461,10 +461,12 @@ public class ItemIdentificationOverlay implements Listener {
     }
 
     /**
-     * Calculates the amount of emeralds, emerald blocks and liquid emeralds in the player inventory
+     * Calculates the amount of emeralds, emerald blocks and liquid emeralds in the
+     * player inventory
      *
      * @param money the amount of money to process
-     * @return an array with the values in the respective order of emeralds[0], emerald blocks[1], liquid emeralds[2], stx[3]
+     * @return an array with the values in the respective order of emeralds[0],
+     *         emerald blocks[1], liquid emeralds[2], stx[3]
      */
     private static int[] calculateMoneyAmount(int money) {
         return new int[] { money % 64, (money / 64) % 64, (money / 4096) % 64, money / (64 * 4096) };

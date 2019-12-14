@@ -14,7 +14,8 @@ public class WorldMapIcon {
 
     MapIcon info;
 
-    float axisX = 0; float axisZ = 0;
+    float axisX = 0;
+    float axisZ = 0;
     boolean shouldRender = false;
 
     float alpha = 1;
@@ -46,7 +47,8 @@ public class WorldMapIcon {
 
         if (info instanceof MapPathWaypointIcon) {
             shouldRender = true;
-            this.axisX = width * axisX; this.axisZ = height * axisZ;
+            this.axisX = width * axisX;
+            this.axisZ = height * axisZ;
             return;
         }
 
@@ -55,8 +57,10 @@ public class WorldMapIcon {
             axisX = width * axisX;
             axisZ = height * axisZ;
 
-            this.axisX = axisX; this.axisZ = axisZ;
-        } else shouldRender = false;
+            this.axisX = axisX;
+            this.axisZ = axisZ;
+        } else
+            shouldRender = false;
     }
 
     public boolean mouseOver(int mouseX, int mouseY) {

@@ -368,7 +368,8 @@ public class PlayerStatsProfile {
             boolean displayTag = playerTag.get("display").getAsBoolean();
             PlayerTag tag;
             if (playerTag.get("value").isJsonNull()) tag = PlayerTag.NONE;
-            else tag = PlayerTag.valueOf(playerTag.get("value").getAsString().replace("+", "PLUS"));
+            else
+                tag = PlayerTag.valueOf(playerTag.get("value").getAsString().replace("+", "PLUS"));
             boolean veteran = playerMeta.get("veteran").getAsBoolean();
 
             ArrayList<PlayerClassProfile> classes = new ArrayList<>();
@@ -389,7 +390,8 @@ public class PlayerStatsProfile {
             if (!playerGuild.get("name").isJsonNull()) {
                 guildName = playerGuild.get("name").getAsString();
                 if (playerGuild.get("rank").getAsString().isEmpty()) guildRank = GuildRank.NONE;
-                else guildRank = GuildRank.valueOf(playerGuild.get("rank").getAsString().toUpperCase(Locale.ROOT));
+                else
+                    guildRank = GuildRank.valueOf(playerGuild.get("rank").getAsString().toUpperCase(Locale.ROOT));
             }
 
             JsonObject globalStats = playerProfile.get("global").getAsJsonObject();

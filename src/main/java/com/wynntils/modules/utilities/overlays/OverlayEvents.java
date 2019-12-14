@@ -78,7 +78,7 @@ public class OverlayEvents implements Listener {
 
     /* Toasts */
     private static final String filterList = "Upper|Lower|Mid|East|West|North|South|Entrance|Exit|Edge|Close|Far |-";
-    private static final String[] blackList = new String[]{"Transition", "to "};
+    private static final String[] blackList = new String[] { "Transition", "to " };
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onClientTick(TickEvent.ClientTickEvent e) {
@@ -91,13 +91,7 @@ public class OverlayEvents implements Listener {
                             if (oldxp < PlayerInfo.getPlayerInfo().getCurrentXP()) {
                                 DecimalFormat df = new DecimalFormat("0.0");
                                 float xpchange = Float.parseFloat(PlayerInfo.getPlayerInfo().getCurrentXPAsPercentage()) - Float.parseFloat(oldxppercent);
-                                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.GameUpdateEXPMessages.INSTANCE.expMessageFormat
-                                        .replace("%xo%", Integer.toString(oldxp))
-                                        .replace("%xn%", Integer.toString(PlayerInfo.getPlayerInfo().getCurrentXP()))
-                                        .replace("%xc%", Integer.toString(PlayerInfo.getPlayerInfo().getCurrentXP() - oldxp))
-                                        .replace("%po%", oldxppercent)
-                                        .replace("%pn%", PlayerInfo.getPlayerInfo().getCurrentXPAsPercentage())
-                                        .replace("%pc%", df.format(xpchange)));
+                                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.GameUpdateEXPMessages.INSTANCE.expMessageFormat.replace("%xo%", Integer.toString(oldxp)).replace("%xn%", Integer.toString(PlayerInfo.getPlayerInfo().getCurrentXP())).replace("%xc%", Integer.toString(PlayerInfo.getPlayerInfo().getCurrentXP() - oldxp)).replace("%po%", oldxppercent).replace("%pn%", PlayerInfo.getPlayerInfo().getCurrentXPAsPercentage()).replace("%pc%", df.format(xpchange)));
                             }
                             oldxp = PlayerInfo.getPlayerInfo().getCurrentXP();
                             oldxppercent = PlayerInfo.getPlayerInfo().getCurrentXPAsPercentage();
@@ -105,7 +99,7 @@ public class OverlayEvents implements Listener {
                     }
                 }
             }
-            /*Inventory full message*/
+            /* Inventory full message */
             if (OverlayConfig.GameUpdate.GameUpdateInventoryMessages.INSTANCE.enabled) {
                 if (tickcounter % (int) (OverlayConfig.GameUpdate.GameUpdateInventoryMessages.INSTANCE.inventoryUpdateRate * 20f) == 0) {
                     IInventory inv = Minecraft.getMinecraft().player.inventory;
@@ -181,7 +175,7 @@ public class OverlayEvents implements Listener {
                 GameUpdateOverlay.queueMessage(TextFormatting.DARK_RED + "Spell not unlocked.");
                 e.setCanceled(true);
                 return;
-            // POTIONS
+                // POTIONS
             } else if (messageText.matches("\\[\\+\\d+ ❤\\]")) {
                 GameUpdateOverlay.queueMessage(TextFormatting.DARK_RED + messageText);
                 e.setCanceled(true);
@@ -214,7 +208,7 @@ public class OverlayEvents implements Listener {
                 GameUpdateOverlay.queueMessage(TextFormatting.DARK_RED + messageText);
                 e.setCanceled(true);
                 return;
-            // MAGE
+                // MAGE
             } else if (messageText.equals("Sorry, you can't teleport... Try moving away from blocks.")) {
                 GameUpdateOverlay.queueMessage(TextFormatting.DARK_RED + "Can't teleport - move away from blocks.");
                 e.setCanceled(true);
@@ -252,7 +246,7 @@ public class OverlayEvents implements Listener {
                 GameUpdateOverlay.queueMessage(TextFormatting.DARK_RED + messageText.substring(0, messageText.length() - 1));
                 e.setCanceled(true);
                 return;
-            // ARCHER
+                // ARCHER
             } else if (messageText.equals("+3 minutes speed boost.")) {
                 GameUpdateOverlay.queueMessage(TextFormatting.AQUA + "+3 minutes " + TextFormatting.GRAY + "speed boost");
                 e.setCanceled(true);
@@ -267,13 +261,11 @@ public class OverlayEvents implements Listener {
                 GameUpdateOverlay.queueMessage(TextFormatting.AQUA + "+10% resistance " + TextFormatting.GRAY + "(" + formattedText.split(" ")[0].replace(TextFormatting.RESET.toString(), "") + TextFormatting.GRAY + ")");
                 e.setCanceled(true);
                 return;
-            }
-            else if (messageText.matches(".+ has given you 15% resistance\\.")) {
+            } else if (messageText.matches(".+ has given you 15% resistance\\.")) {
                 GameUpdateOverlay.queueMessage(TextFormatting.AQUA + "+15% resistance " + TextFormatting.GRAY + "(" + formattedText.split(" ")[0].replace(TextFormatting.RESET.toString(), "") + TextFormatting.GRAY + ")");
                 e.setCanceled(true);
                 return;
-            }
-            else if (messageText.matches(".+ has given you 20% resistance and 10% strength\\.")) {
+            } else if (messageText.matches(".+ has given you 20% resistance and 10% strength\\.")) {
                 GameUpdateOverlay.queueMessage(TextFormatting.AQUA + "+20% resistance " + TextFormatting.GRAY + "& " + TextFormatting.AQUA + "+10% strength " + TextFormatting.GRAY + "(" + formattedText.split(" ")[0].replace(TextFormatting.RESET.toString(), "") + TextFormatting.GRAY + ")");
                 e.setCanceled(true);
                 return;
@@ -465,10 +457,10 @@ public class OverlayEvents implements Listener {
             }
         }
         if (OverlayConfig.GameUpdate.RedirectSystemMessages.INSTANCE.redirectLoginGuild) {
-            if (messageText.matches(".+ has logged into server (WC|HB|EU|WAR)\\d+ as an? (Warrior|Knight|Mage|Dark Wizard|Assassin|Ninja|Archer|Hunter|Shaman|Skyseer)À?") && formattedText.startsWith(TextFormatting.AQUA.toString())) {  // À temp for Shaman
+            if (messageText.matches(".+ has logged into server (WC|HB|EU|WAR)\\d+ as an? (Warrior|Knight|Mage|Dark Wizard|Assassin|Ninja|Archer|Hunter|Shaman|Skyseer)À?") && formattedText.startsWith(TextFormatting.AQUA.toString())) { // À temp for Shaman
                 String[] res = messageText.split(" ");
                 if (res.length == 9) {
-                    if (res[8].equals("ArcherÀ")) res[8] = "Shaman";  // Temp replace for Shaman (Same changes as above)
+                    if (res[8].equals("ArcherÀ")) res[8] = "Shaman"; // Temp replace for Shaman (Same changes as above)
                     GameUpdateOverlay.queueMessage(TextFormatting.GREEN + "→ " + TextFormatting.DARK_AQUA + res[0] + " [" + TextFormatting.AQUA + res[5] + TextFormatting.DARK_AQUA + "/" + TextFormatting.AQUA + res[8] + TextFormatting.DARK_AQUA + "]");
                 } else if (res.length == 10) {
                     GameUpdateOverlay.queueMessage(TextFormatting.GREEN + "→ " + TextFormatting.DARK_AQUA + res[0] + " [" + TextFormatting.AQUA + res[5] + TextFormatting.DARK_AQUA + "/" + TextFormatting.AQUA + res[8] + " " + res[9] + TextFormatting.DARK_AQUA + "]");
@@ -481,10 +473,8 @@ public class OverlayEvents implements Listener {
 
     @SubscribeEvent
     public void onTerritoryWar(WynnGuildWarEvent e) {
-        if (!Reference.onServer)
-            return;
-        if (OverlayConfig.TerritoryFeed.INSTANCE.displayMode == OverlayConfig.TerritoryFeed.TerritoryFeedDisplayMode.ONLY_OWN_GUILD && WebManager.getPlayerProfile() != null && !e.getAttackerName().equals(WebManager.getPlayerProfile().getGuildName()) && !e.getDefenderName().equals(WebManager.getPlayerProfile().getGuildName()))
-            return;
+        if (!Reference.onServer) return;
+        if (OverlayConfig.TerritoryFeed.INSTANCE.displayMode == OverlayConfig.TerritoryFeed.TerritoryFeedDisplayMode.ONLY_OWN_GUILD && WebManager.getPlayerProfile() != null && !e.getAttackerName().equals(WebManager.getPlayerProfile().getGuildName()) && !e.getDefenderName().equals(WebManager.getPlayerProfile().getGuildName())) return;
         TextFormatting color = TextFormatting.AQUA;
         if (OverlayConfig.TerritoryFeed.INSTANCE.displayMode == OverlayConfig.TerritoryFeed.TerritoryFeedDisplayMode.DISTINGUISH_OWN_GUILD && WebManager.getPlayerProfile() != null) {
             if (e.getType() == WynnGuildWarEvent.WarUpdateType.ATTACKED) {
@@ -556,12 +546,10 @@ public class OverlayEvents implements Listener {
         }
         if (OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.enabled) {
             if (OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.leave && !e.getOldTerritory().equals("Waiting")) {
-                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.territoryLeaveFormat
-                        .replace("%t%", e.getOldTerritory()));
+                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.territoryLeaveFormat.replace("%t%", e.getOldTerritory()));
             }
             if (OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.enter && !e.getNewTerritory().equals("Waiting")) {
-                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.territoryEnterFormat
-                        .replace("%t%", e.getNewTerritory()));
+                GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.territoryEnterFormat.replace("%t%", e.getNewTerritory()));
             }
         }
     }

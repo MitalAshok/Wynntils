@@ -95,7 +95,8 @@ public class SocketEvent extends Event {
         }
 
         /**
-         * Called when socket says that a player that was previously tracked has left your world
+         * Called when socket says that a player that was previously tracked has left
+         * your world
          */
         public static class Left extends OtherPlayerEvent {
 

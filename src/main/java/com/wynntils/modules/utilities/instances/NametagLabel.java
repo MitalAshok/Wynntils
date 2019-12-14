@@ -16,7 +16,9 @@ public class NametagLabel {
     public float scale;
 
     public NametagLabel(CustomColor color, String text, float scale) {
-        this.color = color; this.text = text; this.scale = scale;
+        this.color = color;
+        this.text = text;
+        this.scale = scale;
     }
 
 }

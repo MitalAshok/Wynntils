@@ -17,7 +17,7 @@ public class PartyManager {
     private static final Pattern listPattern = Pattern.compile("(§eParty members:|§eYou must be in a party to list\\.)");
     private static final CommandResponse listExecutor = new CommandResponse("/party list", (matcher, text) -> {
         String entire = matcher.group(0);
-        if (entire.contains("You must be in")) {  // clears the party
+        if (entire.contains("You must be in")) { // clears the party
             PlayerInfo.getPlayerInfo().getPlayerParty().removeMember(Minecraft.getMinecraft().player.getName());
             return;
         }

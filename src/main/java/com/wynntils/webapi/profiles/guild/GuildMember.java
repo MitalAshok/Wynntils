@@ -15,7 +15,11 @@ public class GuildMember {
     Date joined;
 
     public GuildMember(String name, String rank, int contributed, String joinedFriendly, Date joined) {
-        this.name = name; this.rank = rank; this.contributed = contributed; this.joinedFriendly = joinedFriendly; this.joined = joined;
+        this.name = name;
+        this.rank = rank;
+        this.contributed = contributed;
+        this.joinedFriendly = joinedFriendly;
+        this.joined = joined;
     }
 
     public String getName() {

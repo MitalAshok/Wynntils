@@ -29,8 +29,7 @@ public class ItemLockOverlay implements Listener {
             renderItemLock(s, e.getGui().getGuiLeft(), e.getGui().getGuiTop());
         }
 
-        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack())
-            e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
+        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack()) e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -43,8 +42,7 @@ public class ItemLockOverlay implements Listener {
             renderItemLock(s, e.getGui().getGuiLeft(), e.getGui().getGuiTop());
         }
 
-        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack())
-            e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
+        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack()) e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -57,8 +55,7 @@ public class ItemLockOverlay implements Listener {
             renderItemLock(s, e.getGui().getGuiLeft(), e.getGui().getGuiTop());
         }
 
-        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack())
-            e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
+        if (e.getGui().getSlotUnderMouse() != null && e.getGui().getSlotUnderMouse().getHasStack()) e.getGui().renderToolTip(e.getGui().getSlotUnderMouse().getStack(), e.getMouseX(), e.getMouseY());
     }
 
     private void renderItemLock(Slot s, int guiLeft, int guiTop) {
@@ -73,7 +70,7 @@ public class ItemLockOverlay implements Listener {
         ScreenRenderer r = new ScreenRenderer();
         RenderHelper.disableStandardItemLighting();
         ScreenRenderer.scale(0.5f);
-        r.drawRect(Textures.UIs.hud_overlays, (int)((guiLeft + s.xPos) / 0.5) + 25, (int)((guiTop + s.yPos) / 0.5) - 8, 0, 0, 16, 16);
+        r.drawRect(Textures.UIs.hud_overlays, (int) ((guiLeft + s.xPos) / 0.5) + 25, (int) ((guiTop + s.yPos) / 0.5) - 8, 0, 0, 16, 16);
         ScreenRenderer.endGL();
     }
 

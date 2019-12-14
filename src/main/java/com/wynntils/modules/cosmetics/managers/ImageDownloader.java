@@ -73,7 +73,7 @@ public class ImageDownloader extends SimpleTexture {
                 HttpURLConnection httpurlconnection = null;
 
                 try {
-                    httpurlconnection = (HttpURLConnection)(new URL(url)).openConnection(Minecraft.getMinecraft().getProxy());
+                    httpurlconnection = (HttpURLConnection) (new URL(url)).openConnection(Minecraft.getMinecraft().getProxy());
                     httpurlconnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
                     httpurlconnection.setDoInput(true);
                     httpurlconnection.setDoOutput(false);
@@ -91,11 +91,9 @@ public class ImageDownloader extends SimpleTexture {
                         downloader.bufferedImage = bufferedimage;
                         return;
                     }
-                }
-                catch (Exception exception) {
+                } catch (Exception exception) {
                     return;
-                }
-                finally {
+                } finally {
                     if (httpurlconnection != null) {
                         httpurlconnection.disconnect();
                     }
@@ -106,6 +104,5 @@ public class ImageDownloader extends SimpleTexture {
         this.imageThread.setDaemon(true);
         this.imageThread.start();
     }
-
 
 }

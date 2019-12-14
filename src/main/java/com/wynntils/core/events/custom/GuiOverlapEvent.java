@@ -56,12 +56,15 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class DrawScreen extends InventoryOverlap {
 
-            int mouseX, mouseY; float partialTicks;
+            int mouseX, mouseY;
+            float partialTicks;
 
             public DrawScreen(InventoryReplacer guiInventory, int mouseX, int mouseY, float partialTicks) {
                 super(guiInventory);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.partialTicks = partialTicks;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.partialTicks = partialTicks;
             }
 
             public float getPartialTicks() {
@@ -80,12 +83,18 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class HandleMouseClick extends InventoryOverlap {
 
-            Slot slotIn; int slotId, mouseButton; ClickType type;
+            Slot slotIn;
+            int slotId, mouseButton;
+            ClickType type;
 
-            public HandleMouseClick(InventoryReplacer guiInventory, Slot slotIn, int slotId, int mouseButton, ClickType type)  {
+            public HandleMouseClick(InventoryReplacer guiInventory, Slot slotIn, int slotId, int mouseButton, ClickType type) {
                 super(guiInventory);
 
-                this.slotId = slotId; this.slotIn = slotIn; this.slotId = slotId; this.mouseButton = mouseButton; this.type = type;
+                this.slotId = slotId;
+                this.slotIn = slotIn;
+                this.slotId = slotId;
+                this.mouseButton = mouseButton;
+                this.type = type;
             }
 
             public boolean isCancelable() {
@@ -116,7 +125,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
             public DrawGuiContainerForegroundLayer(InventoryReplacer guiInventory, int mouseX, int mouseY) {
                 super(guiInventory);
 
-                this.mouseX = mouseX; this.mouseY = mouseY;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
             }
 
             public int getMouseY() {
@@ -130,7 +140,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class KeyTyped extends InventoryOverlap {
 
-            char typedChar; int keyCode;
+            char typedChar;
+            int keyCode;
 
             public KeyTyped(InventoryReplacer guiInventory, char typedChar, int keyCode) {
                 super(guiInventory);
@@ -168,12 +179,15 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class DrawScreen extends ChestOverlap {
 
-            int mouseX, mouseY; float partialTicks;
+            int mouseX, mouseY;
+            float partialTicks;
 
             public DrawScreen(ChestReplacer guiChest, int mouseX, int mouseY, float partialTicks) {
                 super(guiChest);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.partialTicks = partialTicks;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.partialTicks = partialTicks;
             }
 
             public float getPartialTicks() {
@@ -192,12 +206,18 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class HandleMouseClick extends ChestOverlap {
 
-            Slot slotIn; int slotId, mouseButton; ClickType type;
+            Slot slotIn;
+            int slotId, mouseButton;
+            ClickType type;
 
-            public HandleMouseClick(ChestReplacer guiChest, Slot slotIn, int slotId, int mouseButton, ClickType type)  {
+            public HandleMouseClick(ChestReplacer guiChest, Slot slotIn, int slotId, int mouseButton, ClickType type) {
                 super(guiChest);
 
-                this.slotId = slotId; this.slotIn = slotIn; this.slotId = slotId; this.mouseButton = mouseButton; this.type = type;
+                this.slotId = slotId;
+                this.slotIn = slotIn;
+                this.slotId = slotId;
+                this.mouseButton = mouseButton;
+                this.type = type;
             }
 
             public boolean isCancelable() {
@@ -228,7 +248,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
             public DrawGuiContainerForegroundLayer(ChestReplacer guiChest, int mouseX, int mouseY) {
                 super(guiChest);
 
-                this.mouseX = mouseX; this.mouseY = mouseY;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
             }
 
             public int getMouseY() {
@@ -242,7 +263,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class KeyTyped extends ChestOverlap {
 
-            char typedChar; int keyCode;
+            char typedChar;
+            int keyCode;
 
             public KeyTyped(ChestReplacer guiChest, char typedChar, int keyCode) {
                 super(guiChest);
@@ -272,7 +294,9 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
             public MouseClicked(ChestReplacer guiChest, int mouseX, int mouseY, int mouseButton) {
                 super(guiChest);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.mouseButton = mouseButton;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.mouseButton = mouseButton;
             }
 
             public int getMouseY() {
@@ -320,12 +344,15 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class DrawScreen extends HorseOverlap {
 
-            int mouseX, mouseY; float partialTicks;
+            int mouseX, mouseY;
+            float partialTicks;
 
             public DrawScreen(HorseReplacer guiHorse, int mouseX, int mouseY, float partialTicks) {
                 super(guiHorse);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.partialTicks = partialTicks;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.partialTicks = partialTicks;
             }
 
             public float getPartialTicks() {
@@ -344,12 +371,18 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class HandleMouseClick extends HorseOverlap {
 
-            Slot slotIn; int slotId, mouseButton; ClickType type;
+            Slot slotIn;
+            int slotId, mouseButton;
+            ClickType type;
 
-            public HandleMouseClick(HorseReplacer guiHorse, Slot slotIn, int slotId, int mouseButton, ClickType type)  {
+            public HandleMouseClick(HorseReplacer guiHorse, Slot slotIn, int slotId, int mouseButton, ClickType type) {
                 super(guiHorse);
 
-                this.slotId = slotId; this.slotIn = slotIn; this.slotId = slotId; this.mouseButton = mouseButton; this.type = type;
+                this.slotId = slotId;
+                this.slotIn = slotIn;
+                this.slotId = slotId;
+                this.mouseButton = mouseButton;
+                this.type = type;
             }
 
             public boolean isCancelable() {
@@ -380,7 +413,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
             public DrawGuiContainerForegroundLayer(HorseReplacer guiHorse, int mouseX, int mouseY) {
                 super(guiHorse);
 
-                this.mouseX = mouseX; this.mouseY = mouseY;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
             }
 
             public int getMouseY() {
@@ -394,7 +428,8 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class KeyTyped extends HorseOverlap {
 
-            char typedChar; int keyCode;
+            char typedChar;
+            int keyCode;
 
             public KeyTyped(HorseReplacer guiHorse, char typedChar, int keyCode) {
                 super(guiHorse);
@@ -431,12 +466,15 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
 
         public static class DrawScreen extends IngameMenuOverlap {
 
-            int mouseX, mouseY; float partialTicks;
+            int mouseX, mouseY;
+            float partialTicks;
 
             public DrawScreen(IngameMenuReplacer ingameMenuReplacer, int mouseX, int mouseY, float partialTicks) {
                 super(ingameMenuReplacer);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.partialTicks = partialTicks;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.partialTicks = partialTicks;
             }
 
             public int getMouseX() {
@@ -459,7 +497,9 @@ public class GuiOverlapEvent<T extends Gui> extends Event {
             public MouseClicked(IngameMenuReplacer ingameMenuReplacer, int mouseX, int mouseY, int mouseButton) {
                 super(ingameMenuReplacer);
 
-                this.mouseX = mouseX; this.mouseY = mouseY; this.mouseButton = mouseButton;
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.mouseButton = mouseButton;
             }
 
             public int getMouseY() {

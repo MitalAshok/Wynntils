@@ -10,8 +10,10 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SettingsInfo {
     String name();
+
     String displayPath() default "";
 
     @Retention(RetentionPolicy.RUNTIME)
-    @interface Instance {}
+    @interface Instance {
+    }
 }

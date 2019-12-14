@@ -24,7 +24,8 @@ public class CapeManager {
             return;
         }
 
-        String url; ResourceLocation rl;
+        String url;
+        ResourceLocation rl;
         url = WebManager.getApiUrls().get("Capes") + "/user/" + uuid.toString().replace("-", "");
         rl = new ResourceLocation("wynntils:capes/" + uuid.toString().replace("-", ""));
 
@@ -36,7 +37,8 @@ public class CapeManager {
             public BufferedImage parseUserSkin(BufferedImage image) {
                 return formatCape(image);
             }
-            public void skinAvailable() { }
+
+            public void skinAvailable() {}
         };
 
         TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();

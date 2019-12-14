@@ -36,8 +36,7 @@ public class MusicPlayer {
 
         // Queue the music change to the game update ticker
         if (OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.musicChange) {
-            GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.musicChangeFormat
-                    .replace("%np%", f.getName().replace(".mp3", "")));
+            GameUpdateOverlay.queueMessage(OverlayConfig.GameUpdate.TerritoryChangeMessages.INSTANCE.musicChangeFormat.replace("%np%", f.getName().replace(".mp3", "")));
         }
 
         nextMusic = f;
@@ -86,7 +85,6 @@ public class MusicPlayer {
     public void changePausedState() {
         paused = !paused;
 
-
         if (!paused) MusicManager.checkForMusic(RichPresenceModule.getModule().getData().getLocation());
         if (paused) stop();
     }
@@ -112,11 +110,15 @@ public class MusicPlayer {
             if (getCurrentVolume() > (Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume)) {
                 if (getCurrentVolume() - 0.2f < (Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume)) {
                     setVolume((Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume));
-                } else { setVolume(getCurrentVolume() - 0.2f); }
+                } else {
+                    setVolume(getCurrentVolume() - 0.2f);
+                }
             } else if (getCurrentVolume() < (Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume)) {
                 if (getCurrentVolume() + 0.2f > (Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume)) {
                     setVolume((Display.isActive() ? MusicConfig.INSTANCE.baseVolume : MusicConfig.INSTANCE.focusVolume));
-                } else { setVolume(getCurrentVolume() + 0.2f); }
+                } else {
+                    setVolume(getCurrentVolume() + 0.2f);
+                }
             }
         }
     }
@@ -131,7 +133,7 @@ public class MusicPlayer {
         if (paused) return;
 
         musicPlayer = new Thread(() -> {
-            try{
+            try {
                 FileInputStream fis = new FileInputStream(currentMusic);
                 BufferedInputStream bis = new BufferedInputStream(fis);
                 currentPlayer = new AdvancedPlayer(bis);
@@ -139,16 +141,22 @@ public class MusicPlayer {
                     public void playbackStarted(PlaybackEvent var1) {
                         setVolume(-30);
                     }
-                    public void playbackFinished(PlaybackEvent var1) { checkForTheEnd(); }
+
+                    public void playbackFinished(PlaybackEvent var1) {
+                        checkForTheEnd();
+                    }
                 });
 
                 currentPlayer.play();
 
                 fis.close();
                 bis.close();
-            }catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
-        musicPlayer.setName("Wynntils - Music Reproducer"); musicPlayer.start();
+        musicPlayer.setName("Wynntils - Music Reproducer");
+        musicPlayer.start();
     }
 
 }

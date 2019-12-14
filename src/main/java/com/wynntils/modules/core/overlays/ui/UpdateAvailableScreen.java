@@ -38,8 +38,8 @@ public class UpdateAvailableScreen extends GuiScreen {
         drawDefaultBackground();
 
         int yOffset = Math.min(this.height / 2, this.height / 4 + 82 - mc.fontRenderer.FONT_HEIGHT);
-        drawCenteredString(mc.fontRenderer, text, this.width/2, yOffset - mc.fontRenderer.FONT_HEIGHT - 2, 0xFFFFFFFF);
-        drawCenteredString(mc.fontRenderer, "Update before joining?", this.width/2, yOffset, 0xFFFFFFFF);
+        drawCenteredString(mc.fontRenderer, text, this.width / 2, yOffset - mc.fontRenderer.FONT_HEIGHT - 2, 0xFFFFFFFF);
+        drawCenteredString(mc.fontRenderer, "Update before joining?", this.width / 2, yOffset, 0xFFFFFFFF);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

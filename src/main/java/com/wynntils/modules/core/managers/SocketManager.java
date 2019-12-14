@@ -28,7 +28,7 @@ public class SocketManager {
 
     public static void registerSocket() {
         if (WebManager.getApiUrls().get("EnableSocket").equalsIgnoreCase("false")
-        && CoreDBConfig.INSTANCE.updateStream == UpdateStream.STABLE) return;
+            && CoreDBConfig.INSTANCE.updateStream == UpdateStream.STABLE) return;
 
         Reference.LOGGER.info("Connecting to the Socket Server...");
 
@@ -39,14 +39,15 @@ public class SocketManager {
             e.printStackTrace();
         }
 
-        TrustManager[] trustAllCerts = new TrustManager[]{ new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return new java.security.cert.X509Certificate[] {};
             }
 
-            public void checkClientTrusted(X509Certificate[] chain, String authType) { }
-            public void checkServerTrusted(X509Certificate[] chain, String authType) { }
-        }};
+            public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+
+            public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+        } };
 
         try {
             mySSLContext.init(null, trustAllCerts, null);
@@ -61,7 +62,8 @@ public class SocketManager {
 
         String url;
         if (local) url = "http://localhost:3000";
-        else url = WebManager.getApiUrls().get("Socket");
+        else
+            url = WebManager.getApiUrls().get("Socket");
 
         try {
             socket = IO.socket(url, opts);
@@ -108,10 +110,10 @@ public class SocketManager {
 
             FrameworkManager.getEventBus().post(new SocketEvent.OtherPlayerEvent.Left(StringUtils.uuidFromString(uuid), username));
         }).on("broadcast", (Object... args) -> {
-            BroadcastType type = BroadcastType.valueOf((String)args[0]);
+            BroadcastType type = BroadcastType.valueOf((String) args[0]);
             if (type == null) type = BroadcastType.MESSAGE;
 
-            FrameworkManager.getEventBus().post(new SocketEvent.BroadcastEvent(type, (String)args[1]));
+            FrameworkManager.getEventBus().post(new SocketEvent.BroadcastEvent(type, (String) args[1]));
         }).on("unfriend", (Object... args) -> {
             // Trigger forge event ~
             String uuid = (String) args[0];

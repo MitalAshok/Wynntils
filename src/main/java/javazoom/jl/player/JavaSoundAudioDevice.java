@@ -16,8 +16,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
     private AudioFormat fmt = null;
     private byte[] byteBuf = new byte[4096];
 
-    public JavaSoundAudioDevice() {
-    }
+    public JavaSoundAudioDevice() {}
 
     protected void setAudioFormat(AudioFormat var1) {
         this.fmt = var1;
@@ -26,7 +25,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
     protected AudioFormat getAudioFormat() {
         if (this.fmt == null) {
             Decoder var1 = this.getDecoder();
-            this.fmt = new AudioFormat((float)var1.getOutputFrequency(), 16, var1.getOutputChannels(), true, false);
+            this.fmt = new AudioFormat((float) var1.getOutputFrequency(), 16, var1.getOutputChannels(), true, false);
         }
 
         return this.fmt;
@@ -47,8 +46,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
 
     }
 
-    protected void openImpl() throws JavaLayerException {
-    }
+    protected void openImpl() throws JavaLayerException {}
 
     protected void createSource() throws JavaLayerException {
         Object var1 = null;
@@ -56,7 +54,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
         try {
             Line var2 = AudioSystem.getLine(this.getSourceLineInfo());
             if (var2 instanceof SourceDataLine) {
-                this.source = (SourceDataLine)var2;
+                this.source = (SourceDataLine) var2;
                 this.source.open(this.fmt);
                 setLineGain(-30);
                 this.source.start();
@@ -70,12 +68,12 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
         }
 
         if (this.source == null) {
-            throw new JavaLayerException("cannot obtain source audio line", (Throwable)var1);
+            throw new JavaLayerException("cannot obtain source audio line", (Throwable) var1);
         }
     }
 
     public int millisecondsToBytes(AudioFormat var1, int var2) {
-        return (int)((double)((float)var2 * var1.getSampleRate() * (float)var1.getChannels() * (float)var1.getSampleSizeInBits()) / 8000.0D);
+        return (int) ((double) ((float) var2 * var1.getSampleRate() * (float) var1.getChannels() * (float) var1.getSampleSizeInBits()) / 8000.0D);
     }
 
     protected void closeImpl() {
@@ -106,9 +104,9 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
         byte[] var4 = this.getByteArray(var3 * 2);
 
         short var6;
-        for (int var5 = 0; var3-- > 0; var4[var5++] = (byte)(var6 >>> 8)) {
+        for (int var5 = 0; var3-- > 0; var4[var5++] = (byte) (var6 >>> 8)) {
             var6 = var1[var2++];
-            var4[var5++] = (byte)var6;
+            var4[var5++] = (byte) var6;
         }
 
         return var4;
@@ -124,7 +122,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase {
     public int getPosition() {
         int var1 = 0;
         if (this.source != null) {
-            var1 = (int)(this.source.getMicrosecondPosition() / 1000L);
+            var1 = (int) (this.source.getMicrosecondPosition() / 1000L);
         }
 
         return var1;

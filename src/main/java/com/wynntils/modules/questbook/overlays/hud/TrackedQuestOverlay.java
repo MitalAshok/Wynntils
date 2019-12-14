@@ -20,16 +20,13 @@ public class TrackedQuestOverlay extends Overlay {
         super("Tracked Quest", 215, 70, true, 0.0f, 0.0f, 10, 10, OverlayGrowFrom.TOP_LEFT);
     }
 
-
     @Override
     public void render(RenderGameOverlayEvent.Pre e) {
-        if (e.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE && e.getType() != RenderGameOverlayEvent.ElementType.JUMPBAR)
-            return;
+        if (e.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE && e.getType() != RenderGameOverlayEvent.ElementType.JUMPBAR) return;
 
         QuestInfo trackedQuest = QuestManager.getTrackedQuest();
 
-        if (trackedQuest == null || trackedQuest.getSplittedDescription() == null || trackedQuest.getSplittedDescription().size() == 0)
-            return;
+        if (trackedQuest == null || trackedQuest.getSplittedDescription() == null || trackedQuest.getSplittedDescription().size() == 0) return;
 
         drawString("Tracked Quest Info: ", 0, 0, CommonColors.GREEN, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.OUTLINE);
 
@@ -39,8 +36,7 @@ public class TrackedQuestOverlay extends Overlay {
             currentY += 10;
         }
 
-        if (QuestBookConfig.INSTANCE.compassFollowQuests && trackedQuest.getX() != Integer.MIN_VALUE)
-            CompassManager.setCompassLocation(new Location(trackedQuest.getX(), 0, trackedQuest.getZ()));
+        if (QuestBookConfig.INSTANCE.compassFollowQuests && trackedQuest.getX() != Integer.MIN_VALUE) CompassManager.setCompassLocation(new Location(trackedQuest.getX(), 0, trackedQuest.getZ()));
     }
 
 }

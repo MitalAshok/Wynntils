@@ -17,14 +17,15 @@ import net.minecraft.item.ItemStack;
 import java.io.IOException;
 import java.util.List;
 
-public class HorseReplacer extends GuiScreenHorseInventory  {
+public class HorseReplacer extends GuiScreenHorseInventory {
 
     IInventory lowerInv, upperInv;
 
     public HorseReplacer(IInventory playerInv, IInventory horseInv, AbstractHorse horse) {
         super(playerInv, horseInv, horse);
 
-        this.lowerInv = playerInv; this.upperInv = horseInv;
+        this.lowerInv = playerInv;
+        this.upperInv = horseInv;
     }
 
     public IInventory getUpperInv() {
@@ -44,8 +45,7 @@ public class HorseReplacer extends GuiScreenHorseInventory  {
 
     @Override
     public void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-        if (!FrameworkManager.getEventBus().post(new GuiOverlapEvent.HorseOverlap.HandleMouseClick(this, slotIn, slotId, mouseButton, type)))
-            super.handleMouseClick(slotIn, slotId, mouseButton, type);
+        if (!FrameworkManager.getEventBus().post(new GuiOverlapEvent.HorseOverlap.HandleMouseClick(this, slotIn, slotId, mouseButton, type))) super.handleMouseClick(slotIn, slotId, mouseButton, type);
     }
 
     @Override
@@ -57,8 +57,7 @@ public class HorseReplacer extends GuiScreenHorseInventory  {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (!FrameworkManager.getEventBus().post(new GuiOverlapEvent.HorseOverlap.KeyTyped(this, typedChar, keyCode)))
-            super.keyTyped(typedChar, keyCode);
+        if (!FrameworkManager.getEventBus().post(new GuiOverlapEvent.HorseOverlap.KeyTyped(this, typedChar, keyCode))) super.keyTyped(typedChar, keyCode);
     }
 
     @Override

@@ -18,7 +18,9 @@ public class IdentificationContainer {
     private transient Fraction perfectChance;
 
     public IdentificationContainer(IdentificationType type, int baseValue, boolean isFixed) {
-        this.type = type; this.baseValue = baseValue; this.isFixed = isFixed;
+        this.type = type;
+        this.baseValue = baseValue;
+        this.isFixed = isFixed;
         calculateMinMax();
     }
 
@@ -64,7 +66,8 @@ public class IdentificationContainer {
         StringBuilder nameBuilder = new StringBuilder();
         for (char c : shortName.toCharArray()) {
             if (Character.isUpperCase(c)) nameBuilder.append(" ").append(c);
-            else nameBuilder.append(c);
+            else
+                nameBuilder.append(c);
         }
 
         return StringUtils.capitalizeFirst(nameBuilder.toString());
@@ -72,38 +75,34 @@ public class IdentificationContainer {
 
     public static class ReidentificationChances {
         // All fractions 0 to 1
-        public final Fraction decrease;  // Chance to decrease
-        public final Fraction remain;  // Chance to remain the same (Usually 1/61 or 1/131)
-        public final Fraction increase;  // Chance to increase
+        public final Fraction decrease; // Chance to decrease
+        public final Fraction remain; // Chance to remain the same (Usually 1/61 or 1/131)
+        public final Fraction increase; // Chance to increase
 
         public ReidentificationChances(Fraction decrease, Fraction remain, Fraction increase) {
-            this.decrease = decrease; this.remain = remain; this.increase = increase;
+            this.decrease = decrease;
+            this.remain = remain;
+            this.increase = increase;
         }
     }
 
     /**
-     * Return the chances for this identification to decrease/remain the same/increase after reidentification
+     * Return the chances for this identification to decrease/remain the
+     * same/increase after reidentification
      *
      * @param currentValue The current value of this identification
      * @return A {@link ReidentificationChances} of the result (All from 0 to 1)
      */
     public strictfp ReidentificationChances getChances(int currentValue) {
-        // Special case baseValue 1 because min == 1, even though round(1 * 0.3) == 0 (It's clamped to 1)
+        // Special case baseValue 1 because min == 1, even though round(1 * 0.3) == 0
+        // (It's clamped to 1)
         // And baseValue 0 to avoid / 0, and baseValue -1 because it's faster
         if (isFixed || (-1 <= baseValue && baseValue <= 1)) {
-            return new ReidentificationChances(
-                currentValue > baseValue ? Fraction.ONE : Fraction.ZERO,
-                currentValue == baseValue ? Fraction.ONE : Fraction.ZERO,
-                currentValue < baseValue ? Fraction.ONE : Fraction.ZERO
-            );
+            return new ReidentificationChances(currentValue > baseValue ? Fraction.ONE : Fraction.ZERO, currentValue == baseValue ? Fraction.ONE : Fraction.ZERO, currentValue < baseValue ? Fraction.ONE : Fraction.ZERO);
         }
 
         if (currentValue > max || currentValue < min) {
-            return new ReidentificationChances(
-                currentValue > max ? Fraction.ONE : Fraction.ZERO,
-                Fraction.ZERO,
-                currentValue < min ? Fraction.ONE : Fraction.ZERO
-            );
+            return new ReidentificationChances(currentValue > max ? Fraction.ONE : Fraction.ZERO, Fraction.ZERO, currentValue < min ? Fraction.ONE : Fraction.ZERO);
         }
 
         int increaseDirection = baseValue > 0 ? +1 : -1;
@@ -144,11 +143,7 @@ public class IdentificationContainer {
             increase = Fraction.getFraction(higherRawRoll - 69, 61);
         }
 
-        return new ReidentificationChances(
-            decrease,
-            Fraction.getFraction(Math.max(Math.abs(higherRawRoll - lowerRawRoll) - 1, 0), baseValue > 0 ? 101 : 61),
-            increase
-        );
+        return new ReidentificationChances(decrease, Fraction.getFraction(Math.max(Math.abs(higherRawRoll - lowerRawRoll) - 1, 0), baseValue > 0 ? 101 : 61), increase);
     }
 
     /**

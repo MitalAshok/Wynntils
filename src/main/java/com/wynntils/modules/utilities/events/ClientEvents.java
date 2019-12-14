@@ -75,7 +75,7 @@ public class ClientEvents implements Listener {
         if (isAfk) Utils.createFakeScoreboard("Afk", Team.CollisionRule.NEVER);
 
         // Afk detection
-        if (!Display.isActive()) {  // by focus
+        if (!Display.isActive()) { // by focus
             isAfk = true;
             return;
         }
@@ -182,7 +182,8 @@ public class ClientEvents implements Listener {
         DailyReminderManager.openedDailyInventory(e);
     }
 
-    // HeyZeer0: Handles the inventory lock, 7 methods below, first 6 on inventory, last one by dropping the item (without inventory)
+    // HeyZeer0: Handles the inventory lock, 7 methods below, first 6 on inventory,
+    // last one by dropping the item (without inventory)
     @SubscribeEvent
     public void keyPressOnInventory(GuiOverlapEvent.InventoryOverlap.KeyTyped e) {
         if (!Reference.onWorld) return;
@@ -340,8 +341,7 @@ public class ClientEvents implements Listener {
     public void keyPress(PacketEvent<CPacketPlayerDigging> e) {
         if ((e.getPacket().getAction() != Action.DROP_ITEM && e.getPacket().getAction() != Action.DROP_ALL_ITEMS) || !UtilitiesConfig.INSTANCE.locked_slots.containsKey(PlayerInfo.getPlayerInfo().getClassId())) return;
 
-        if (UtilitiesConfig.INSTANCE.locked_slots.get(PlayerInfo.getPlayerInfo().getClassId()).contains(Minecraft.getMinecraft().player.inventory.currentItem))
-            e.setCanceled(true);
+        if (UtilitiesConfig.INSTANCE.locked_slots.get(PlayerInfo.getPlayerInfo().getClassId()).contains(Minecraft.getMinecraft().player.inventory.currentItem)) e.setCanceled(true);
     }
 
     @SubscribeEvent

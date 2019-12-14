@@ -9,7 +9,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-/** EXAMPLE CLASS
+/**
+ * EXAMPLE CLASS
  * ExampleListener shows some of the things that are needed to make
  * an event listener class.
  * An event listener class is a class that will automatically run
@@ -25,8 +26,7 @@ public class ExampleListener implements Listener {
      * @param e Requested Event
      */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void tickEventHH(TickEvent.ClientTickEvent e) {
-    }
+    public void tickEventHH(TickEvent.ClientTickEvent e) {}
 
     /**
      * The EventHandler annotation is required and a priority can be requested
@@ -35,18 +35,16 @@ public class ExampleListener implements Listener {
      * @param e Requested Event
      */
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void tickEventH(TickEvent.ClientTickEvent e) {
-    }
+    public void tickEventH(TickEvent.ClientTickEvent e) {}
 
     /**
      * The EventHandler annotation is required and a priority can be requested
-     * Priority NORMAL  // default
+     * Priority NORMAL // default
      *
      * @param e Requested Event
      */
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void tickEventN(TickEvent.ClientTickEvent e) {
-    }
+    public void tickEventN(TickEvent.ClientTickEvent e) {}
 
     /**
      * The EventHandler annotation is required and a priority can be requested
@@ -55,8 +53,7 @@ public class ExampleListener implements Listener {
      * @param e Requested Event
      */
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void tickEventL(TickEvent.ClientTickEvent e) {
-    }
+    public void tickEventL(TickEvent.ClientTickEvent e) {}
 
     /**
      * The EventHandler annotation is required and a priority can be requested
@@ -65,7 +62,6 @@ public class ExampleListener implements Listener {
      * @param e Requested Event
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void tickEventLL(TickEvent.ClientTickEvent e) {
-    }
+    public void tickEventLL(TickEvent.ClientTickEvent e) {}
 
 }

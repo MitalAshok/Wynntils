@@ -26,8 +26,6 @@ public class HotbarOverlay extends Overlay {
         super("Hotbar", 182, 22, true, 0.5f, 1f, 0, -23, OverlayGrowFrom.TOP_CENTRE, RenderGameOverlayEvent.ElementType.HOTBAR);
     }
 
-
-
     @Override
     public void render(RenderGameOverlayEvent.Pre event) {
         if (!WIDGETS_TEXTURE.loaded) WIDGETS_TEXTURE.load();
@@ -36,7 +34,8 @@ public class HotbarOverlay extends Overlay {
         int textureY = 0;
 
         switch (OverlayConfig.Hotbar.INSTANCE.hotbarTexture) {
-            case Wynn: textureY = 0;
+            case Wynn:
+                textureY = 0;
                 break;
         }
 
@@ -52,7 +51,7 @@ public class HotbarOverlay extends Overlay {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.inventory.mainInventory.get(i);
 
-            int x = -88 + (i*20);
+            int x = -88 + (i * 20);
 
             String description = ItemUtils.getStringLore(stack);
             if (UtilitiesConfig.Items.INSTANCE.hotbarAlpha > 0 && !description.isEmpty()) {

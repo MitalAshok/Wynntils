@@ -75,8 +75,10 @@ public class ItemPage extends QuestBookPage {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        int x = width / 2; int y = height / 2;
-        int posX = (x - mouseX); int posY = (y - mouseY);
+        int x = width / 2;
+        int y = height / 2;
+        int posX = (x - mouseX);
+        int posY = (y - mouseY);
         List<String> hoveredText = new ArrayList<>();
 
         ScreenRenderer.beginGL(0, 0);
@@ -87,13 +89,13 @@ public class ItemPage extends QuestBookPage {
 
             if (posX >= 144 && posX <= 150 && posY >= 8 && posY <= 15) {
                 selected = 1;
-                render.drawRect(Textures.UIs.quest_book, x - 150, y -15, 246, 259, 7, 7);
+                render.drawRect(Textures.UIs.quest_book, x - 150, y - 15, 246, 259, 7, 7);
             } else {
                 if (selected == 1) selected = 0;
                 if (byAlphabetical) {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y -15, 246, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y - 15, 246, 259, 7, 7);
                 } else {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y -15, 254, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y - 15, 254, 259, 7, 7);
                 }
             }
 
@@ -101,13 +103,13 @@ public class ItemPage extends QuestBookPage {
 
             if (posX >= 144 && posX <= 150 && posY >= -2 && posY <= 5) {
                 selected = 2;
-                render.drawRect(Textures.UIs.quest_book, x - 150, y -5, 246, 259, 7, 7);
+                render.drawRect(Textures.UIs.quest_book, x - 150, y - 5, 246, 259, 7, 7);
             } else {
                 if (selected == 2) selected = 0;
                 if (byLevel) {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y -5, 246, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y - 5, 246, 259, 7, 7);
                 } else {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y -5, 254, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y - 5, 254, 259, 7, 7);
                 }
             }
 
@@ -119,9 +121,9 @@ public class ItemPage extends QuestBookPage {
             } else {
                 if (selected == 3) selected = 0;
                 if (byRarity) {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y +5, 246, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y + 5, 246, 259, 7, 7);
                 } else {
-                    render.drawRect(Textures.UIs.quest_book, x - 150, y +5, 254, 259, 7, 7);
+                    render.drawRect(Textures.UIs.quest_book, x - 150, y + 5, 254, 259, 7, 7);
                 }
             }
 
@@ -133,7 +135,7 @@ public class ItemPage extends QuestBookPage {
             for (int i = 0; i < 12; i++) {
                 if (placed + 1 >= 7) {
                     placed = 0;
-                    plusY ++;
+                    plusY++;
                 }
 
                 int maxX = x - 139 + (placed * 20);
@@ -160,7 +162,8 @@ public class ItemPage extends QuestBookPage {
                     else if (i == 9 && allowNecklaces) render.drawRect(selected_cube_2, maxX, maxY, minX, minY);
                     else if (i == 10 && allowRings) render.drawRect(selected_cube_2, maxX, maxY, minX, minY);
                     else if (i == 11 && allowBracelets) render.drawRect(selected_cube_2, maxX, maxY, minX, minY);
-                    else render.drawRect(unselected_cube, maxX, maxY, minX, minY);
+                    else
+                        render.drawRect(unselected_cube, maxX, maxY, minX, minY);
                 }
 
                 if (i == 0) render.drawItemStack(helmetIcon, maxX, minY, false);
@@ -242,7 +245,6 @@ public class ItemPage extends QuestBookPage {
                 int minX = x + 38 + (placedCubes * 20);
                 int minY = y - 50 + (currentY * 20);
 
-
                 ItemProfile pf = itemSearch.get(i);
 
                 float r, g, b;
@@ -290,7 +292,6 @@ public class ItemPage extends QuestBookPage {
                         break;
                 }
 
-
                 if (mouseX >= maxX && mouseX <= minX && mouseY >= maxY && mouseY <= minY) {
                     GlStateManager.color(r, g, b, 0.5f);
                     GlStateManager.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_BLEND);
@@ -330,7 +331,8 @@ public class ItemPage extends QuestBookPage {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         ScaledResolution res = new ScaledResolution(mc);
-        int posX = ((res.getScaledWidth()/2) - mouseX); int posY = ((res.getScaledHeight()/2) - mouseY);
+        int posX = ((res.getScaledWidth() / 2) - mouseX);
+        int posY = ((res.getScaledHeight() / 2) - mouseY);
 
         if (acceptNext && posX >= -145 && posX <= -127 && posY >= -97 && posY <= -88) {
             Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1f));
@@ -418,22 +420,35 @@ public class ItemPage extends QuestBookPage {
 
         itemSearch.removeIf(c -> {
             if (c.getItemInfo().getType() == null) return true;
-              switch (c.getItemInfo().getType()) {
-                  case HELMET: return !allowHelmet;
-                  case CHESTPLATE: return !allowChestplate;
-                  case BOOTS: return !allowBoots;
-                  case LEGGINGS: return !allowLeggings;
-                  case WAND: return !allowWands;
-                  case SPEAR: return !allowSpears;
-                  case DAGGER: return !allowDaggers;
-                  case BOW: return !allowBows;
-                  case RELIK: return !allowReliks;
-                  case RING: return !allowRings;
-                  case NECKLACE: return !allowNecklaces;
-                  case BRACELET: return !allowBracelets;
+            switch (c.getItemInfo().getType()) {
+                case HELMET:
+                    return !allowHelmet;
+                case CHESTPLATE:
+                    return !allowChestplate;
+                case BOOTS:
+                    return !allowBoots;
+                case LEGGINGS:
+                    return !allowLeggings;
+                case WAND:
+                    return !allowWands;
+                case SPEAR:
+                    return !allowSpears;
+                case DAGGER:
+                    return !allowDaggers;
+                case BOW:
+                    return !allowBows;
+                case RELIK:
+                    return !allowReliks;
+                case RING:
+                    return !allowRings;
+                case NECKLACE:
+                    return !allowNecklaces;
+                case BRACELET:
+                    return !allowBracelets;
 
-                  default: return true;
-              }
+                default:
+                    return true;
+            }
         });
 
         if (currentText != null && !currentText.isEmpty()) {

@@ -40,7 +40,7 @@ public class WynntilsAccount {
     HashMap<String, String> md5Verifications = new HashMap<>();
     CloudConfigurations configurationUploader;
 
-    public WynntilsAccount() { }
+    public WynntilsAccount() {}
 
     public String getToken() {
         return token;
@@ -74,7 +74,7 @@ public class WynntilsAccount {
                 try {
                     outputStream = st.getOutputStream();
                     IOUtils.write(bodyBytes, outputStream);
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                     return;
                 } finally {
@@ -82,7 +82,9 @@ public class WynntilsAccount {
                 }
 
                 Reference.LOGGER.info("Updating user Discord ID");
-            }catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
     }
 
@@ -166,7 +168,7 @@ public class WynntilsAccount {
                 encondedConfigs.put(objs.getKey(), objs.getValue().getAsString());
             }
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
 
             Reference.LOGGER.error("Failed to connect to Wynntils Accounts trying again!");

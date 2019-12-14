@@ -22,70 +22,75 @@ import java.util.*;
 
 public class MapApiIcon extends MapTextureIcon {
 
-    public static final Map<String, String> MAPMARKERNAME_TRANSLATION = Collections.unmodifiableMap(new HashMap<String, String>() {{
-        put("Content_Dungeon", "Dungeons");
-        put("Content_CorruptedDungeon", "Corrupted Dungeons");
-        put("Content_BossAltar", "Boss Altar");
-        put("Merchant_Accessory", "Accessory Merchant");
-        put("Merchant_Armour", "Armour Merchant");
-        put("Merchant_Dungeon", "Dungeon Merchant");
-        put("Merchant_Horse", "Horse Merchant");
-        put("Merchant_KeyForge", "Key Forge Merchant");
-        put("Merchant_Liquid", "LE Merchant");
-        put("Merchant_Potion", "Potion Merchant");
-        put("Merchant_Powder", "Powder Merchant");
-        put("Merchant_Scroll", "Scroll Merchant");
-        put("Merchant_Seasail", "Seasail Merchant");
-        put("Merchant_Weapon", "Weapon Merchant");
-        put("NPC_Blacksmith", "Blacksmith");
-        put("NPC_GuildMaster", "Guild Master");
-        put("NPC_ItemIdentifier", "Item Identifier");
-        put("NPC_PowderMaster", "Powder Master");
-        put("Special_FastTravel", "Fast Travel");
-        put("tnt", "TNT Merchant");
-        put("painting", "Art Merchant");
-        put("Ore_Refinery", "Ore Refinery");
-        put("Fish_Refinery", "Fish Refinery");
-        put("Wood_Refinery", "Wood Refinery");
-        put("Crop_Refinery", "Crop Refinery");
-        put("NPC_TradeMarket", "Marketplace");
-        put("Content_Quest", "Quests");
-        put("Content_Miniquest", "Mini-Quests");
-        put("Special_Rune", "Runes");
-        put("Special_RootsOfCorruption", "Nether Portal");
-        put("Content_UltimateDiscovery", "Ultimate Discovery");
-        put("Content_Cave", "Caves");
-        put("Content_GrindSpot", "Grind Spots");
-        put("Merchant_Other", "Other Merchants");
-        put("Special_LightRealm", "Light's Secret");
-        put("Merchant_Emerald", "Emerald Merchant");
-        put("Profession_Weaponsmithing", "Weaponsmithing Station");
-        put("Profession_Armouring", "Armouring Station");
-        put("Profession_Alchemism", "Alchemism Station");
-        put("Profession_Jeweling", "Jeweling Station");
-        put("Profession_Tailoring", "Tailoring Station");
-        put("Profession_Scribing", "Scribing Station");
-        put("Profession_Cooking", "Cooking Station");
-        put("Profession_Woodworking", "Woodworking Station");
-        put("Merchant_Tool", "Tool Merchant");
-    }});
-
-    public static final Set<String> IGNORED_MARKERS = Collections.unmodifiableSet(new HashSet<String>() {{
-        for (String ignored : new String[]{
-            "Content_CorruptedDungeon"
-        }) {
-            add(ignored);
-            String translated = MAPMARKERNAME_TRANSLATION.get(ignored);
-            assert translated != null;
-            add(translated);
+    public static final Map<String, String> MAPMARKERNAME_TRANSLATION = Collections.unmodifiableMap(new HashMap<String, String>() {
+        {
+            put("Content_Dungeon", "Dungeons");
+            put("Content_CorruptedDungeon", "Corrupted Dungeons");
+            put("Content_BossAltar", "Boss Altar");
+            put("Merchant_Accessory", "Accessory Merchant");
+            put("Merchant_Armour", "Armour Merchant");
+            put("Merchant_Dungeon", "Dungeon Merchant");
+            put("Merchant_Horse", "Horse Merchant");
+            put("Merchant_KeyForge", "Key Forge Merchant");
+            put("Merchant_Liquid", "LE Merchant");
+            put("Merchant_Potion", "Potion Merchant");
+            put("Merchant_Powder", "Powder Merchant");
+            put("Merchant_Scroll", "Scroll Merchant");
+            put("Merchant_Seasail", "Seasail Merchant");
+            put("Merchant_Weapon", "Weapon Merchant");
+            put("NPC_Blacksmith", "Blacksmith");
+            put("NPC_GuildMaster", "Guild Master");
+            put("NPC_ItemIdentifier", "Item Identifier");
+            put("NPC_PowderMaster", "Powder Master");
+            put("Special_FastTravel", "Fast Travel");
+            put("tnt", "TNT Merchant");
+            put("painting", "Art Merchant");
+            put("Ore_Refinery", "Ore Refinery");
+            put("Fish_Refinery", "Fish Refinery");
+            put("Wood_Refinery", "Wood Refinery");
+            put("Crop_Refinery", "Crop Refinery");
+            put("NPC_TradeMarket", "Marketplace");
+            put("Content_Quest", "Quests");
+            put("Content_Miniquest", "Mini-Quests");
+            put("Special_Rune", "Runes");
+            put("Special_RootsOfCorruption", "Nether Portal");
+            put("Content_UltimateDiscovery", "Ultimate Discovery");
+            put("Content_Cave", "Caves");
+            put("Content_GrindSpot", "Grind Spots");
+            put("Merchant_Other", "Other Merchants");
+            put("Special_LightRealm", "Light's Secret");
+            put("Merchant_Emerald", "Emerald Merchant");
+            put("Profession_Weaponsmithing", "Weaponsmithing Station");
+            put("Profession_Armouring", "Armouring Station");
+            put("Profession_Alchemism", "Alchemism Station");
+            put("Profession_Jeweling", "Jeweling Station");
+            put("Profession_Tailoring", "Tailoring Station");
+            put("Profession_Scribing", "Scribing Station");
+            put("Profession_Cooking", "Cooking Station");
+            put("Profession_Woodworking", "Woodworking Station");
+            put("Merchant_Tool", "Tool Merchant");
         }
-    }});
+    });
 
-    public static final Map<String, String> MAPMARKERNAME_REVERSE_TRANSLATION = Collections.unmodifiableMap(new HashMap<String, String>(MAPMARKERNAME_TRANSLATION.size()) {{
-        for (HashMap.Entry<String, String> entry : MAPMARKERNAME_TRANSLATION.entrySet()) {
-            this.put(entry.getValue(), entry.getKey());
+    public static final Set<String> IGNORED_MARKERS = Collections.unmodifiableSet(new HashSet<String>() {
+        {
+            for (String ignored : new String[] { "Content_CorruptedDungeon"
+            }) {
+                add(ignored);
+                String translated = MAPMARKERNAME_TRANSLATION.get(ignored);
+                assert translated != null;
+                add(translated);
+            }
         }
-    }});
+    });
+
+    public static final Map<String, String> MAPMARKERNAME_REVERSE_TRANSLATION = Collections.unmodifiableMap(new HashMap<String, String>(MAPMARKERNAME_TRANSLATION.size()) {
+        {
+            for (HashMap.Entry<String, String> entry : MAPMARKERNAME_TRANSLATION.entrySet()) {
+                this.put(entry.getValue(), entry.getKey());
+            }
+        }
+    });
 
     private MapMarkerProfile mmp;
     private int texPosX, texPosZ, texSizeX, texSizeZ;
@@ -111,51 +116,63 @@ public class MapApiIcon extends MapTextureIcon {
         translatedName = MAPMARKERNAME_TRANSLATION.get(mmp.getIcon());
     }
 
-    @Override public AssetsTexture getTexture() {
+    @Override
+    public AssetsTexture getTexture() {
         return Textures.Map.map_icons;
     }
 
-    @Override public int getPosX() {
+    @Override
+    public int getPosX() {
         return mmp.getX();
     }
 
-    @Override public int getPosZ() {
+    @Override
+    public int getPosZ() {
         return mmp.getZ();
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return mmp.getName();
     }
 
-    @Override public int getTexPosX() {
+    @Override
+    public int getTexPosX() {
         return texPosX;
     }
 
-    @Override public int getTexPosZ() {
+    @Override
+    public int getTexPosZ() {
         return texPosZ;
     }
 
-    @Override public int getTexSizeX() {
+    @Override
+    public int getTexSizeX() {
         return texSizeX;
     }
 
-    @Override public int getTexSizeZ() {
+    @Override
+    public int getTexSizeZ() {
         return texSizeZ;
     }
 
-    @Override public float getSizeX() {
+    @Override
+    public float getSizeX() {
         return sizeX;
     }
 
-    @Override public float getSizeZ() {
+    @Override
+    public float getSizeZ() {
         return sizeZ;
     }
 
-    @Override public int getZoomNeeded() {
+    @Override
+    public int getZoomNeeded() {
         return zoomNeeded;
     }
 
-    @Override public boolean isEnabled(boolean forMinimap) {
+    @Override
+    public boolean isEnabled(boolean forMinimap) {
         if (MapConfig.INSTANCE.hideCompletedQuests && (mmp.getIcon().equals("Content_Quest") || mmp.getIcon().equals("Content_Miniquest"))) {
             QuestInfo questData = QuestManager.getCurrentQuestsData().get(mmp.getName());
             if (questData != null && questData.getStatus() == QuestStatus.COMPLETED) {
@@ -201,12 +218,7 @@ public class MapApiIcon extends MapTextureIcon {
     public void renderAt(ScreenRenderer renderer, float centreX, float centreZ, float sizeMultiplier, float blockScale) {
         float sizeX = this.sizeX * sizeMultiplier;
         float sizeZ = this.sizeZ * sizeMultiplier;
-        renderer.drawRectF(
-                Textures.Map.map_icons,
-                centreX - sizeX, centreZ - sizeZ,
-                centreX + sizeX, centreZ + sizeZ,
-                texPosX, texPosZ, texSizeX, texSizeZ
-        );
+        renderer.drawRectF(Textures.Map.map_icons, centreX - sizeX, centreZ - sizeZ, centreX + sizeX, centreZ + sizeZ, texPosX, texPosZ, texSizeX, texSizeZ);
     }
 
     private static List<MapIcon> classicApiMarkers = null;
@@ -284,7 +296,8 @@ public class MapApiIcon extends MapTextureIcon {
     }
 
     /**
-     * Return a MapApiIcon that can render a map marker being free from position information
+     * Return a MapApiIcon that can render a map marker being free from position
+     * information
      */
     public static MapApiIcon getFree(String icon, MapConfig.IconTexture iconTexture) {
         icon = MAPMARKERNAME_REVERSE_TRANSLATION.getOrDefault(icon, icon);

@@ -46,7 +46,6 @@ public class ChatOverlay extends GuiNewChat {
     private int scrollPos;
     private boolean isScrolled;
 
-
     private int overTabId = -1;
     private int currentTab = 0;
 
@@ -69,7 +68,7 @@ public class ChatOverlay extends GuiNewChat {
             if (getChatOpen()) flag = true;
 
             float chatScale = getChatScale();
-            int extraY = MathHelper.ceil((float)getChatWidth() / chatScale) + 4;
+            int extraY = MathHelper.ceil((float) getChatWidth() / chatScale) + 4;
             GlStateManager.pushMatrix();
             GlStateManager.translate(2.0F, 0.0F, 0.0F);
             GlStateManager.scale(chatScale, chatScale, 1.0F);
@@ -82,18 +81,18 @@ public class ChatOverlay extends GuiNewChat {
                     int j1 = updateCounter - chatline.getUpdatedCounter();
 
                     if (j1 < 200 || flag) {
-                        double d0 = (double)j1 / 200.0D;
+                        double d0 = (double) j1 / 200.0D;
                         d0 = 1.0D - d0;
                         d0 = d0 * 10.0D;
                         d0 = MathHelper.clamp(d0, 0.0D, 1.0D);
                         d0 = d0 * d0;
-                        int l1 = (int)(255.0D * d0);
+                        int l1 = (int) (255.0D * d0);
 
                         if (flag) {
                             l1 = 255;
                         }
 
-                        l1 = (int)((float)l1 * (mc.gameSettings.chatOpacity * 0.9F + 0.1F));
+                        l1 = (int) ((float) l1 * (mc.gameSettings.chatOpacity * 0.9F + 0.1F));
                         ++l;
 
                         if (l1 > 3) {
@@ -103,7 +102,7 @@ public class ChatOverlay extends GuiNewChat {
                             }
                             String s = ChatManager.renderMessage(chatline.getChatComponent()).getFormattedText();
                             GlStateManager.enableBlend();
-                            mc.fontRenderer.drawStringWithShadow(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
+                            mc.fontRenderer.drawStringWithShadow(s, 0.0F, (float) (j2 - 8), 16777215 + (l1 << 24));
                             GlStateManager.disableAlpha();
                             GlStateManager.disableBlend();
                         }
@@ -116,43 +115,38 @@ public class ChatOverlay extends GuiNewChat {
 
                 ScreenRenderer.beginGL(2, 0);
                 int offsetX = 0;
-                for (int i = 0; i < TabManager.getAvailableTabs().size(); i ++) {
+                for (int i = 0; i < TabManager.getAvailableTabs().size(); i++) {
                     ChatTab tab = TabManager.getAvailableTabs().get(i);
 
                     // drawsTheBox
-                    int x1 = 16 + offsetX; int x2 = 49 + offsetX + 4;
+                    int x1 = 16 + offsetX;
+                    int x2 = 49 + offsetX + 4;
 
-                    if (overTabId == i)
-                        renderer.drawRect(new CustomColor(0, 0, 0, 0.7f), x1, 3, x2, 16);
+                    if (overTabId == i) renderer.drawRect(new CustomColor(0, 0, 0, 0.7f), x1, 3, x2, 16);
                     else
                         renderer.drawRect(new CustomColor(0, 0, 0, 0.4f), x1, 3, x2, 16);
 
                     tab.setCurrentXAxis(x1, x2);
 
                     // draws the text
-                    if (currentTab == i)
-                        renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.GREEN, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
-                    else if (tab.hasMentions())
-                        renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.RED, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
-                    else if (tab.hasNewMessages())
-                        renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.YELLOW, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
+                    if (currentTab == i) renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.GREEN, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
+                    else if (tab.hasMentions()) renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.RED, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
+                    else if (tab.hasNewMessages()) renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.YELLOW, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
                     else
                         renderer.drawString(tab.getName(), (x1 + ((x2 - x1) / 2)) + 1, 6, CommonColors.WHITE, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
 
                     // updates the offset
-                    offsetX+=40;
+                    offsetX += 40;
                 }
 
                 // draw the + button
-                if (overTabId == -2)
-                    renderer.drawRect(new CustomColor(0, 0, 0, 0.7f), -2, 3, 13, 16);
+                if (overTabId == -2) renderer.drawRect(new CustomColor(0, 0, 0, 0.7f), -2, 3, 13, 16);
                 else
                     renderer.drawRect(new CustomColor(0, 0, 0, 0.4f), -2, 3, 13, 16);
 
                 renderer.drawString("+", 6, 6, MinecraftChatColors.GOLD, SmartFontRenderer.TextAlignment.MIDDLE, SmartFontRenderer.TextShadow.NONE);
 
                 ScreenRenderer.endGL();
-
 
                 // continuing chat render
                 if (chatSize > 0) {
@@ -221,8 +215,7 @@ public class ChatOverlay extends GuiNewChat {
 
         if (!found) {
             for (ChatTab tab : TabManager.getAvailableTabs()) {
-                if (!tab.isLowPriority() || !tab.regexMatches(chatComponent))
-                    continue;
+                if (!tab.isLowPriority() || !tab.regexMatches(chatComponent)) continue;
                 updateLine(tab, chatComponent, updateCounter, displayOnly, chatLineId, noEvent);
             }
         }
@@ -259,16 +252,12 @@ public class ChatOverlay extends GuiNewChat {
                         counter.getStyle().setColor(TextFormatting.GRAY);
                         chatWithCounter.appendSibling(counter);
 
-                        int chatWidth = MathHelper.floor((float)getChatWidth() / getChatScale());
+                        int chatWidth = MathHelper.floor((float) getChatWidth() / getChatScale());
 
                         List<ITextComponent> chatLines = GuiUtilRenderComponents.splitText(chatWithCounter, chatWidth, mc.fontRenderer, false, false);
 
                         Collections.reverse(chatLines);
-                        lines.addAll(0, chatLines
-                                .stream()
-                                .map(c -> new GroupedChatLine(updateCounter, c, chatLineId, thisGroupId))
-                                .collect(Collectors.toList())
-                        );
+                        lines.addAll(0, chatLines.stream().map(c -> new GroupedChatLine(updateCounter, c, chatLineId, thisGroupId)).collect(Collectors.toList()));
 
                         while (tab.getCurrentMessages().size() > 100) {
                             tab.getCurrentMessages().remove(tab.getCurrentMessages().size() - 1);
@@ -277,7 +266,9 @@ public class ChatOverlay extends GuiNewChat {
                         refreshChat();
                         return;
                     }
-                } catch (Exception ex) { ex.printStackTrace(); }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             } else {
                 tab.updateLastMessageAndAmount(originalMessage, 2);
             }
@@ -291,7 +282,7 @@ public class ChatOverlay extends GuiNewChat {
         // continue mc code
 
         int thisGroupId = noProcessing ? 0 : tab.increaseCurrentGroupId();
-        int chatWidth = MathHelper.floor((float)getChatWidth() / getChatScale());
+        int chatWidth = MathHelper.floor((float) getChatWidth() / getChatScale());
         List<ITextComponent> list = GuiUtilRenderComponents.splitText(displayedMessage, chatWidth, mc.fontRenderer, false, false);
         boolean flag = getChatOpen();
 
@@ -321,8 +312,9 @@ public class ChatOverlay extends GuiNewChat {
     }
 
     public void switchTabs() {
-        if (currentTab+1 >= TabManager.getAvailableTabs().size()) currentTab = 0;
-        else currentTab+=1;
+        if (currentTab + 1 >= TabManager.getAvailableTabs().size()) currentTab = 0;
+        else
+            currentTab += 1;
 
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1f));
     }
@@ -356,8 +348,8 @@ public class ChatOverlay extends GuiNewChat {
             float f = getChatScale();
             int j = mouseX / i - 2;
             int k = mouseY / i - 48;
-            j = MathHelper.floor((float)j / f);
-            k = MathHelper.floor((float)k / f);
+            j = MathHelper.floor((float) j / f);
+            k = MathHelper.floor((float) k / f);
 
             if (j >= -2 && j <= 13 && k >= -18 && k <= -5) {
                 overTabId = -2;
@@ -373,12 +365,10 @@ public class ChatOverlay extends GuiNewChat {
                 }
             }
 
-
-
             if (j >= 0 && k >= 0) {
                 int l = Math.min(getLineCount(), getCurrentTab().getCurrentMessages().size());
 
-                if (j <= MathHelper.floor((float)getChatWidth() / getChatScale()) && k < mc.fontRenderer.FONT_HEIGHT * l + l) {
+                if (j <= MathHelper.floor((float) getChatWidth() / getChatScale()) && k < mc.fontRenderer.FONT_HEIGHT * l + l) {
                     int i1 = k / mc.fontRenderer.FONT_HEIGHT + scrollPos;
 
                     if (i1 >= 0 && i1 < getCurrentTab().getCurrentMessages().size()) {
@@ -387,7 +377,7 @@ public class ChatOverlay extends GuiNewChat {
 
                         for (ITextComponent itextcomponent : chatline.getChatComponent()) {
                             if (itextcomponent instanceof TextComponentString) {
-                                j1 += mc.fontRenderer.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString)itextcomponent).getText(), false));
+                                j1 += mc.fontRenderer.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString) itextcomponent).getText(), false));
 
                                 if (j1 > j) {
                                     return itextcomponent;
@@ -396,12 +386,10 @@ public class ChatOverlay extends GuiNewChat {
                         }
                     }
                     return null;
-                }
-                else {
+                } else {
                     return null;
                 }
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -462,6 +450,7 @@ public class ChatOverlay extends GuiNewChat {
 
     public static class GroupedChatLine extends ChatLine {
         int groupId;
+
         public GroupedChatLine(int updateCounterCreatedIn, ITextComponent lineStringIn, int chatLineIDIn, int groupId) {
             super(updateCounterCreatedIn, lineStringIn, chatLineIDIn);
             this.groupId = groupId;

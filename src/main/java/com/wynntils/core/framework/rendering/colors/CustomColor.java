@@ -10,18 +10,20 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Arrays;
 
-/** CustomColor
+/**
+ * CustomColor
  * will represent color or complex colors
  * in a more efficient way than awt's Color or minecraft's color ints.
  */
 public class CustomColor {
-    public float
-            r,  // The RED   value of the color(0.0f -> 1.0f)
-            g,  // The GREEN value of the color(0.0f -> 1.0f)
-            b,  // The BLUE  value of the color(0.0f -> 1.0f)
-            a;  // The ALPHA value of the color(0.0f -> 1.0f)
+    public float r, // The RED value of the color(0.0f -> 1.0f)
+        g, // The GREEN value of the color(0.0f -> 1.0f)
+        b, // The BLUE value of the color(0.0f -> 1.0f)
+        a; // The ALPHA value of the color(0.0f -> 1.0f)
 
-    public CustomColor(float r, float g, float b) { this(r, g, b, 1.0f); }
+    public CustomColor(float r, float g, float b) {
+        this(r, g, b, 1.0f);
+    }
 
     public CustomColor(float r, float g, float b, float a) {
         this.r = r;
@@ -32,9 +34,12 @@ public class CustomColor {
 
     public CustomColor() {}
 
-    public CustomColor(CustomColor c) { this(c.r, c.g, c.b, c.a); }
+    public CustomColor(CustomColor c) {
+        this(c.r, c.g, c.b, c.a);
+    }
 
-    /** applyColor
+    /**
+     * applyColor
      * Will set the color to OpenGL's active color
      */
     public void applyColor() {
@@ -54,7 +59,8 @@ public class CustomColor {
         if (withoutHash.length() == 6) {
             try {
                 return fromInt(Integer.parseInt(withoutHash, 16), a);
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         } else if (withoutHash.length() == 3) {
             // "rgb" -> "rrggbb"
             try {
@@ -63,13 +69,15 @@ public class CustomColor {
                 int g = ((rgb >> 4) & 0xF) * 0x11;
                 int b = (rgb & 0xF) * 0x11;
                 return fromBytes((byte) r, (byte) g, (byte) b, a);
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         } else if (withoutHash.length() == 2) {
             // "vv" -> "vvvvvv"
             try {
                 byte v = (byte) Integer.parseInt(withoutHash, 16);
                 return fromBytes(v, v, v, a);
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
         byte[] hash = DigestUtils.sha1(string);
         return fromBytes(hash[0], hash[1], hash[2], a);
@@ -90,12 +98,18 @@ public class CustomColor {
         float v3 = v * (1 - s * (1 - (vh - vi)));
 
         switch (vi) {
-            case 0: return new CustomColor(v, v3, v1, a);
-            case 1: return new CustomColor(v2, v, v1, a);
-            case 2: return new CustomColor(v1, v, v3, a);
-            case 3: return new CustomColor(v1, v2, v, a);
-            case 4: return new CustomColor(v3, v1, v, a);
-            default: return new CustomColor(v, v1, v2, a);
+            case 0:
+                return new CustomColor(v, v3, v1, a);
+            case 1:
+                return new CustomColor(v2, v, v1, a);
+            case 2:
+                return new CustomColor(v1, v, v3, a);
+            case 3:
+                return new CustomColor(v1, v2, v, a);
+            case 4:
+                return new CustomColor(v3, v1, v, a);
+            default:
+                return new CustomColor(v, v1, v2, a);
         }
     }
 
@@ -128,7 +142,7 @@ public class CustomColor {
             }
         }
 
-        return new float[]{ hue, saturation, value, a };
+        return new float[] { hue, saturation, value, a };
     }
 
     /**
@@ -147,7 +161,8 @@ public class CustomColor {
     /**
      * Construct a CustomColor from an int 0xAARRGGBB
      *
-     * @param argb 32 bits with the most significant 8 being the value of the alpha channel, followed by rgb values
+     * @param argb 32 bits with the most significant 8 being the value of the alpha
+     *             channel, followed by rgb values
      * @return A custom colour such that fromInt(x).toInt() == x
      */
     public static CustomColor fromInt(int argb) {
@@ -158,8 +173,9 @@ public class CustomColor {
      * Construct a CustomColor from an int 0xRRGGBB and an alpha value
      *
      * @param rgb 24 bits (Most significant 8 are ignored)
-     * @param a Alpha value of colour
-     * @return A custom colour such that fromInt(rgb, a).toInt() & 0xFFFFFF == rgb && fromInt(rgb, a).a == a
+     * @param a   Alpha value of colour
+     * @return A custom colour such that fromInt(rgb, a).toInt() & 0xFFFFFF == rgb
+     *         && fromInt(rgb, a).a == a
      */
     public static CustomColor fromInt(int rgb, float a) {
         return fromBytes((byte) (rgb >>> 16), (byte) (rgb >>> 8), (byte) rgb, a);
@@ -180,7 +196,7 @@ public class CustomColor {
     /** HeyZeer0: this is = rgba(1,1,1,1) **/
     @Override
     public String toString() {
-        return "rgba(" + r + "," + g + "," + b + "," + a +")";
+        return "rgba(" + r + "," + g + "," + b + "," + a + ")";
     }
 
     @Override
@@ -196,7 +212,7 @@ public class CustomColor {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new float[]{ r, g, b, a });
+        return Arrays.hashCode(new float[] { r, g, b, a });
     }
 
     /* package-private */ static class SetBase extends CustomColor {
@@ -208,8 +224,10 @@ public class CustomColor {
             super(r, g, b, a);
         }
 
-        // Prevent setA on global references. Create a copy with `new CustomColor(c)` first.
-        @Override public CustomColor setA(float a) {
+        // Prevent setA on global references. Create a copy with `new CustomColor(c)`
+        // first.
+        @Override
+        public CustomColor setA(float a) {
             new UnsupportedOperationException("Cannot set alpha of common color").printStackTrace();
             return this;
         }

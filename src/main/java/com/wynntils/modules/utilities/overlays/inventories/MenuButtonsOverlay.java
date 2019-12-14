@@ -21,9 +21,7 @@ import java.util.List;
 
 public class MenuButtonsOverlay implements Listener {
 
-    private static final String[] ips = {
-        Reference.ServerIPS.us,
-        Reference.ServerIPS.eu
+    private static final String[] ips = { Reference.ServerIPS.us, Reference.ServerIPS.eu
     };
 
     @SubscribeEvent
@@ -100,7 +98,7 @@ public class MenuButtonsOverlay implements Listener {
                     int bid = b.id;
                     if (0 <= bid - 760 && bid - 760 < ips.length) b.enabled = false;
                 });
-                return;  // Don't cancel
+                return; // Don't cancel
             case 753:
                 Minecraft.getMinecraft().player.sendChatMessage("/class");
                 break;

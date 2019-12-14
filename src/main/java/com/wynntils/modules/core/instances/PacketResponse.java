@@ -55,14 +55,15 @@ public class PacketResponse {
         return lastSent == -1 || System.currentTimeMillis() - lastSent > PingManager.getLastPing() + 150;
     }
 
-    // TODO make this verification faster cuz at the current state it's slowing the packet a lot
+    // TODO make this verification faster cuz at the current state it's slowing the
+    // packet a lot
     public boolean isResponseValid(Packet packetType) {
         if (skipping) {
             return true;
         }
         if (responseType == null || tries >= maxTries) {
             if (this.onDrop != null) this.onDrop.run();
-            return true;  // this avoids packet spamming
+            return true; // this avoids packet spamming
         }
         if (!packetType.getClass().isAssignableFrom(responseType)) return false;
 
@@ -100,10 +101,12 @@ public class PacketResponse {
     }
 
     /**
-     * Called to send packet with the current connection and the packet that was queued.
+     * Called to send packet with the current connection and the packet that was
+     * queued.
      * Default implementation is `(conn, pack) -> conn.sendPacket(pack)`.
      *
-     * Can be used to change the packet sent depending on the outcome of previous packets.
+     * Can be used to change the packet sent depending on the outcome of previous
+     * packets.
      */
     public PacketResponse setSender(BiConsumer<NetHandlerPlayClient, Packet> sender) {
         this.sender = sender;

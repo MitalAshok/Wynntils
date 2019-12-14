@@ -74,17 +74,14 @@ public class FrameworkManager {
 
     public static void registerSettings(Module module, Class<? extends SettingsHolder> settingsClass) {
         ModuleInfo info = module.getClass().getAnnotation(ModuleInfo.class);
-        if (info == null)
-            return;
+        if (info == null) return;
 
         availableModules.get(info.name()).registerSettings(settingsClass);
     }
 
-
     public static void registerOverlay(Module module, Overlay overlay, Priority priority) {
         ModuleInfo info = module.getClass().getAnnotation(ModuleInfo.class);
-        if (info == null)
-            return;
+        if (info == null) return;
 
         ModuleContainer mc = availableModules.get(info.name());
 
@@ -130,17 +127,16 @@ public class FrameworkManager {
 
     public static void disableModules() {
         availableModules.values().forEach(c -> {
-            c.getModule().onDisable(); c.unregisterAllEvents();
+            c.getModule().onDisable();
+            c.unregisterAllEvents();
         });
     }
 
     public static void triggerEvent(Event e) {
-        if (
-                Reference.onServer
-                || e instanceof WynncraftServerEvent
-                || e instanceof TickEvent.RenderTickEvent
-                || e instanceof GuiScreenEvent
-        ) {
+        if (Reference.onServer
+            || e instanceof WynncraftServerEvent
+            || e instanceof TickEvent.RenderTickEvent
+            || e instanceof GuiScreenEvent) {
             ReflectionFields.Event_phase.setValue(e, null);
             eventBus.post(e);
         }
@@ -148,8 +144,9 @@ public class FrameworkManager {
 
     public static void triggerPreHud(RenderGameOverlayEvent.Pre e) {
         if (Reference.onServer && !ModCore.mc().playerController.isSpectator()) {
-            if (e.getType() == RenderGameOverlayEvent.ElementType.AIR ||  // move it to somewhere else if you want, it seems pretty core to wynncraft tho..
-               e.getType() == RenderGameOverlayEvent.ElementType.ARMOR) {
+            if (e.getType() == RenderGameOverlayEvent.ElementType.AIR || // move it to somewhere else if you want, it seems pretty core to wynncraft
+                                                                         // tho..
+                e.getType() == RenderGameOverlayEvent.ElementType.ARMOR) {
                 e.setCanceled(true);
                 return;
             }
@@ -166,8 +163,7 @@ public class FrameworkManager {
                                 break;
                             }
                         }
-                        if (contained)
-                            e.setCanceled(true);
+                        if (contained) e.setCanceled(true);
                         else
                             continue;
                     }
@@ -221,8 +217,7 @@ public class FrameworkManager {
     }
 
     public static void triggerKeyPress() {
-        if (Reference.onServer)
-            availableModules.values().forEach(ModuleContainer::triggerKeyBinding);
+        if (Reference.onServer) availableModules.values().forEach(ModuleContainer::triggerKeyBinding);
     }
 
     public static SettingsContainer getSettings(Module module, SettingsHolder holder) {
@@ -233,8 +228,7 @@ public class FrameworkManager {
 
         SettingsInfo info2 = holder.getClass().getAnnotation(SettingsInfo.class);
         if (info2 == null) {
-            if (holder instanceof Overlay)
-                return availableModules.get(info.name()).getRegisteredSettings().get("overlay" + ((Overlay) holder).displayName);
+            if (holder instanceof Overlay) return availableModules.get(info.name()).getRegisteredSettings().get("overlay" + ((Overlay) holder).displayName);
             else
                 return null;
         }

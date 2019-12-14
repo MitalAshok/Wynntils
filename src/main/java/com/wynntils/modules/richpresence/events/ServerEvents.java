@@ -36,7 +36,8 @@ public class ServerEvents implements Listener {
     public static ScheduledFuture updateTimer;
 
     /**
-     * Starts to check player location for RichPresence current player territory info
+     * Starts to check player location for RichPresence current player territory
+     * info
      */
     public static void startUpdateRegionName() {
         currentTime = OffsetDateTime.now();
@@ -58,7 +59,7 @@ public class ServerEvents implements Listener {
             ServerEvents.forceUpdate = false;
 
             for (TerritoryProfile pf : WebManager.getTerritories().values()) {
-                if (pf.insideArea((int)pl.posX, (int)pl.posZ)) {
+                if (pf.insideArea((int) pl.posX, (int) pl.posZ)) {
                     RichPresenceModule.getModule().getData().setLocation(pf.getFriendlyName());
                     RichPresenceModule.getModule().getData().setUnknownLocation(false);
 
@@ -219,9 +220,9 @@ public class ServerEvents implements Listener {
         }
     }
 
-
     /**
      * Just a simple method to short other ones
+     * 
      * @return RichPresence largeImageText
      */
     public static String getPlayerInfo() {

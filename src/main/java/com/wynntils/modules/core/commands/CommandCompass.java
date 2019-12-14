@@ -24,23 +24,7 @@ import java.util.Locale;
 
 public class CommandCompass extends CommandBase implements IClientCommand {
 
-    private String[] directions = {
-        "north",
-        "northeast",
-        "northwest",
-        "south",
-        "southeast",
-        "southwest",
-        "east",
-        "west",
-        "n",
-        "ne",
-        "nw",
-        "s",
-        "se",
-        "sw",
-        "e",
-        "w"
+    private String[] directions = { "north", "northeast", "northwest", "south", "southeast", "southwest", "east", "west", "n", "ne", "nw", "s", "se", "sw", "e", "w"
     };
 
     @Override
@@ -59,7 +43,7 @@ public class CommandCompass extends CommandBase implements IClientCommand {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException{
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) throw new WrongUsageException("/compass [<x> <z> | <direction> | clear]");
 
         if (args.length == 1 && args[0].equalsIgnoreCase("clear")) {
@@ -76,7 +60,7 @@ public class CommandCompass extends CommandBase implements IClientCommand {
         }
 
         if (args.length == 1 && Arrays.stream(directions).anyMatch(args[0]::equalsIgnoreCase)) {
-            int[] newPos = {0, 0};
+            int[] newPos = { 0, 0 };
             // check for north/south
             switch (args[0].toLowerCase()) {
                 case "north":
@@ -176,7 +160,8 @@ public class CommandCompass extends CommandBase implements IClientCommand {
         }
 
         if (args.length == 2 && args[0].matches("~|~?(?:-?[1-9][0-9]*|0)") && args[1].matches("~|~?(?:-?[1-9][0-9]*|0)")) {
-            int x = 0; int z = 0;
+            int x = 0;
+            int z = 0;
 
             boolean invalid = false;
             if (args[0].charAt(0) == '~') {
@@ -245,16 +230,7 @@ public class CommandCompass extends CommandBase implements IClientCommand {
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args,
-                    "north",
-                    "northeast",
-                    "northwest",
-                    "south",
-                    "southeast",
-                    "southwest",
-                    "east",
-                    "west",
-                    "clear");
+            return getListOfStringsMatchingLastWord(args, "north", "northeast", "northwest", "south", "southeast", "southwest", "east", "west", "clear");
         }
         return Collections.emptyList();
     }

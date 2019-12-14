@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-
 public class TabGUI extends GuiScreen {
 
     int id;
@@ -27,9 +26,9 @@ public class TabGUI extends GuiScreen {
     public TabGUI(int id) {
         this.id = id;
 
-        if (id != -2)
-            tab = TabManager.getTabById(id);
+        if (id != -2) tab = TabManager.getTabById(id);
     }
+
     ArrayList<GuiCheckBox> simpleRegexSettings = new ArrayList<>();
 
     // ui things
@@ -61,7 +60,8 @@ public class TabGUI extends GuiScreen {
         labelList.clear();
         simpleRegexSettings.clear();
 
-        int x = width / 2; int y = height / 2;
+        int x = width / 2;
+        int y = height / 2;
 
         // General
         buttonList.add(saveButton = new GuiButton(0, x - 90, y + 40, 40, 20, TextFormatting.GREEN + "Save"));
@@ -196,20 +196,15 @@ public class TabGUI extends GuiScreen {
         if (autoCommandField != null) autoCommandField.drawTextBox();
         if (orderNbField != null) orderNbField.drawTextBox();
 
-        if (mouseX >= nameTextField.x && mouseX < nameTextField.x + nameTextField.width && mouseY >= nameTextField.y && mouseY < nameTextField.y + nameTextField.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Name"), TextFormatting.GRAY + "This is how your tab", TextFormatting.GRAY + "will be named", "", TextFormatting.RED + "Required"), mouseX, mouseY);
+        if (mouseX >= nameTextField.x && mouseX < nameTextField.x + nameTextField.width && mouseY >= nameTextField.y && mouseY < nameTextField.y + nameTextField.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Name"), TextFormatting.GRAY + "This is how your tab", TextFormatting.GRAY + "will be named", "", TextFormatting.RED + "Required"), mouseX, mouseY);
 
-        if (regexTextField.getVisible() && mouseX >= regexTextField.x && mouseX < regexTextField.x + regexTextField.width && mouseY >= regexTextField.y && mouseY < regexTextField.y + regexTextField.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "RegEx"), TextFormatting.GRAY + "This will parse the chat", " ", TextFormatting.GREEN + "You can learn RegEx at", TextFormatting.GOLD + "https://regexr.com/", "", TextFormatting.RED + "Required"), mouseX, mouseY);
+        if (regexTextField.getVisible() && mouseX >= regexTextField.x && mouseX < regexTextField.x + regexTextField.width && mouseY >= regexTextField.y && mouseY < regexTextField.y + regexTextField.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "RegEx"), TextFormatting.GRAY + "This will parse the chat", " ", TextFormatting.GREEN + "You can learn RegEx at", TextFormatting.GOLD + "https://regexr.com/", "", TextFormatting.RED + "Required"), mouseX, mouseY);
 
-        if (mouseX >= autoCommandField.x && mouseX < autoCommandField.x + autoCommandField.width && mouseY >= autoCommandField.y && mouseY < autoCommandField.y + autoCommandField.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Auto Command"), TextFormatting.GRAY + "This will automatically", TextFormatting.GRAY + "put this command before", TextFormatting.GRAY + "any message.", "", TextFormatting.RED + "Optional"), mouseX, mouseY);
+        if (mouseX >= autoCommandField.x && mouseX < autoCommandField.x + autoCommandField.width && mouseY >= autoCommandField.y && mouseY < autoCommandField.y + autoCommandField.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Auto Command"), TextFormatting.GRAY + "This will automatically", TextFormatting.GRAY + "put this command before", TextFormatting.GRAY + "any message.", "", TextFormatting.RED + "Optional"), mouseX, mouseY);
 
-        if (mouseX >= orderNbField.x && mouseX < orderNbField.x + orderNbField.width && mouseY >= orderNbField.y && mouseY < orderNbField.y + orderNbField.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Order number"), TextFormatting.GRAY + "This determines the", TextFormatting.GRAY + "arrangement of the", TextFormatting.GRAY + "chat tabs.", TextFormatting.DARK_GRAY + "(lowest to highest)", TextFormatting.RED + "Optional"), mouseX, mouseY);
+        if (mouseX >= orderNbField.x && mouseX < orderNbField.x + orderNbField.width && mouseY >= orderNbField.y && mouseY < orderNbField.y + orderNbField.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Order number"), TextFormatting.GRAY + "This determines the", TextFormatting.GRAY + "arrangement of the", TextFormatting.GRAY + "chat tabs.", TextFormatting.DARK_GRAY + "(lowest to highest)", TextFormatting.RED + "Optional"), mouseX, mouseY);
 
-        if (mouseX >= lowPriority.x && mouseX < lowPriority.x + lowPriority.width && mouseY >= lowPriority.y && mouseY < lowPriority.y + lowPriority.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Low priority"), TextFormatting.GRAY + "If selected, messages", TextFormatting.GRAY + "will attempt to match", TextFormatting.GRAY + "with other tabs first.", "", TextFormatting.GRAY + "This will also duplicate", TextFormatting.GRAY + "messages across other", TextFormatting.GRAY + "low priority tabs.", TextFormatting.RED + "Optional"), mouseX, mouseY);
+        if (mouseX >= lowPriority.x && mouseX < lowPriority.x + lowPriority.width && mouseY >= lowPriority.y && mouseY < lowPriority.y + lowPriority.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Low priority"), TextFormatting.GRAY + "If selected, messages", TextFormatting.GRAY + "will attempt to match", TextFormatting.GRAY + "with other tabs first.", "", TextFormatting.GRAY + "This will also duplicate", TextFormatting.GRAY + "messages across other", TextFormatting.GRAY + "low priority tabs.", TextFormatting.RED + "Optional"), mouseX, mouseY);
 
         if (advancedButton.displayString.equals("Show Advanced Settings")) {
             if (mouseX >= allRegex.x && mouseX < allRegex.x + allRegex.width && mouseY >= allRegex.y && mouseY < allRegex.y + allRegex.height) {
@@ -227,11 +222,9 @@ public class TabGUI extends GuiScreen {
             }
         }
 
-        if (saveButton.enabled && mouseX >= saveButton.x && mouseX < saveButton.x + saveButton.width && mouseY >= saveButton.y && mouseY < saveButton.y + saveButton.height)
-            drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Save"), TextFormatting.GRAY + "Click here to save", TextFormatting.GRAY + "this chat tab."), mouseX, mouseY);
+        if (saveButton.enabled && mouseX >= saveButton.x && mouseX < saveButton.x + saveButton.width && mouseY >= saveButton.y && mouseY < saveButton.y + saveButton.height) drawHoveringText(Arrays.asList(TextFormatting.GREEN + (TextFormatting.BOLD + "Save"), TextFormatting.GRAY + "Click here to save", TextFormatting.GRAY + "this chat tab."), mouseX, mouseY);
 
-        if (deleteButton.enabled && mouseX >= deleteButton.x && mouseX < deleteButton.x + deleteButton.width && mouseY >= deleteButton.y && mouseY < deleteButton.y + deleteButton.height)
-            drawHoveringText(Arrays.asList(TextFormatting.DARK_RED + (TextFormatting.BOLD + "Delete"), TextFormatting.GRAY + "Click here to delete", TextFormatting.GRAY + "this chat tab.", "", TextFormatting.RED + "Irreversible action"), mouseX, mouseY);
+        if (deleteButton.enabled && mouseX >= deleteButton.x && mouseX < deleteButton.x + deleteButton.width && mouseY >= deleteButton.y && mouseY < deleteButton.y + deleteButton.height) drawHoveringText(Arrays.asList(TextFormatting.DARK_RED + (TextFormatting.BOLD + "Delete"), TextFormatting.GRAY + "Click here to delete", TextFormatting.GRAY + "this chat tab.", "", TextFormatting.RED + "Irreversible action"), mouseX, mouseY);
 
         saveButton.enabled = !regexTextField.getText().isEmpty() && regexValid && !nameTextField.getText().isEmpty();
     }
@@ -259,12 +252,13 @@ public class TabGUI extends GuiScreen {
     boolean regexValid = false;
 
     private void checkIfRegexIsValid() {
-        try{
+        try {
             Pattern.compile(regexTextField.getText());
             regexTextField.setTextColor(0x55FF55);
             regexValid = true;
             return;
-        }catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         regexTextField.setTextColor(0xFF5555);
         regexValid = false;
@@ -274,7 +268,7 @@ public class TabGUI extends GuiScreen {
         if (advancedButton.displayString.equals("Hide Advanced Settings")) return null;
 
         HashMap<String, Boolean> r = new HashMap<>();
-        simpleRegexSettings.forEach(b->{
+        simpleRegexSettings.forEach(b -> {
             r.put(b.displayString, b.isChecked());
         });
         return r;
@@ -283,7 +277,7 @@ public class TabGUI extends GuiScreen {
     private void applyRegexSettings() {
         if (tab == null || tab.getRegexSettings() == null) return;
         tab.getRegexSettings().forEach((k, v) -> {
-            for (GuiCheckBox cb: simpleRegexSettings) {
+            for (GuiCheckBox cb : simpleRegexSettings) {
                 if (cb.displayString.equals(k)) {
                     cb.setIsChecked(v);
                 }

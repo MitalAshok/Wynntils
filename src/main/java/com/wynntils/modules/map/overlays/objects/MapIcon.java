@@ -32,7 +32,8 @@ public abstract class MapIcon {
     public abstract int getPosZ();
 
     /**
-     * @return The name rendered above this icon when hovering over it in the main map
+     * @return The name rendered above this icon when hovering over it in the main
+     *         map
      */
     public abstract String getName();
 
@@ -47,25 +48,32 @@ public abstract class MapIcon {
     public abstract float getSizeZ();
 
     /**
-     * @return The zoom amount needed in the main map to render this icon. (Icons are always rendered)
+     * @return The zoom amount needed in the main map to render this icon. (Icons
+     *         are always rendered)
      */
     public abstract int getZoomNeeded();
 
     /**
-     * @param forMinimap If true, return whether enabled for minimap instead of main map
+     * @param forMinimap If true, return whether enabled for minimap instead of main
+     *                   map
      *
-     * @return Whether this icon should be rendered or not (Usually based on a config)
+     * @return Whether this icon should be rendered or not (Usually based on a
+     *         config)
      */
     public abstract boolean isEnabled(boolean forMinimap);
 
     /**
      * Render this icon
      *
-     * @param renderer What to use to render
-     * @param centreX The x position of centre of the icon (on the screen)
-     * @param centreZ As centreX, but for z position
-     * @param sizeMultiplier The width should be {@link #getSizeX()} * sizeMultiplier, and the height {@link #getSizeZ()} * sizeMultiplier
-     * @param blockScale The number of pixels on screen that represent one Minecraft block. Used for icons that span multiple blocks.
+     * @param renderer       What to use to render
+     * @param centreX        The x position of centre of the icon (on the screen)
+     * @param centreZ        As centreX, but for z position
+     * @param sizeMultiplier The width should be {@link #getSizeX()} *
+     *                       sizeMultiplier, and the height {@link #getSizeZ()} *
+     *                       sizeMultiplier
+     * @param blockScale     The number of pixels on screen that represent one
+     *                       Minecraft block. Used for icons that span multiple
+     *                       blocks.
      */
     public abstract void renderAt(ScreenRenderer renderer, float centreX, float centreZ, float sizeMultiplier, float blockScale);
 
@@ -95,7 +103,8 @@ public abstract class MapIcon {
     }
 
     /**
-     * If true, the location will be queried every time this icon is drawn, like in the minimap
+     * If true, the location will be queried every time this icon is drawn, like in
+     * the minimap
      */
     public abstract boolean hasDynamicLocation();
 

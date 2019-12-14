@@ -33,12 +33,7 @@ public abstract class MapTextureIcon extends MapIcon {
     public void renderAt(ScreenRenderer renderer, float centreX, float centreZ, float sizeMultiplier, float blockScale) {
         float sizeX = getSizeX() * sizeMultiplier;
         float sizeZ = getSizeZ() * sizeMultiplier;
-        renderer.drawRectF(
-                getTexture(),
-                centreX - sizeX, centreZ - sizeZ,
-                centreX + sizeX, centreZ + sizeZ,
-                getTexPosX(), getTexPosZ(), getTexSizeX(), getTexSizeZ()
-        );
+        renderer.drawRectF(getTexture(), centreX - sizeX, centreZ - sizeZ, centreX + sizeX, centreZ + sizeZ, getTexPosX(), getTexPosZ(), getTexSizeX(), getTexSizeZ());
     }
 
     @Override
@@ -51,45 +46,86 @@ public abstract class MapTextureIcon extends MapIcon {
         return false;
     }
 
-    public static MapTextureIcon createStaticIcon(
-            Texture texture,
-            int texPosX, int texPosZ, int texSizeX, int texSizeZ
-    ) {
+    public static MapTextureIcon createStaticIcon(Texture texture, int texPosX, int texPosZ, int texSizeX, int texSizeZ) {
         return createStaticIcon(texture, texPosX, texPosZ, texSizeX, texSizeZ, texSizeX - texPosX, texSizeZ - texPosZ);
     }
 
     /**
-     * @return A `MapTextureIcon` instance with the given parameters that can be drawn with `renderAt`
+     * @return A `MapTextureIcon` instance with the given parameters that can be
+     *         drawn with `renderAt`
      */
-    public static MapTextureIcon createStaticIcon(
-            Texture texture,
-            int texPosX, int texPosZ, int texSizeX, int texSizeZ,
-            int sizeX, int sizeZ
-    ) {
+    public static MapTextureIcon createStaticIcon(Texture texture, int texPosX, int texPosZ, int texSizeX, int texSizeZ, int sizeX, int sizeZ) {
         return new MapTextureIcon() {
-            @Override public Texture getTexture() { return texture; }
-            @Override public int getTexPosX() { return texPosX; }
-            @Override public int getTexPosZ() { return texPosZ; }
-            @Override public int getTexSizeX() { return texSizeX; }
-            @Override public int getTexSizeZ() { return texSizeZ; }
-            @Override public int getPosX() { throw new UnsupportedOperationException("Cannot getPosX() on a static icon"); }
-            @Override public int getPosZ() { throw new UnsupportedOperationException("Cannot getPosZ() on a static icon"); }
-            @Override public String getName() { throw new UnsupportedOperationException("Cannot getName() on a static icon"); }
-            @Override public float getSizeX() { return sizeX; }
-            @Override public float getSizeZ() { return sizeZ; }
-            @Override public int getZoomNeeded() { throw new UnsupportedOperationException("Cannot getZoomNeeded() on a static icon"); }
-            @Override public boolean isEnabled(boolean forMinimap) { throw new UnsupportedOperationException("Cannot isEnabled() on a static icon"); }
-            @Override public boolean hasDynamicLocation() { throw new UnsupportedOperationException("Cannot hasDynamicLocation() on a static icon"); }
+            @Override
+            public Texture getTexture() {
+                return texture;
+            }
+
+            @Override
+            public int getTexPosX() {
+                return texPosX;
+            }
+
+            @Override
+            public int getTexPosZ() {
+                return texPosZ;
+            }
+
+            @Override
+            public int getTexSizeX() {
+                return texSizeX;
+            }
+
+            @Override
+            public int getTexSizeZ() {
+                return texSizeZ;
+            }
+
+            @Override
+            public int getPosX() {
+                throw new UnsupportedOperationException("Cannot getPosX() on a static icon");
+            }
+
+            @Override
+            public int getPosZ() {
+                throw new UnsupportedOperationException("Cannot getPosZ() on a static icon");
+            }
+
+            @Override
+            public String getName() {
+                throw new UnsupportedOperationException("Cannot getName() on a static icon");
+            }
+
+            @Override
+            public float getSizeX() {
+                return sizeX;
+            }
+
+            @Override
+            public float getSizeZ() {
+                return sizeZ;
+            }
+
+            @Override
+            public int getZoomNeeded() {
+                throw new UnsupportedOperationException("Cannot getZoomNeeded() on a static icon");
+            }
+
+            @Override
+            public boolean isEnabled(boolean forMinimap) {
+                throw new UnsupportedOperationException("Cannot isEnabled() on a static icon");
+            }
+
+            @Override
+            public boolean hasDynamicLocation() {
+                throw new UnsupportedOperationException("Cannot hasDynamicLocation() on a static icon");
+            }
+
             @Override
             public void renderAt(ScreenRenderer renderer, float centreX, float centreZ, float sizeMultiplier, float blockScale) {
                 float ssizeX = sizeX * sizeMultiplier;
                 float ssizeZ = sizeZ * sizeMultiplier;
-                renderer.drawRectF(
-                        texture,
-                        centreX - ssizeX, centreZ - ssizeZ,
-                        centreX + ssizeX, centreZ + ssizeZ,
-                        texPosX, texPosZ, texSizeX, texSizeZ
-                );
+                renderer.drawRectF(texture, centreX - ssizeX, centreZ - ssizeZ, centreX + ssizeX, centreZ + ssizeZ, texPosX, texPosZ, texSizeX, texSizeZ);
             }
         };
     }

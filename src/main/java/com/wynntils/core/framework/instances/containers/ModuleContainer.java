@@ -28,7 +28,8 @@ public class ModuleContainer {
     HashSet<Object> registeredEvents = new HashSet<>();
 
     public ModuleContainer(ModuleInfo info, Module module) {
-        this.info = info; this.module = module;
+        this.info = info;
+        this.module = module;
     }
 
     public Module getModule() {
@@ -80,7 +81,7 @@ public class ModuleContainer {
                 try {
                     field.set(null, holder.getConstructor().newInstance());
                     registeredSettings.put(info.name(), new SettingsContainer(this, (SettingsHolder) field.get(null)));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return;
@@ -94,8 +95,11 @@ public class ModuleContainer {
 
     public void reloadSettings() {
         registeredSettings.values().forEach(c -> {
-            try { c.tryToLoad();
-            } catch (Exception e) { e.printStackTrace(); }
+            try {
+                c.tryToLoad();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 

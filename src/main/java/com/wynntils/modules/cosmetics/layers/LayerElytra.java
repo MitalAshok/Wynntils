@@ -40,8 +40,7 @@ public class LayerElytra extends ModelBase implements LayerRenderer<AbstractClie
     @Override
     public void doRenderLayer(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (!Minecraft.getMinecraft().gameSettings.getModelParts().toString().contains("CAPE")
-                && player.getUniqueID() == ModCore.mc().player.getUniqueID())
-            return;
+            && player.getUniqueID() == ModCore.mc().player.getUniqueID()) return;
 
         if (!WebManager.hasElytra(player.getUniqueID())) return;
 
@@ -63,7 +62,8 @@ public class LayerElytra extends ModelBase implements LayerRenderer<AbstractClie
         renderPlayer.bindTexture(elytra);
 
         // rendering
-        { pushMatrix();
+        {
+            pushMatrix();
             translate(0.0F, 0.0F, 0.125F);
 
             double d0 = player.prevChasingPosX + (player.chasingPosX - player.prevChasingPosX) * (double) partialTicks - (player.prevPosX + (player.posX - player.prevPosX) * (double) partialTicks);
@@ -99,7 +99,8 @@ public class LayerElytra extends ModelBase implements LayerRenderer<AbstractClie
             modelElytra.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
             disableBlend();
-        } popMatrix();
+        }
+        popMatrix();
     }
 
     public boolean shouldCombineTextures() {

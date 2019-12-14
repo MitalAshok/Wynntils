@@ -48,13 +48,14 @@ public class ServerEvents implements Listener {
 
     /**
      * Does 5 different things and is triggered when the user joins Wynncraft:
-     *  - Register the pipeline that intercepts INCOMING Packets
-     *  @see PacketIncomingFilter
-     *  - Register the pipline that intercepts OUTGOING Packets
-     *  @see PacketOutgoingFilter
-     *  - Check if the mod has an update available
-     *  - Check if there is anything on the download queue
-     *  - Updates the overlayPlayerList to the Wynntils Version
+     * - Register the pipeline that intercepts INCOMING Packets
+     * 
+     * @see PacketIncomingFilter
+     *      - Register the pipline that intercepts OUTGOING Packets
+     * @see PacketOutgoingFilter
+     *      - Check if the mod has an update available
+     *      - Check if there is anything on the download queue
+     *      - Updates the overlayPlayerList to the Wynntils Version
      *
      * @param e Represents the event
      */
@@ -76,9 +77,11 @@ public class ServerEvents implements Listener {
 
     /**
      * Called when the user joins a Wynncraft World, used to register some stuff:
-     *  - Make the player use the command /friend list in order to gatter the user friend list
-     *  - Check if the last user class was registered if not, make the player execute /class to register it
-     *  - Updates the last class
+     * - Make the player use the command /friend list in order to gatter the user
+     * friend list
+     * - Check if the last user class was registered if not, make the player execute
+     * /class to register it
+     * - Updates the last class
      *
      * @param e Represents the event
      */
@@ -97,14 +100,13 @@ public class ServerEvents implements Listener {
 
         SocketManager.emitEvent("join world", e.getWorld());
 
-        PartyManager.handlePartyList();  // party list here
+        PartyManager.handlePartyList(); // party list here
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void leaveWorldEvent(WynnWorldEvent.Leave e) {
         SocketManager.emitEvent("leave world");
     }
-
 
     /**
      * Detects and register the current friend list of the user
@@ -119,7 +121,7 @@ public class ServerEvents implements Listener {
         if (e.isCanceled() || e.getType() != ChatType.SYSTEM) {
             return;
         }
-        PartyManager.handleMessages(e.getMessage());  // party messages here
+        PartyManager.handleMessages(e.getMessage()); // party messages here
 
         String messageText = e.getMessage().getUnformattedText();
         if (messageText.startsWith(Minecraft.getMinecraft().player.getName() + "'")) {
@@ -128,7 +130,9 @@ public class ServerEvents implements Listener {
             String[] friends;
             if (splited[1].contains(",")) {
                 friends = splited[1].substring(1).split(", ");
-            } else { friends = new String[] {splited[1].substring(1)}; }
+            } else {
+                friends = new String[] { splited[1].substring(1) };
+            }
 
             HashSet<String> friendsList = PlayerInfo.getPlayerInfo().getFriendList();
             HashSet<String> newFriendsList = new HashSet<>(Arrays.asList(friends));
@@ -219,7 +223,7 @@ public class ServerEvents implements Listener {
     static BlockPos currentSpawn = null;
 
     /**
-     *  Block compass changing locations if a forced location is set
+     * Block compass changing locations if a forced location is set
      */
     @SubscribeEvent
     public void onCompassChange(PacketEvent<SPacketSpawnPosition> e) {

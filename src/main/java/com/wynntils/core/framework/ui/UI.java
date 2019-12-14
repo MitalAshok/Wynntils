@@ -53,13 +53,24 @@ public abstract class UI extends GuiScreen {
         ScreenRenderer.endGL();
     }
 
-    @Override public void updateScreen() {
-        ticks++; onTick();
+    @Override
+    public void updateScreen() {
+        ticks++;
+        onTick();
         for (UIElement uie : UIElements)
             uie.tick(ticks);
     }
-    @Override public void initGui() { if (!initiated) { initiated = true; onInit(); } onWindowUpdate(); }
-    @Override public void onGuiClosed() {onClose();}
+
+    @Override
+    public void initGui() {
+        if (!initiated) { initiated = true; onInit(); }
+        onWindowUpdate();
+    }
+
+    @Override
+    public void onGuiClosed() {
+        onClose();
+    }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
@@ -71,9 +82,9 @@ public abstract class UI extends GuiScreen {
                     this.UIElements = ((UIEList) uie).elements;
                     mouseClicked(mouseX, mouseY, mouseButton);
                     this.UIElements = UIElements_old;
-                } else if (uie instanceof UIEClickZone)
-                    ((UIEClickZone) uie).click(mouseX, mouseY, mouseButton > 2 ? MouseButton.UNKNOWN : MouseButton.values()[mouseButton], this);
-        } catch (ConcurrentModificationException ignored) {}
+                } else if (uie instanceof UIEClickZone) ((UIEClickZone) uie).click(mouseX, mouseY, mouseButton > 2 ? MouseButton.UNKNOWN : MouseButton.values()[mouseButton], this);
+        } catch (ConcurrentModificationException ignored) {
+        }
     }
 
     @Override
@@ -85,8 +96,7 @@ public abstract class UI extends GuiScreen {
                 this.UIElements = ((UIEList) uie).elements;
                 mouseReleased(mouseX, mouseY, state);
                 this.UIElements = UIElements_old;
-            } else if (uie instanceof UIEClickZone)
-                ((UIEClickZone) uie).release(mouseX, mouseY, state > 2 ? MouseButton.UNKNOWN : MouseButton.values()[state], this);
+            } else if (uie instanceof UIEClickZone) ((UIEClickZone) uie).release(mouseX, mouseY, state > 2 ? MouseButton.UNKNOWN : MouseButton.values()[state], this);
         }
     }
 
@@ -98,8 +108,7 @@ public abstract class UI extends GuiScreen {
                 this.UIElements = ((UIEList) uie).elements;
                 mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
                 this.UIElements = UIElements_old;
-            } else if (uie instanceof UIEClickZone)
-                ((UIEClickZone) uie).clickMove(mouseX, mouseY, clickedMouseButton > 2 ? MouseButton.UNKNOWN : MouseButton.values()[clickedMouseButton], timeSinceLastClick, this);
+            } else if (uie instanceof UIEClickZone) ((UIEClickZone) uie).clickMove(mouseX, mouseY, clickedMouseButton > 2 ? MouseButton.UNKNOWN : MouseButton.values()[clickedMouseButton], timeSinceLastClick, this);
         }
     }
 
@@ -114,21 +123,25 @@ public abstract class UI extends GuiScreen {
                 this.UIElements = UIElements_old;
             } else if (uie instanceof UIETextBox) {
                 ((UIETextBox) uie).keyTyped(typedChar, keyCode, this);
-            } else if (uie instanceof UIEColorWheel)
-                ((UIEColorWheel) uie).keyTyped(typedChar, keyCode, this);
+            } else if (uie instanceof UIEColorWheel) ((UIEColorWheel) uie).keyTyped(typedChar, keyCode, this);
         }
     }
 
-    // v  USE THESE INSTEAD OF GUISCREEN METHODS IF POSSIBLE  v \\
+    // v USE THESE INSTEAD OF GUISCREEN METHODS IF POSSIBLE v \\
     public abstract void onInit();
+
     public abstract void onClose();
+
     public abstract void onTick();
+
     public abstract void onRenderPreUIE(ScreenRenderer render);
+
     public abstract void onRenderPostUIE(ScreenRenderer render);
+
     public abstract void onWindowUpdate();
 
     @Override
-    protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {  // fix for alpha problems after doing default background
+    protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) { // fix for alpha problems after doing default background
         super.drawGradientRect(left, top, right, bottom, startColor, endColor);
         GlStateManager.enableBlend();
     }
@@ -137,9 +150,9 @@ public abstract class UI extends GuiScreen {
         for (Field f : ui.getClass().getFields()) {
             try {
                 UIElement uie = (UIElement) f.get(ui);
-                if (uie != null)
-                    ui.UIElements.add(uie);
-            } catch (Exception ignored) {}
+                if (uie != null) ui.UIElements.add(uie);
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -150,13 +163,15 @@ public abstract class UI extends GuiScreen {
 
     public static abstract class CommonUIFeatures {
         static ScreenRenderer render = new ScreenRenderer();
+
         public static void drawBook() {
-            int wh = ScreenRenderer.screen.getScaledWidth()/2, hh = ScreenRenderer.screen.getScaledHeight()/2;
-            render.drawRect(Textures.UIs.book, wh-200, hh-110, wh+200, hh+110, 0f, 0f, 1f, 1f);
+            int wh = ScreenRenderer.screen.getScaledWidth() / 2, hh = ScreenRenderer.screen.getScaledHeight() / 2;
+            render.drawRect(Textures.UIs.book, wh - 200, hh - 110, wh + 200, hh + 110, 0f, 0f, 1f, 1f);
         }
+
         public static void drawScrollArea() {
-            int wh = ScreenRenderer.screen.getScaledWidth()/2, hh = ScreenRenderer.screen.getScaledHeight()/2;
-            render.drawRect(Textures.UIs.book_scrollarea_settings, wh-190, hh-100, wh-12, hh+85, 0f, 0f, 1f, 1f);
+            int wh = ScreenRenderer.screen.getScaledWidth() / 2, hh = ScreenRenderer.screen.getScaledHeight() / 2;
+            render.drawRect(Textures.UIs.book_scrollarea_settings, wh - 190, hh - 100, wh - 12, hh + 85, 0f, 0f, 1f, 1f);
         }
     }
 }

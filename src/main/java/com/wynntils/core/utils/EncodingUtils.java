@@ -12,7 +12,8 @@ import java.util.zip.Inflater;
 public class EncodingUtils {
 
     /**
-     * Encodes a float to a ByteBuffer, in a shorter format if it happens to be an integer.
+     * Encodes a float to a ByteBuffer, in a shorter format if it happens to be an
+     * integer.
      * The float cannot be NaN.
      */
     public static void encodeFloat(float f, ByteBuffer buf) {
@@ -35,7 +36,8 @@ public class EncodingUtils {
     }
 
     /**
-     * Encodes a double to a ByteBuffer, in a shorter format if it happens to be an integer.
+     * Encodes a double to a ByteBuffer, in a shorter format if it happens to be an
+     * integer.
      * The double cannot be NaN.
      */
     public static void encodeDouble(double d, ByteBuffer buf) {
@@ -129,7 +131,7 @@ public class EncodingUtils {
         return (int) decodeLong(buf, 5);
     }
 
-    public static long decodeLong(ByteBuffer buf) throws BufferUnderflowException{
+    public static long decodeLong(ByteBuffer buf) throws BufferUnderflowException {
         return decodeLong(buf, 10);
     }
 
@@ -149,14 +151,14 @@ public class EncodingUtils {
         long place = 6;
         while (maxBytes-- > 0) {
             long b = Byte.toUnsignedLong(buf.get());
-            assert((result & (0b01111111L << place)) == 0);
+            assert ((result & (0b01111111L << place)) == 0);
             result |= (b & 0b01111111L) << place;
             place += 7;
             if ((b & 0b10000000) == 0) {
                 return negative ? -result : result;
             }
         }
-        throw new BufferUnderflowException();  // The result buffer underflowed
+        throw new BufferUnderflowException(); // The result buffer underflowed
     }
 
     public static byte[] deflate(String s) {

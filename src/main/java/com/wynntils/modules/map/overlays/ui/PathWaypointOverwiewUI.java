@@ -35,9 +35,9 @@ public class PathWaypointOverwiewUI extends GuiScreen {
 
         pageHeight = (this.height - 100) / 25;
         setEditButtons();
-        this.buttonList.add(newBtn = new GuiButton(-1, this.width/2 - 20, this.height - 45, 40, 20, "NEW"));
-        this.buttonList.add(nextPageBtn = new GuiButton(0, this.width/2 + 24, this.height - 45, 20, 20, ">"));
-        this.buttonList.add(previousPageBtn = new GuiButton(1, this.width/2 - 44, this.height - 45, 20, 20, "<"));
+        this.buttonList.add(newBtn = new GuiButton(-1, this.width / 2 - 20, this.height - 45, 40, 20, "NEW"));
+        this.buttonList.add(nextPageBtn = new GuiButton(0, this.width / 2 + 24, this.height - 45, 20, 20, ">"));
+        this.buttonList.add(previousPageBtn = new GuiButton(1, this.width / 2 - 44, this.height - 45, 20, 20, "<"));
         this.buttonList.add(exitBtn = new GuiButton(2, this.width - 40, 20, 20, 20, TextFormatting.RED + "X"));
         checkAvailablePages();
     }
@@ -46,11 +46,11 @@ public class PathWaypointOverwiewUI extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        fontRenderer.drawString(TextFormatting.BOLD + "Icon", this.width/2 - 185, 39, 0xFFFFFF);
-        fontRenderer.drawString(TextFormatting.BOLD + "Name", this.width/2 - 150, 39, 0xFFFFFF);
-        drawCenteredString(fontRenderer, TextFormatting.BOLD + "X", this.width/2 + 20, 39, 0xFFFFFF);
-        drawCenteredString(fontRenderer, TextFormatting.BOLD + "Z", this.width/2 + 60, 39, 0xFFFFFF);
-        drawRect(this.width/2 - 185, 48, this.width/2 + 170, 49, 0xFFFFFFFF);
+        fontRenderer.drawString(TextFormatting.BOLD + "Icon", this.width / 2 - 185, 39, 0xFFFFFF);
+        fontRenderer.drawString(TextFormatting.BOLD + "Name", this.width / 2 - 150, 39, 0xFFFFFF);
+        drawCenteredString(fontRenderer, TextFormatting.BOLD + "X", this.width / 2 + 20, 39, 0xFFFFFF);
+        drawCenteredString(fontRenderer, TextFormatting.BOLD + "Z", this.width / 2 + 60, 39, 0xFFFFFF);
+        drawRect(this.width / 2 - 185, 48, this.width / 2 + 170, 49, 0xFFFFFFFF);
 
         ScreenRenderer.beginGL(0, 0);
         for (int i = 0; i < Math.min(pageHeight, paths.size() - pageHeight * page); i++) {
@@ -65,9 +65,9 @@ public class PathWaypointOverwiewUI extends GuiScreen {
             renderer.drawRect(CommonColors.BLACK, this.width / 2 - 180, 51 + 25 * i, this.width / 2 - 162, 69 + 25 * i);
             renderer.drawRect(wp.getColor(), this.width / 2 - 179, 52 + 25 * i, this.width / 2 - 163, 68 + 25 * i);
 
-            fontRenderer.drawString(wp.name, this.width/2 - 150, 56 + 25 * i, colour);
-            drawCenteredString(fontRenderer, Integer.toString(wp.getPosX()), this.width/2 + 20, 56 + 25 * i, colour);
-            drawCenteredString(fontRenderer, Integer.toString(wp.getPosZ()), this.width/2 + 60, 56 + 25 * i, colour);
+            fontRenderer.drawString(wp.name, this.width / 2 - 150, 56 + 25 * i, colour);
+            drawCenteredString(fontRenderer, Integer.toString(wp.getPosX()), this.width / 2 + 20, 56 + 25 * i, colour);
+            drawCenteredString(fontRenderer, Integer.toString(wp.getPosZ()), this.width / 2 + 60, 56 + 25 * i, colour);
 
             if (hidden) {
                 drawHorizontalLine(this.width / 2 - 155, this.width / 2 + 75, 60 + 25 * i - 1, colour | 0xFF000000);
@@ -90,7 +90,7 @@ public class PathWaypointOverwiewUI extends GuiScreen {
             Utils.displayGuiScreen(new MainWorldMapUI());
         } else if (b.id % 10 == 3) {
             Minecraft.getMinecraft().displayGuiScreen(new PathWaypointCreationUI(paths.get(b.id / 10 + page * pageHeight)));
-        } else if (b.id %10 == 5) {
+        } else if (b.id % 10 == 5) {
             MapConfig.Waypoints.INSTANCE.pathWaypoints.remove(paths.get(b.id / 10 + page * pageHeight));
             MapConfig.Waypoints.INSTANCE.saveSettings(MapModule.getModule());
             Minecraft.getMinecraft().displayGuiScreen(new PathWaypointOverwiewUI());
@@ -108,8 +108,8 @@ public class PathWaypointOverwiewUI extends GuiScreen {
         this.buttonList.removeAll(editButtons);
         editButtons.clear();
         for (int i = 0; i < Math.min(pageHeight, paths.size() - pageHeight * page); i++) {
-            editButtons.add(new GuiButton(3 + 10 * i, this.width/2 + 85, 50 + 25 * i, 40, 20,"Edit..."));
-            editButtons.add(new GuiButton(5 + 10 * i, this.width/2 + 130, 50 + 25 * i, 40, 20, "Delete"));
+            editButtons.add(new GuiButton(3 + 10 * i, this.width / 2 + 85, 50 + 25 * i, 40, 20, "Edit..."));
+            editButtons.add(new GuiButton(5 + 10 * i, this.width / 2 + 130, 50 + 25 * i, 40, 20, "Delete"));
         }
         this.buttonList.addAll(editButtons);
     }

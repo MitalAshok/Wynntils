@@ -26,11 +26,12 @@ public class ManaBarOverlay extends Overlay {
 //    @Setting(displayName = "Animation Speed", description = "How fast should the bar changes happen(0 for instant)")
 //    public float animated = 2f;
 
-
-    /* Temp in UtilitiesConfig so users can change textures on the fly
-    @Setting(displayName = "Texture", description = "What texture to use")
-    public ManaTextures texture = ManaTextures.a;
-    */
+    /*
+     * Temp in UtilitiesConfig so users can change textures on the fly
+     * 
+     * @Setting(displayName = "Texture", description = "What texture to use")
+     * public ManaTextures texture = ManaTextures.a;
+     */
 
     @Setting(displayName = "Flip", description = "Should the filling of the bar be flipped")
     public boolean flip = true;
@@ -46,9 +47,9 @@ public class ManaBarOverlay extends Overlay {
     @Override
     public void tick(TickEvent.ClientTickEvent event, long ticks) {
         if (!(visible = (getPlayerInfo().getCurrentMana() != -1 && !Reference.onLobby))) return;
-        if (OverlayConfig.Mana.INSTANCE.animated > 0.0f && OverlayConfig.Mana.INSTANCE.animated < 10.0f)
-            mana -= (OverlayConfig.Mana.INSTANCE.animated * 0.1f) * (mana - (float) getPlayerInfo().getCurrentMana());
-        else mana = getPlayerInfo().getCurrentMana();
+        if (OverlayConfig.Mana.INSTANCE.animated > 0.0f && OverlayConfig.Mana.INSTANCE.animated < 10.0f) mana -= (OverlayConfig.Mana.INSTANCE.animated * 0.1f) * (mana - (float) getPlayerInfo().getCurrentMana());
+        else
+            mana = getPlayerInfo().getCurrentMana();
     }
 
     @Override
@@ -57,13 +58,17 @@ public class ManaBarOverlay extends Overlay {
             case Wynn:
                 drawDefaultBar(-1, 8, 0, 17, textColor);
                 break;
-            case a: drawDefaultBar(-1, 7, 18, 33, textColor);
+            case a:
+                drawDefaultBar(-1, 7, 18, 33, textColor);
                 break;
-            case b: drawDefaultBar(-1, 8, 34, 51, textColor);
+            case b:
+                drawDefaultBar(-1, 8, 34, 51, textColor);
                 break;
-            case c: drawDefaultBar(-1, 7, 52, 67, textColor);
+            case c:
+                drawDefaultBar(-1, 7, 52, 67, textColor);
                 break;
-            case d: drawDefaultBar(-1, 7, 68, 83, textColor);
+            case d:
+                drawDefaultBar(-1, 7, 68, 83, textColor);
                 break;
             case Brune:
                 drawDefaultBar(-1, 8, 83, 100, textColor);
@@ -85,7 +90,7 @@ public class ManaBarOverlay extends Overlay {
 
     private void drawDefaultBar(int y1, int y2, int ty1, int ty2, CustomColor cc) {
         if (OverlayConfig.Mana.INSTANCE.overlayRotation == OverlayRotation.NORMAL) {
-            drawString(getPlayerInfo().getCurrentMana() + " ✺ " + getPlayerInfo().getMaxMana(), textPositionOffset.a - (81-OverlayConfig.Mana.INSTANCE.width), textPositionOffset.b, cc, SmartFontRenderer.TextAlignment.MIDDLE, OverlayConfig.Mana.INSTANCE.textShadow);
+            drawString(getPlayerInfo().getCurrentMana() + " ✺ " + getPlayerInfo().getMaxMana(), textPositionOffset.a - (81 - OverlayConfig.Mana.INSTANCE.width), textPositionOffset.b, cc, SmartFontRenderer.TextAlignment.MIDDLE, OverlayConfig.Mana.INSTANCE.textShadow);
         }
         rotate(OverlayConfig.Mana.INSTANCE.overlayRotation.getDegrees());
         drawProgressBar(Textures.Overlays.bars_mana, OverlayConfig.Mana.INSTANCE.width, y1, 0, y2, ty1, ty2, (flip ? -mana : mana) / (float) getPlayerInfo().getMaxMana());

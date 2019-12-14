@@ -56,7 +56,7 @@ public class PartyContainer {
     /**
      * Remove a member from the party list
      *
-     * @param userName  the member userName
+     * @param userName the member userName
      */
     public void removeMember(String userName) {
         FrameworkManager.getEventBus().post(new WynnSocialEvent.Party.Leave(userName));

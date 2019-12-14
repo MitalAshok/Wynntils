@@ -20,7 +20,6 @@ import net.minecraft.util.text.TextFormatting;
 public class OverlayConfig extends SettingsClass {
     public static OverlayConfig INSTANCE;
 
-
     @Setting(displayName = "Text Shadow", description = "What should the text shadow look like?")
     public SmartFontRenderer.TextShadow textShadow = SmartFontRenderer.TextShadow.OUTLINE;
 
@@ -77,7 +76,8 @@ public class OverlayConfig extends SettingsClass {
             b,
             c,
             d
-            // following the format, to add more textures, register them here with a name and create a special case in the render method
+            // following the format, to add more textures, register them here with a name
+            // and create a special case in the render method
         }
 
     }
@@ -103,7 +103,6 @@ public class OverlayConfig extends SettingsClass {
         @Setting(displayName = "Text Shadow", description = "What should the text shadow look like?")
         public SmartFontRenderer.TextShadow textShadow = SmartFontRenderer.TextShadow.OUTLINE;
 
-
         public enum ManaTextures {
             Wynn,
             Brune,
@@ -115,7 +114,8 @@ public class OverlayConfig extends SettingsClass {
             b,
             c,
             d
-            // following the format, to add more textures, register them here with a name and create a special case in the render method
+            // following the format, to add more textures, register them here with a name
+            // and create a special case in the render method
         }
 
     }
@@ -170,7 +170,6 @@ public class OverlayConfig extends SettingsClass {
         @Setting(displayName = "Text Shadow", description = "What should the text shadow look like?")
         public SmartFontRenderer.TextShadow textShadow = SmartFontRenderer.TextShadow.OUTLINE;
 
-
         public enum expTextures {
             Wynn,
             Liquid,
@@ -178,7 +177,8 @@ public class OverlayConfig extends SettingsClass {
             a,
             b,
             c
-            // following the format, to add more textures, register them here with a name and create a special case in the render method
+            // following the format, to add more textures, register them here with a name
+            // and create a special case in the render method
         }
 
     }
@@ -214,14 +214,13 @@ public class OverlayConfig extends SettingsClass {
     public static class Leveling extends SettingsClass {
         public static Leveling INSTANCE;
 
-        @Setting.Features.StringParameters(parameters = {"actual", "max", "percent", "needed", "actualg", "maxg", "neededg", "curlvl", "nextlvl"})
+        @Setting.Features.StringParameters(parameters = { "actual", "max", "percent", "needed", "actualg", "maxg", "neededg", "curlvl", "nextlvl" })
         @Setting(displayName = "Current Text", description = "How should the leveling text be displayed?")
         @Setting.Limitations.StringLimit(maxLength = 200)
         public String levelingText = TextFormatting.GREEN + "(%actual%/%max%) " + TextFormatting.GOLD + "%percent%%";
 
         @Setting(displayName = "Text Shadow", description = "What should the text shadow look like?")
         public SmartFontRenderer.TextShadow textShadow = SmartFontRenderer.TextShadow.OUTLINE;
-
 
     }
 
@@ -272,7 +271,7 @@ public class OverlayConfig extends SettingsClass {
             public float expUpdateRate = 1f;
 
             @Setting(displayName = "EXP Message Format", description = "How should the format of EXP messages be displayed?")
-            @Setting.Features.StringParameters(parameters = {"xo", "xn", "xc", "po", "pn", "pc"})
+            @Setting.Features.StringParameters(parameters = { "xo", "xn", "xc", "po", "pn", "pc" })
             @Setting.Limitations.StringLimit(maxLength = 100)
             public String expMessageFormat = TextFormatting.DARK_GREEN + "+%xc%XP (" + TextFormatting.GOLD + "+%pc%%" + TextFormatting.DARK_GREEN + ")";
         }
@@ -345,17 +344,17 @@ public class OverlayConfig extends SettingsClass {
             public boolean musicChange = true;
 
             @Setting(displayName = "Territory Enter Format", description = "How should the format of the territory enter ticker messages be displayed?")
-            @Setting.Features.StringParameters(parameters = {"t"})
+            @Setting.Features.StringParameters(parameters = { "t" })
             @Setting.Limitations.StringLimit(maxLength = 100)
             public String territoryEnterFormat = TextFormatting.GRAY + "Now Entering [%t%]";
 
             @Setting(displayName = "Territory Leave Format", description = "How should the format of the territory leave ticker messages be displayed?")
-            @Setting.Features.StringParameters(parameters = {"t"})
+            @Setting.Features.StringParameters(parameters = { "t" })
             @Setting.Limitations.StringLimit(maxLength = 100)
             public String territoryLeaveFormat = TextFormatting.GRAY + "Now Leaving [%t%]";
 
             @Setting(displayName = "Music Change Format", description = "How should the format of the music change ticker messages be displayed?")
-            @Setting.Features.StringParameters(parameters = {"np"})
+            @Setting.Features.StringParameters(parameters = { "np" })
             @Setting.Limitations.StringLimit(maxLength = 100)
             public String musicChangeFormat = TextFormatting.GRAY + "♫ %np%";
         }
@@ -381,9 +380,9 @@ public class OverlayConfig extends SettingsClass {
         public int animationLength = 20;
 
         @Setting(displayName = "Territory Messages Mode", description = "What messages should be displayed in the territory feed?\n\n" +
-                "Normal: Display all territory messages.\n\n" +
-                "Distinguish Own Guild: Display all territory messages, but messages relating to your guild will be displayed in different colors. (§2Gained territory §r& §4lost territory§r)\n\n" +
-                "Only Own Guild: Display only territory messages that relate to your guild.")
+            "Normal: Display all territory messages.\n\n" +
+            "Distinguish Own Guild: Display all territory messages, but messages relating to your guild will be displayed in different colors. (§2Gained territory §r& §4lost territory§r)\n\n" +
+            "Only Own Guild: Display only territory messages that relate to your guild.")
         public TerritoryFeedDisplayMode displayMode = TerritoryFeedDisplayMode.DISTINGUISH_OWN_GUILD;
 
         @Setting(displayName = "Shorten Messages", description = "Should territory feed messages be shortened?", order = 1)
@@ -411,22 +410,22 @@ public class OverlayConfig extends SettingsClass {
     public static class InfoOverlays extends SettingsClass {
         public static InfoOverlays INSTANCE;
 
-        @Setting.Features.StringParameters(parameters = {"x", "y", "z", "dir", "fps", "class", "lvl"})
+        @Setting.Features.StringParameters(parameters = { "x", "y", "z", "dir", "fps", "class", "lvl" })
         @Setting(displayName = "Info 1 text", description = "What should the first box display?", order = 1)
         @Setting.Limitations.StringLimit(maxLength = 200)
         public String info1Format = "";
 
-        @Setting.Features.StringParameters(parameters = {"x", "y", "z", "dir", "fps", "class", "lvl"})
+        @Setting.Features.StringParameters(parameters = { "x", "y", "z", "dir", "fps", "class", "lvl" })
         @Setting(displayName = "Info 2 text", description = "What should the second box display?", order = 2)
         @Setting.Limitations.StringLimit(maxLength = 200)
         public String info2Format = "";
 
-        @Setting.Features.StringParameters(parameters = {"x", "y", "z", "dir", "fps", "class", "lvl"})
+        @Setting.Features.StringParameters(parameters = { "x", "y", "z", "dir", "fps", "class", "lvl" })
         @Setting(displayName = "Info 3 text", description = "What should the third box display?", order = 3)
         @Setting.Limitations.StringLimit(maxLength = 200)
         public String info3Format = "";
 
-        @Setting.Features.StringParameters(parameters = {"x", "y", "z", "dir", "fps", "class", "lvl"})
+        @Setting.Features.StringParameters(parameters = { "x", "y", "z", "dir", "fps", "class", "lvl" })
         @Setting(displayName = "Info 4 text", description = "What should the fourth box display?", order = 4)
         @Setting.Limitations.StringLimit(maxLength = 200)
         public String info4Format = "";

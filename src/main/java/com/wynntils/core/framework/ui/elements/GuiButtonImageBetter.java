@@ -58,7 +58,8 @@ public class GuiButtonImageBetter extends GuiButtonImage {
     }
 
     /**
-     * If `doHighlight(false)` is called, doesn't highlight (yellow tint) when hovering
+     * If `doHighlight(false)` is called, doesn't highlight (yellow tint) when
+     * hovering
      */
     public GuiButtonImageBetter doHighlight(boolean highlight) {
         this.highlight = highlight;

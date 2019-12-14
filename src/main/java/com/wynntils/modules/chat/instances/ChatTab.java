@@ -38,14 +38,17 @@ public class ChatTab implements Comparable<ChatTab> {
     private ChatTab() {}
 
     public ChatTab(String name, String regexFinder, HashMap<String, Boolean> regexSettings, String autoCommand, boolean lowPriority, int orderNb) {
-        this.name = name; this.regexFinder = Pattern.compile(regexFinder.replace("&", "§"));
+        this.name = name;
+        this.regexFinder = Pattern.compile(regexFinder.replace("&", "§"));
         this.regexSettings = regexSettings;
         this.autoCommand = autoCommand;
         this.lowPriority = lowPriority;
         this.orderNb = orderNb;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public String getAutoCommand() {
         return autoCommand;
@@ -79,7 +82,6 @@ public class ChatTab implements Comparable<ChatTab> {
         return regexFinder.pattern();
     }
 
-
     public void setRegex(String regex) {
         this.regexFinder = Pattern.compile(regex);
     }
@@ -97,7 +99,8 @@ public class ChatTab implements Comparable<ChatTab> {
     }
 
     public void updateLastMessageAndAmount(ITextComponent lastMessage, int lastAmount) {
-        this.lastMessage = lastMessage; this.lastAmount = lastAmount;
+        this.lastMessage = lastMessage;
+        this.lastAmount = lastAmount;
     }
 
     public void addMessage(ChatLine msg) {
@@ -145,14 +148,20 @@ public class ChatTab implements Comparable<ChatTab> {
     }
 
     public void checkNotifications() {
-        hasNewMessages = false; hasMentions = false;
+        hasNewMessages = false;
+        hasMentions = false;
     }
 
     public void update(String name, String regex, HashMap<String, Boolean> regexSettings, String autoCommand, boolean lowPriority, int orderNb) {
-        this.name = name; this.regexFinder = Pattern.compile(regex); this.lowPriority = lowPriority; this.regexSettings = regexSettings; this.autoCommand = autoCommand; this.orderNb = orderNb;
+        this.name = name;
+        this.regexFinder = Pattern.compile(regex);
+        this.lowPriority = lowPriority;
+        this.regexSettings = regexSettings;
+        this.autoCommand = autoCommand;
+        this.orderNb = orderNb;
     }
 
     public int compareTo(ChatTab ct) {
-        return(getOrderNb() - ct.getOrderNb());
+        return (getOrderNb() - ct.getOrderNb());
     }
 }

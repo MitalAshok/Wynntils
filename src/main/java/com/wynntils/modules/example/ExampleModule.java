@@ -9,7 +9,8 @@ import com.wynntils.core.framework.instances.Module;
 import com.wynntils.core.framework.interfaces.annotations.ModuleInfo;
 import org.lwjgl.input.Keyboard;
 
-/** EXAMPLE CLASS
+/**
+ * EXAMPLE CLASS
  * ExampleModule shows some of the things that are needed to make
  * a Module Class.
  * Modules are the parts that make up the whole Wynntils mod,
@@ -28,14 +29,15 @@ public class ExampleModule extends Module {
      * From here, call Module#registerKeyBinding to register a key
      */
     public void onEnable() {
-        getLogger().warn("MODULE STARTED");  // You can use Module#getLogger to spit things to the console
+        getLogger().warn("MODULE STARTED"); // You can use Module#getLogger to spit things to the console
 
-        registerEvents(new ExampleListener());  // Registering ExampleListener as an event handler
+        registerEvents(new ExampleListener()); // Registering ExampleListener as an event handler
 
-        registerOverlay(new ExampleOverlay(), Priority.LOW);  // Registering ExampleOverlay on the LOW priority Overlays collection
+        registerOverlay(new ExampleOverlay(), Priority.LOW); // Registering ExampleOverlay on the LOW priority Overlays collection
 
         registerKeyBinding("Test", Keyboard.KEY_G, "Wynntils", true, () -> {
-            getLogger().warn("KEY PRESSED");  // Registering the 'G' key to a test example key and make it spit "KEY PRESSED" to console
+            getLogger().warn("KEY PRESSED"); // Registering the 'G' key to a test example key and make it spit "KEY PRESSED"
+                                             // to console
         });
     }
 
@@ -49,8 +51,10 @@ public class ExampleModule extends Module {
     }
 
     /**
-     * Here you can toggle your module, you can use options to check if this is active
-     * Something like MyOptions#exampleModule.isActive() <- if that gets toggled the module will be disabled
+     * Here you can toggle your module, you can use options to check if this is
+     * active
+     * Something like MyOptions#exampleModule.isActive() <- if that gets toggled the
+     * module will be disabled
      *
      * @return if the current module should be handled
      */

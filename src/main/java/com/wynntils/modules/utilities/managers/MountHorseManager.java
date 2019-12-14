@@ -17,10 +17,13 @@ import java.util.List;
 public class MountHorseManager {
 
     public enum MountHorseStatus {
-        SUCCESS, ALREADY_RIDING, NO_HORSE, HORSE_TOO_FAR
+        SUCCESS,
+        ALREADY_RIDING,
+        NO_HORSE,
+        HORSE_TOO_FAR
     }
 
-    private static final int searchRadius = 18;  // Search a bit further for message "too far" instead of "not found"
+    private static final int searchRadius = 18; // Search a bit further for message "too far" instead of "not found"
 
     public static boolean isPlayersHorse(Entity horse, String playerName) {
         return (horse instanceof AbstractHorse) && isPlayersHorse(horse.getCustomNameTag(), playerName);
@@ -40,10 +43,7 @@ public class MountHorseManager {
             return MountHorseStatus.ALREADY_RIDING;
         }
 
-        List<Entity> horses = mc.world.getEntitiesWithinAABB(AbstractHorse.class, new AxisAlignedBB(
-                player.posX - searchRadius, player.posY - searchRadius, player.posZ - searchRadius,
-                player.posX + searchRadius, player.posY + searchRadius, player.posZ + searchRadius
-        ));
+        List<Entity> horses = mc.world.getEntitiesWithinAABB(AbstractHorse.class, new AxisAlignedBB(player.posX - searchRadius, player.posY - searchRadius, player.posZ - searchRadius, player.posX + searchRadius, player.posY + searchRadius, player.posZ + searchRadius));
 
         Entity playersHorse = null;
         String playerName = player.getName();

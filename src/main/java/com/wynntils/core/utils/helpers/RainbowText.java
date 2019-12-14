@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 
 public class RainbowText {
 
-    private static final String[] colors = new String[] {"§c", "§6", "§e", "§a", "§b", "§9", "§d"};
+    private static final String[] colors = new String[] { "§c", "§6", "§e", "§a", "§b", "§9", "§d" };
 
     /*
      * This math was taken from Avaritia code.

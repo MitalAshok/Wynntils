@@ -45,7 +45,9 @@ public abstract class Overlay extends ScreenRenderer implements SettingsHolder {
     }
 
     public void render(RenderGameOverlayEvent.Pre event) {}
+
     public void render(RenderGameOverlayEvent.Post event) {}
+
     public void tick(TickEvent.ClientTickEvent event, long ticks) {}
 
     public PlayerInfo getPlayerInfo() {
@@ -56,7 +58,9 @@ public abstract class Overlay extends ScreenRenderer implements SettingsHolder {
     public void saveSettings(Module m) {
         try {
             FrameworkManager.getSettings(m == null ? module.getModule() : m, this).saveSettings();
-        }catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -65,8 +69,10 @@ public abstract class Overlay extends ScreenRenderer implements SettingsHolder {
     }
 
     public enum OverlayGrowFrom {
+        //@formatter:off
         TOP_LEFT,    TOP_CENTRE,    TOP_RIGHT,
         MIDDLE_LEFT, MIDDLE_CENTRE, MIDDLE_RIGHT,
         BOTTOM_LEFT, BOTTOM_CENTRE, BOTTOM_RIGHT
+        //@formatter:on
     }
 }

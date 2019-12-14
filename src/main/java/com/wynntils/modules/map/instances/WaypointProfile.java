@@ -28,7 +28,13 @@ public class WaypointProfile {
     WaypointType group = null;
 
     public WaypointProfile(String name, double x, double y, double z, CustomColor color, WaypointType type, int zoomNeeded) {
-        this.name = name; this.x = x; this.y = y; this.z = z; this.color = color; this.type = type; this.zoomNeeded = zoomNeeded;
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.color = color;
+        this.type = type;
+        this.zoomNeeded = zoomNeeded;
     }
 
     public String getName() {
@@ -72,7 +78,8 @@ public class WaypointProfile {
     public static final byte currentFormat = 1;
 
     /**
-     * Returns an upper bound of the length (in bytes) encoding this waypoint will be (with the given format)
+     * Returns an upper bound of the length (in bytes) encoding this waypoint will
+     * be (with the given format)
      */
     public int encodeLength(byte format) {
         assert 0 <= format && format <= 1;
@@ -81,21 +88,21 @@ public class WaypointProfile {
         // int sizeofLong = 8;
         int sizeofFloat = 4;
         int sizeofDouble = 8;
-        int sizeofWaypointType = 1;  // Hopefully not more than 255 waypoint types
+        int sizeofWaypointType = 1; // Hopefully not more than 255 waypoint types
 
         switch (format) {
-            case 0: break;
+            case 0:
+                break;
             case 1:
                 sizeofInt = 5;
                 // sizeofLong = 10;
         }
 
-        return (
-            sizeofInt + StringUtils.utf8Length(name) +  // Length prefixed name
-            3 * sizeofDouble +  // x, y, z
-            sizeofInt +  // zoomNeeded
-            4 * sizeofFloat +  // colour r, g, b, a
-            2 * sizeofWaypointType  // type and group
+        return (sizeofInt + StringUtils.utf8Length(name) + // Length prefixed name
+            3 * sizeofDouble + // x, y, z
+            sizeofInt + // zoomNeeded
+            4 * sizeofFloat + // colour r, g, b, a
+            2 * sizeofWaypointType // type and group
         );
     }
 
@@ -105,27 +112,50 @@ public class WaypointProfile {
         byte[] name = this.name.getBytes(StandardCharsets.UTF_8);
 
         switch (format) {
-            case 0: buf.putInt(name.length); break;
-            case 1: encodeInt(name.length, buf); break;
+            case 0:
+                buf.putInt(name.length);
+                break;
+            case 1:
+                encodeInt(name.length, buf);
+                break;
         }
 
         buf.put(name);
 
         switch (format) {
             case 0:
-                buf.putDouble(x); buf.putDouble(y); buf.putDouble(z);
+                buf.putDouble(x);
+                buf.putDouble(y);
+                buf.putDouble(z);
                 buf.putInt(zoomNeeded);
-                buf.putFloat(color.r); buf.putFloat(color.g); buf.putFloat(color.b); buf.putFloat(color.a);
+                buf.putFloat(color.r);
+                buf.putFloat(color.g);
+                buf.putFloat(color.b);
+                buf.putFloat(color.a);
                 break;
             case 1:
-                encodeDouble(x, buf); encodeDouble(y, buf); encodeDouble(z, buf);
+                encodeDouble(x, buf);
+                encodeDouble(y, buf);
+                encodeDouble(z, buf);
                 switch (zoomNeeded) {
-                    case 0: buf.put((byte) 0); break;
-                    case MapWaypointIcon.ANY_ZOOM: buf.put((byte) 1); break;
-                    case MapWaypointIcon.HIDDEN_ZOOM: buf.put((byte) 2); break;
-                    default: buf.put((byte) -1); buf.putInt(zoomNeeded); break;
+                    case 0:
+                        buf.put((byte) 0);
+                        break;
+                    case MapWaypointIcon.ANY_ZOOM:
+                        buf.put((byte) 1);
+                        break;
+                    case MapWaypointIcon.HIDDEN_ZOOM:
+                        buf.put((byte) 2);
+                        break;
+                    default:
+                        buf.put((byte) -1);
+                        buf.putInt(zoomNeeded);
+                        break;
                 }
-                buf.putFloat(color.r); buf.putFloat(color.g); buf.putFloat(color.b); buf.putFloat(color.a);
+                buf.putFloat(color.r);
+                buf.putFloat(color.g);
+                buf.putFloat(color.b);
+                buf.putFloat(color.a);
                 break;
         }
 
@@ -198,8 +228,12 @@ public class WaypointProfile {
 
         int nameSize = 0;
         switch (format) {
-            case 0: nameSize = buf.getInt(); break;
-            case 1: nameSize = decodeInt(buf); break;
+            case 0:
+                nameSize = buf.getInt();
+                break;
+            case 1:
+                nameSize = decodeInt(buf);
+                break;
         }
         if (nameSize < 0) {
             throw new IllegalArgumentException(String.format("Invalid waypoint (format %d)\\nName size is negative", format));
@@ -211,25 +245,47 @@ public class WaypointProfile {
         buf.get(name);
         this.name = new String(name, StandardCharsets.UTF_8);
 
-        float r = -1; float g = -1; float b = -1; float a = -1;
+        float r = -1;
+        float g = -1;
+        float b = -1;
+        float a = -1;
 
         switch (format) {
             case 0:
-                this.x = buf.getDouble(); this.y = buf.getDouble(); this.z = buf.getDouble();
+                this.x = buf.getDouble();
+                this.y = buf.getDouble();
+                this.z = buf.getDouble();
                 this.zoomNeeded = buf.getInt();
-                r = buf.getFloat(); g = buf.getFloat(); b = buf.getFloat(); a = buf.getFloat();
+                r = buf.getFloat();
+                g = buf.getFloat();
+                b = buf.getFloat();
+                a = buf.getFloat();
                 break;
             case 1:
-                this.x = decodeDouble(buf); this.y = decodeDouble(buf); this.z = decodeDouble(buf);
+                this.x = decodeDouble(buf);
+                this.y = decodeDouble(buf);
+                this.z = decodeDouble(buf);
                 byte zoomNeeded = buf.get();
                 switch (zoomNeeded) {
-                    case 0: this.zoomNeeded = 0; break;
-                    case 1: this.zoomNeeded = MapWaypointIcon.ANY_ZOOM; break;
-                    case 2: this.zoomNeeded = MapWaypointIcon.HIDDEN_ZOOM; break;
-                    case -1: this.zoomNeeded = buf.getInt(); break;
-                    default: throw new IllegalArgumentException(String.format("Invalid waypoint (format %s)\\nIllegal waypoint zoomNeeded", format));
+                    case 0:
+                        this.zoomNeeded = 0;
+                        break;
+                    case 1:
+                        this.zoomNeeded = MapWaypointIcon.ANY_ZOOM;
+                        break;
+                    case 2:
+                        this.zoomNeeded = MapWaypointIcon.HIDDEN_ZOOM;
+                        break;
+                    case -1:
+                        this.zoomNeeded = buf.getInt();
+                        break;
+                    default:
+                        throw new IllegalArgumentException(String.format("Invalid waypoint (format %s)\\nIllegal waypoint zoomNeeded", format));
                 }
-                r = buf.getFloat(); g = buf.getFloat(); b = buf.getFloat(); a = buf.getFloat();
+                r = buf.getFloat();
+                g = buf.getFloat();
+                b = buf.getFloat();
+                a = buf.getFloat();
                 break;
         }
 
@@ -287,11 +343,14 @@ public class WaypointProfile {
             buf.position(buf.position() + 3);
         }
 
-
         int size = -1;
         switch (format) {
-            case 0: size = buf.getInt(); break;
-            case 1: size = decodeInt(buf); break;
+            case 0:
+                size = buf.getInt();
+                break;
+            case 1:
+                size = decodeInt(buf);
+                break;
         }
         if (size < 0 || size > 1024) {
             throw new IllegalArgumentException("Invalid waypoint list size");

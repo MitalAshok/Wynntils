@@ -36,8 +36,10 @@ public class DiscoveriesPage extends QuestBookPage {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        int x = width / 2; int y = height / 2;
-        int posX = (x - mouseX); int posY = (y - mouseY);
+        int x = width / 2;
+        int y = height / 2;
+        int posX = (x - mouseX);
+        int posY = (y - mouseY);
         List<String> hoveredText = new ArrayList<>();
 
         ScreenRenderer.beginGL(0, 0);
@@ -189,7 +191,8 @@ public class DiscoveriesPage extends QuestBookPage {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         ScaledResolution res = new ScaledResolution(mc);
-        int posX = ((res.getScaledWidth()/2) - mouseX); int posY = ((res.getScaledHeight()/2) - mouseY);
+        int posX = ((res.getScaledWidth() / 2) - mouseX);
+        int posY = ((res.getScaledHeight() / 2) - mouseY);
 
         if (acceptNext && posX >= -145 && posX <= -127 && posY >= -97 && posY <= -88) {
             Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1f));
@@ -231,10 +234,14 @@ public class DiscoveriesPage extends QuestBookPage {
         discoverySearch.removeIf(c -> {
             if (c.getType() == null) return true;
             switch (c.getType()) {
-                case TERRITORY: return !territory;
-                case WORLD: return !world;
-                case SECRET: return !secret;
-                default: return true;
+                case TERRITORY:
+                    return !territory;
+                case WORLD:
+                    return !world;
+                case SECRET:
+                    return !secret;
+                default:
+                    return true;
             }
         });
 

@@ -18,7 +18,6 @@ import java.util.HashSet;
 public class UtilitiesConfig extends SettingsClass {
     public static UtilitiesConfig INSTANCE;
 
-
     @Setting(displayName = "Daily Chest Reminder", description = "Should a message notifying that you can claim your daily chest be sent upon joining a world?")
     public boolean dailyReminder = true;
 
@@ -100,7 +99,6 @@ public class UtilitiesConfig extends SettingsClass {
     @SettingsInfo(name = "data", displayPath = "")
     public static class Data extends SettingsClass {
         public static Data INSTANCE;
-
 
         public long dailyReminder = 0L;
 
@@ -229,7 +227,6 @@ public class UtilitiesConfig extends SettingsClass {
         @Setting.Limitations.FloatLimit(min = 0, max = 100, precision = 0.5f)
         public float hotbarAlpha = 30;
 
-
         @Override
         public void onSettingChanged(String name) {
 
@@ -253,8 +250,7 @@ public class UtilitiesConfig extends SettingsClass {
 
     @Override
     public void onSettingChanged(String name) {
-        if (name.equalsIgnoreCase("addItemIdentificationSpacing"))
-            WebManager.getDirectItems().forEach(ItemProfile::clearGuideStack);
+        if (name.equalsIgnoreCase("addItemIdentificationSpacing")) WebManager.getDirectItems().forEach(ItemProfile::clearGuideStack);
     }
 
 }

@@ -11,7 +11,8 @@ public class WynnTerritoryChangeEvent extends Event {
     String oldTerritory, newTerritory;
 
     public WynnTerritoryChangeEvent(String oldTerritory, String newTerritory) {
-        this.oldTerritory = oldTerritory; this.newTerritory = newTerritory;
+        this.oldTerritory = oldTerritory;
+        this.newTerritory = newTerritory;
     }
 
     public String getNewTerritory() {

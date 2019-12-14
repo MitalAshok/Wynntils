@@ -33,7 +33,8 @@ public class TabManager {
                 return previousOrdering.sortedCopy(elements);
             }
 
-            // Wynncraft tab names are '\0CRR', where \0 is ascii NUL, C is 1-4 (column), and R is 1-20 (row)
+            // Wynncraft tab names are '\0CRR', where \0 is ascii NUL, C is 1-4 (column),
+            // and R is 1-20 (row)
             E[] result = (E[]) new NetworkPlayerInfo[80];
             int found = 0;
             for (E v : elements) {
@@ -67,9 +68,7 @@ public class TabManager {
      */
     public static void replaceTabOrderer() {
         try {
-            entryOrdering = new FastEntryOrdering(
-                    (Ordering<NetworkPlayerInfo>) ReflectionFields.GuiPlayerTabOverlay_ENTRY_ORDERING
-                            .getValue(GuiPlayerTabOverlay.class));
+            entryOrdering = new FastEntryOrdering((Ordering<NetworkPlayerInfo>) ReflectionFields.GuiPlayerTabOverlay_ENTRY_ORDERING.getValue(GuiPlayerTabOverlay.class));
 
             ReflectionFields.GuiPlayerTabOverlay_ENTRY_ORDERING.setValue(GuiPlayerTabOverlay.class, entryOrdering);
         } catch (Throwable e) {

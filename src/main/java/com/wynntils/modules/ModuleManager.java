@@ -4,7 +4,6 @@
 
 package com.wynntils.modules;
 
-
 import com.wynntils.core.framework.FrameworkManager;
 import com.wynntils.modules.chat.ChatModule;
 import com.wynntils.modules.core.CoreModule;

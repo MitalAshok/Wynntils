@@ -34,7 +34,7 @@ public class TabManager {
 
         availableTabs.forEach(chatTab -> {
             if (chatTab.getRegex().contains("(^&3\\[(&r&b★{0,2})?&r&3\\w*?\\])(?<!&3\\[Parkour\\])|(^&3You were not in the territory)")) {
-                chatTab.setRegex(chatTab.getRegex().replace("(^&3\\[(&r&b★{0,2})?&r&3\\w*?\\])(?<!&3\\[Parkour\\])|(^&3You were not in the territory)","(^&3\\[(&r&b★{0,4})?&r&3\\w*?\\])(?<!&3\\[Parkour\\])|(^&3You were not in the territory)"));
+                chatTab.setRegex(chatTab.getRegex().replace("(^&3\\[(&r&b★{0,2})?&r&3\\w*?\\])(?<!&3\\[Parkour\\])|(^&3You were not in the territory)", "(^&3\\[(&r&b★{0,4})?&r&3\\w*?\\])(?<!&3\\[Parkour\\])|(^&3You were not in the territory)"));
             }
         });
     }
@@ -88,7 +88,7 @@ public class TabManager {
     }
 
     public static ChatTab getTabById(int id) {
-        if (availableTabs.size() <= id || availableTabs.get(id) == null) return getTabById(id-1);
+        if (availableTabs.size() <= id || availableTabs.get(id) == null) return getTabById(id - 1);
         return availableTabs.get(id);
     }
 

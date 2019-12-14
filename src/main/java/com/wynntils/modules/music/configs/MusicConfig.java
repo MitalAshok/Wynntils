@@ -20,11 +20,11 @@ public class MusicConfig extends SettingsClass {
     public boolean allowMusicModule = false;
 
     @Setting(displayName = "Base Volume", description = "How loud should all soundtracks be?")
-    @Setting.Limitations.FloatLimit(max = 1f, min= -50f, precision = 1f)
+    @Setting.Limitations.FloatLimit(max = 1f, min = -50f, precision = 1f)
     public float baseVolume = 1;
 
     @Setting(displayName = "Off Focus Volume", description = "How loud should the soundtrack be when Minecraft is not focused on?")
-    @Setting.Limitations.FloatLimit(max = 1f, min= -50f, precision = 1f)
+    @Setting.Limitations.FloatLimit(max = 1f, min = -50f, precision = 1f)
     public float focusVolume = -10;
 
     @Override

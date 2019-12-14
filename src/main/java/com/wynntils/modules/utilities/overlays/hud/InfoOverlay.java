@@ -28,6 +28,7 @@ public abstract class InfoOverlay extends Overlay {
     }
 
     public abstract int getIndex();
+
     public abstract String getFormat();
 
     @Override
@@ -104,10 +105,22 @@ public abstract class InfoOverlay extends Overlay {
     }
 
     public static class _1 extends InfoOverlay {
-        public _1() { super(1); }
-        @Override public final int getIndex() { return 1; }
-        @Override public final String getFormat() { return OverlayConfig.InfoOverlays.INSTANCE.info1Format; }
-        @Override public void render(RenderGameOverlayEvent.Pre e) {
+        public _1() {
+            super(1);
+        }
+
+        @Override
+        public final int getIndex() {
+            return 1;
+        }
+
+        @Override
+        public final String getFormat() {
+            return OverlayConfig.InfoOverlays.INSTANCE.info1Format;
+        }
+
+        @Override
+        public void render(RenderGameOverlayEvent.Pre e) {
             formatter.clear();
             backgroundColour.setA(OverlayConfig.InfoOverlays.INSTANCE.opacity / 100f);
             super.render(e);
@@ -115,26 +128,54 @@ public abstract class InfoOverlay extends Overlay {
     }
 
     public static class _2 extends InfoOverlay {
-        public _2() { super(2); }
-        @Override public final int getIndex() { return 2; }
-        @Override public final String getFormat() { return OverlayConfig.InfoOverlays.INSTANCE.info2Format; }
+        public _2() {
+            super(2);
+        }
+
+        @Override
+        public final int getIndex() {
+            return 2;
+        }
+
+        @Override
+        public final String getFormat() {
+            return OverlayConfig.InfoOverlays.INSTANCE.info2Format;
+        }
     }
 
     public static class _3 extends InfoOverlay {
-        public _3() { super(3); }
-        @Override public final int getIndex() { return 3; }
-        @Override public final String getFormat() { return OverlayConfig.InfoOverlays.INSTANCE.info3Format; }
+        public _3() {
+            super(3);
+        }
+
+        @Override
+        public final int getIndex() {
+            return 3;
+        }
+
+        @Override
+        public final String getFormat() {
+            return OverlayConfig.InfoOverlays.INSTANCE.info3Format;
+        }
     }
 
     public static class _4 extends InfoOverlay {
-        public _4() { super(4); }
-        @Override public final int getIndex() { return 4; }
-        @Override public final String getFormat() { return OverlayConfig.InfoOverlays.INSTANCE.info4Format; }
+        public _4() {
+            super(4);
+        }
+
+        @Override
+        public final int getIndex() {
+            return 4;
+        }
+
+        @Override
+        public final String getFormat() {
+            return OverlayConfig.InfoOverlays.INSTANCE.info4Format;
+        }
     }
 
-    private static final Pattern formatRegex = Pattern.compile(
-            "%([a-zA-Z_]+|%)%|\\\\([\\\\n%§EBL]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})"
-    );
+    private static final Pattern formatRegex = Pattern.compile("%([a-zA-Z_]+|%)%|\\\\([\\\\n%§EBL]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})");
 
     private static InfoFormatter formatter = new InfoFormatter();
 
@@ -174,31 +215,51 @@ public abstract class InfoOverlay extends Overlay {
         String doPctFormat(String name) {
             String lowerName = name.toLowerCase(Locale.ROOT);
             switch (lowerName) {
-                case "x": return Integer.toString((int) mc.player.posX);
-                case "y": return Integer.toString((int) mc.player.posY);
-                case "z": return Integer.toString((int) mc.player.posZ);
-                case "dir": return Utils.getPlayerDirection(mc.player.rotationYaw);
-                case "fps": return Integer.toString(Minecraft.getDebugFPS());
-                case "world": return Reference.getUserWorld();
-                case "loc": case "location": return RichPresenceModule.getModule().getData().getLocation();
+                case "x":
+                    return Integer.toString((int) mc.player.posX);
+                case "y":
+                    return Integer.toString((int) mc.player.posY);
+                case "z":
+                    return Integer.toString((int) mc.player.posZ);
+                case "dir":
+                    return Utils.getPlayerDirection(mc.player.rotationYaw);
+                case "fps":
+                    return Integer.toString(Minecraft.getDebugFPS());
+                case "world":
+                    return Reference.getUserWorld();
+                case "loc":
+                case "location":
+                    return RichPresenceModule.getModule().getData().getLocation();
                 case "ping":
                     PingManager.calculatePing();
                     return Long.toString(PingManager.getLastPing());
                 case "class":
                     String className;
                     switch (PlayerInfo.getPlayerInfo().getCurrentClass()) {
-                        case MAGE: className = "mage"; break;
-                        case ARCHER: className = "archer"; break;
-                        case WARRIOR: className = "warrior"; break;
-                        case ASSASSIN: className = "assassin"; break;
-                        case SHAMAN: className = "shaman"; break;
-                        default: className = null; break;
+                        case MAGE:
+                            className = "mage";
+                            break;
+                        case ARCHER:
+                            className = "archer";
+                            break;
+                        case WARRIOR:
+                            className = "warrior";
+                            break;
+                        case ASSASSIN:
+                            className = "assassin";
+                            break;
+                        case SHAMAN:
+                            className = "shaman";
+                            break;
+                        default:
+                            className = null;
+                            break;
                     }
 
                     if (className != null) {
-                        if (name.equals("Class")) {  // %Class% is title case
+                        if (name.equals("Class")) { // %Class% is title case
                             className = StringUtils.capitalize(className);
-                        } else if (name.equals("CLASS")) {  // %CLASS% is all caps
+                        } else if (name.equals("CLASS")) { // %CLASS% is all caps
                             className = className.toUpperCase();
                         }
                         return className;
@@ -214,25 +275,33 @@ public abstract class InfoOverlay extends Overlay {
                     return Integer.toString(getMoney());
                 case "emeralds":
                     return Integer.toString(getMoney() % 64);
-                case "blocks": case "emeraldblocks": case "emerald_blocks":
+                case "blocks":
+                case "emeraldblocks":
+                case "emerald_blocks":
                     return Integer.toString((getMoney() / 64) % 64);
-                case "le": case "lightemeralds": case "light_emeralds":
+                case "le":
+                case "lightemeralds":
+                case "light_emeralds":
                     return Integer.toString(getMoney() / (64 * 64));
                 case "unprocessed":
                     return Integer.toString(getUnprocessed().current);
-                case "unprocessed_max": case "unprocessedmax":
+                case "unprocessed_max":
+                case "unprocessedmax":
                     int max = getUnprocessed().maximum;
                     if (max == -1) {
                         return "??";
                     }
                     return Integer.toString(max);
-                case "mem_pct": case "mempct":
+                case "mem_pct":
+                case "mempct":
                     setMemory();
                     return Integer.toString(memoryPct);
-                case "mem_used": case "memused":
+                case "mem_used":
+                case "memused":
                     setMemory();
                     return Long.toString(usedMemory);
-                case "mem_max": case "memmax":
+                case "mem_max":
+                case "memmax":
                     setMemory();
                     return Long.toString(maxMemory);
                 case "bps":
@@ -248,18 +317,25 @@ public abstract class InfoOverlay extends Overlay {
 
         String doEscapeFormat(String escaped) {
             switch (escaped) {
-                case "\\": return "\\";
-                case "n": return "\n";
-                case "%": return "%";
-                case "§": return "&";
-                case "E": return EmeraldSymbols.E_STRING;
-                case "B": return EmeraldSymbols.B_STRING;
-                case "L": return EmeraldSymbols.L_STRING;
+                case "\\":
+                    return "\\";
+                case "n":
+                    return "\n";
+                case "%":
+                    return "%";
+                case "§":
+                    return "&";
+                case "E":
+                    return EmeraldSymbols.E_STRING;
+                case "B":
+                    return EmeraldSymbols.B_STRING;
+                case "L":
+                    return EmeraldSymbols.L_STRING;
                 default:
                     // xXX, uXXXX, UXXXXXXXX
                     int codePoint = Integer.parseInt(escaped.substring(1), 16);
                     if (Utils.StringUtils.isValidCodePoint(codePoint)) {
-                        return new String(new int[]{ codePoint }, 0, 1);
+                        return new String(new int[] { codePoint }, 0, 1);
                     }
                     return null;
             }

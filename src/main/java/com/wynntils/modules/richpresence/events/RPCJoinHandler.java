@@ -48,8 +48,7 @@ public class RPCJoinHandler implements DiscordRichPresence.DiscordEventHandlers.
 
     public void accept(String joinSecret) {
         lastSecret = new SecretContainer(joinSecret);
-        if (lastSecret.getOwner().isEmpty() || lastSecret.getRandomHash().isEmpty() || lastSecret.getWorldType().equals("HB") && WebManager.getPlayerProfile() != null && WebManager.getPlayerProfile().getTag() != PlayerTag.HERO)
-            return;
+        if (lastSecret.getOwner().isEmpty() || lastSecret.getRandomHash().isEmpty() || lastSecret.getWorldType().equals("HB") && WebManager.getPlayerProfile() != null && WebManager.getPlayerProfile().getTag() != PlayerTag.HERO) return;
 
         RichPresenceModule.getModule().getRichPresence().setJoinSecret(lastSecret);
 
@@ -123,8 +122,7 @@ public class RPCJoinHandler implements DiscordRichPresence.DiscordEventHandlers.
             String content = TextFormatting.getTextWithoutFormattingCodes(m.group(4).substring(1));
             String user = TextFormatting.getTextWithoutFormattingCodes(m.group(2));
 
-            if (!RichPresenceModule.getModule().getRichPresence().validSecrent(content.substring(0, content.length() - 1)))
-                return;
+            if (!RichPresenceModule.getModule().getRichPresence().validSecrent(content.substring(0, content.length() - 1))) return;
 
             e.setCanceled(true);
             Minecraft.getMinecraft().player.sendChatMessage("/party invite " + user);
@@ -194,7 +192,8 @@ public class RPCJoinHandler implements DiscordRichPresence.DiscordEventHandlers.
 
             Pair<Integer, ItemStack> nextPage = c.findItem("Next Page", FilterType.CONTAINS);
             if (nextPage != null) serverSelector.clickItem(nextPage.a, 1, ClickType.PICKUP);
-            else c.close();
+            else
+                c.close();
         }).onInterrupt((c) -> {
             joinWorld(worldType, worldNumber);
         });

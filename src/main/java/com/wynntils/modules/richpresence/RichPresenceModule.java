@@ -41,6 +41,7 @@ public class RichPresenceModule extends Module {
 
     /**
      * Get the current RichPresence online instance
+     * 
      * @return RichPresence profile
      */
     public RichProfile getRichPresence() {
@@ -49,6 +50,7 @@ public class RichPresenceModule extends Module {
 
     /**
      * Get the current session saved data
+     * 
      * @return Memory data profile
      */
     public DataProfile getData() {

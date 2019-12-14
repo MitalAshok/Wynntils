@@ -86,7 +86,8 @@ public class WynnSocialEvent extends Event {
             return PlayerInfo.getPlayerInfo().getGuildList();
         }
 
-        /** (Not used yet)
+        /**
+         * (Not used yet)
          * Triggered when one player leaves the guild
          * (including yourself)
          */
@@ -98,7 +99,8 @@ public class WynnSocialEvent extends Event {
 
         }
 
-        /** (Not used yet)
+        /**
+         * (Not used yet)
          * Triggered when one player joins the guild
          * (including yourself)
          */
@@ -126,7 +128,8 @@ public class WynnSocialEvent extends Event {
         }
 
         /**
-         * Called when multiple friends are "added" (discovered) when friends list is read with `members`,
+         * Called when multiple friends are "added" (discovered) when friends list is
+         * read with `members`,
          * and when /friend add is run, with a collection of names.
          */
         public static class Add extends FriendList {

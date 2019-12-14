@@ -63,7 +63,8 @@ public class FileUpdater {
                 if (count == values.size()) {
                     DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> runnable.run());
                 } else {
-                    DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> {});
+                    DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> {
+                    });
                 }
 
                 localFiles.remove(fileName);
@@ -74,7 +75,8 @@ public class FileUpdater {
             if (count == values.size()) {
                 DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> runnable.run());
             } else {
-                DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> {});
+                DownloaderManager.queueDownload(fileName, main_url + "/" + fileName, location, DownloadAction.SAVE, (b) -> {
+                });
             }
         }
 

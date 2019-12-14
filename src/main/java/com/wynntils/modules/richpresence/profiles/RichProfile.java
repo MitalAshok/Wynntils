@@ -29,7 +29,7 @@ public class RichProfile {
 
             DiscordRichPresence.DiscordEventHandlers handler = new DiscordRichPresence.DiscordEventHandlers();
             handler.ready = user -> {
-                System.out.println("DISCORD READY");  // HeyZeer0: for a random reason, it doesn't seems to work without this println
+                System.out.println("DISCORD READY"); // HeyZeer0: for a random reason, it doesn't seems to work without this println
                 if (WebManager.getAccount() != null) WebManager.getAccount().updateDiscord(user.userId, user.username + "#" + user.discriminator);
             };
             handler.joinGame = new RPCJoinHandler();
@@ -55,13 +55,13 @@ public class RichProfile {
      * update user RichPresence
      *
      * @param state
-     *        RichPresence state string
+     *                 RichPresence state string
      * @param details
-     *        RichPresence details string
+     *                 RichPresence details string
      * @param largText
-     *        RichPresence large Text
+     *                 RichPresence large Text
      * @param date
-     *        RichPresence Date
+     *                 RichPresence Date
      */
     public void updateRichPresence(String state, String details, String largText, OffsetDateTime date) {
         if (disabled) return;
@@ -88,15 +88,15 @@ public class RichProfile {
      * update user RichPresence
      *
      * @param state
-     *        RichPresence state string
+     *                 RichPresence state string
      * @param details
-     *        RichPresence details string
+     *                 RichPresence details string
      * @param largText
-     *        RichPresence large Text
+     *                 RichPresence large Text
      * @param largeImg
-     *        RichPresence large image key
+     *                 RichPresence large image key
      * @param date
-     *        RichPresence Date
+     *                 RichPresence Date
      */
     public void updateRichPresence(String state, String details, String largeImg, String largText, OffsetDateTime date) {
         if (disabled) return;
@@ -124,13 +124,13 @@ public class RichProfile {
      * update user RichPresence
      *
      * @param state
-     *        RichPresence state string
+     *                 RichPresence state string
      * @param details
-     *        RichPresence details string
+     *                 RichPresence details string
      * @param largText
-     *        RichPresence large Text
+     *                 RichPresence large Text
      * @param date
-     *        RichPresence End Date
+     *                 RichPresence End Date
      */
     public void updateRichPresenceEndDate(String state, String details, String largText, OffsetDateTime date) {
         if (disabled) return;
@@ -157,15 +157,15 @@ public class RichProfile {
      * update user RichPresence
      *
      * @param state
-     *        RichPresence state string
+     *                 RichPresence state string
      * @param details
-     *        RichPresence details string
+     *                 RichPresence details string
      * @param largText
-     *        RichPresence large Text
+     *                 RichPresence large Text
      * @param largeImg
-     *        RichPresence large image key
+     *                 RichPresence large image key
      * @param date
-     *        RichPresence End Date
+     *                 RichPresence End Date
      */
     public void updateRichPresenceEndDate(String state, String details, String largeImg, String largText, OffsetDateTime date) {
         if (disabled) return;

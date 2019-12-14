@@ -62,5 +62,7 @@ public class MapModule extends Module {
         return mainMap;
     }
 
-    public KeyHolder getMapKey() { return mapKey; }
+    public KeyHolder getMapKey() {
+        return mapKey;
+    }
 }

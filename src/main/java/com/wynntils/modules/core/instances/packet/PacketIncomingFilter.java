@@ -57,6 +57,11 @@ public class PacketIncomingFilter extends ChannelInboundHandlerAdapter {
         if (cancel) return;
 
         super.channelRead(ctx, msg);
+
+
+        // Rather than schedule tonnes of runnables which might not even do anything, schedule inside the event handlers
+        // mc.addScheduledTask(() ->
+        MinecraftForge.EVENT_BUS.post(new PacketEvent.Incoming.Post<>((Packet<?>) msg));
     }
 
 }

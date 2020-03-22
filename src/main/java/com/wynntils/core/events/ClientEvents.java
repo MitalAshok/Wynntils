@@ -18,7 +18,10 @@ import com.wynntils.core.framework.rendering.ScreenRenderer;
 import com.wynntils.core.utils.reflections.ReflectionMethods;
 import com.wynntils.modules.core.managers.GuildAndFriendManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiDisconnected;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.network.play.server.SPacketPlayerListItem.Action;
 import net.minecraft.util.text.ChatType;
@@ -133,37 +136,69 @@ public class ClientEvents {
         }
     }
 
+    private static boolean worldUpdateCheckerScheduled = false;
+    private static ITextComponent lastWorldDisplayName = null;
+    private void updateWorld() {
+        EntityPlayerSP p = Minecraft.getMinecraft().player;
+        if (p == null) return;
+        NetHandlerPlayClient conn = p.connection;
+        if (conn == null) return;
+
+        NetworkPlayerInfo worldInfo = conn.getPlayerInfo(WORLD_UUID);
+        if (worldInfo == null) {
+            if (!acceptLeft) return;
+
+            // Tab entry for world left
+            acceptLeft = false;
+            lastWorld = "";
+            Reference.setUserWorld(null);
+            FrameworkManager.getEventBus().post(new WynnWorldEvent.Leave());
+            PlayerInfo.getPlayerInfo().updatePlayerClass(ClassType.NONE);
+            return;
+        }
+
+        // Tab entry for world got a display name
+        ITextComponent nameComponent = worldInfo.getDisplayName();
+        if (nameComponent == lastWorldDisplayName) return;
+        lastWorldDisplayName = nameComponent;
+        if (nameComponent == null) return;
+        String name = nameComponent.getUnformattedText();
+        String world = name.substring(name.indexOf("[") + 1, name.indexOf("]"));
+
+        if (world.equalsIgnoreCase(lastWorld)) return;
+
+        Reference.setUserWorld(world);
+        FrameworkManager.getEventBus().post(new WynnWorldEvent.Join(world));
+        lastWorld = world;
+        acceptLeft = true;
+    }
+
     @SubscribeEvent
-    public void onTabListChange(PacketEvent<SPacketPlayerListItem> e) {
-        if (!Reference.onServer) return;
-        if (e.getPacket().getAction() != Action.UPDATE_DISPLAY_NAME && e.getPacket().getAction() != Action.REMOVE_PLAYER) return;
+    public void onPlayerJoin(PacketEvent.Incoming<SPacketPlayerListItem> e) {
+        if (!Reference.onServer || e.getPacket().getAction() != Action.ADD_PLAYER || !GuildAndFriendManager.hasUnresolvedNames()) return;
 
-        for (Object player : (List<?>) e.getPacket().getEntries()) {
-            // world handling below
-            GameProfile profile = (GameProfile) ReflectionMethods.SPacketPlayerListItem$AddPlayerData_getProfile.invoke(player);
-            if (profile.getId().equals(WORLD_UUID)) {
-                if (e.getPacket().getAction() == Action.UPDATE_DISPLAY_NAME) {
-                    ITextComponent nameComponent = (ITextComponent) ReflectionMethods.SPacketPlayerListItem$AddPlayerData_getDisplayName.invoke(player);
-                    if (nameComponent == null) continue;
-                    String name = nameComponent.getUnformattedText();
-                    String world = name.substring(name.indexOf("[") + 1, name.indexOf("]"));
-
-                    if (world.equalsIgnoreCase(lastWorld)) continue;
-
-                    Reference.setUserWorld(world);
-                    FrameworkManager.getEventBus().post(new WynnWorldEvent.Join(world));
-                    lastWorld = world;
-                    acceptLeft = true;
-                } else if (acceptLeft) {
-                    acceptLeft = false;
-                    lastWorld = "";
-                    Reference.setUserWorld(null);
-                    FrameworkManager.getEventBus().post(new WynnWorldEvent.Leave());
-                    PlayerInfo.getPlayerInfo().updatePlayerClass(ClassType.NONE);
-                }
-            }
+        for (Object entry : (List<?>) e.getPacket().getEntries()) {
             // Add uuid of newly joined player
-            GuildAndFriendManager.tryResolveName(profile.getId(), profile.getName());
+            GameProfile profile = (GameProfile) ReflectionMethods.SPacketPlayerListItem$AddPlayerData_getProfile.invoke(entry);
+            GuildAndFriendManager.tryResolveName(profile);
+        }
+    }
+
+    @SubscribeEvent
+    public void onTabListChange(PacketEvent.Incoming.Post<SPacketPlayerListItem> e) {
+        if (!Reference.onServer) return;
+
+        Action action = e.getPacket().getAction();
+
+        if (!(action == Action.UPDATE_DISPLAY_NAME || (action == Action.REMOVE_PLAYER && acceptLeft))) return;
+
+        if (!worldUpdateCheckerScheduled) {
+            worldUpdateCheckerScheduled = true;
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                worldUpdateCheckerScheduled = false;
+
+                updateWorld();
+            });
         }
     }
 

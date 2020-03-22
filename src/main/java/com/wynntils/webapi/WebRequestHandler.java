@@ -269,8 +269,8 @@ public class WebRequestHandler {
             nextDispatch(dispatchId, groupedRequests, currentGroupIndex);
             return;
         }
-        ArrayList<Callable<Void>> tasks = new ArrayList<>(requests.size());
-        for (Request req : requests) {
+        ArrayList<Callable<Void>> tasks = new ArrayList<>(currentGroup.size());
+        for (Request req : currentGroup) {
             tasks.add(() -> {
                 if (req.cacheValidator != null) {
                     assert req.cacheFile != null : req.id + ": You set a cache validator without a cache file!";

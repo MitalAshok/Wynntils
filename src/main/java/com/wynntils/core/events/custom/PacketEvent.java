@@ -130,6 +130,28 @@ public class PacketEvent<T extends Packet<?>> extends GenericEvent<T> {
             return (ChannelInboundHandler) handler;
         }
 
+        /**
+         * Triggered after the regular processing for a packet has been done
+         *
+         * NOTE: If the packet wasn't processed on the main thread, the regular processing
+         *       is to schedule a task to run the corresponding method in in {{@link NetHandlerPlayClient}}.
+         *       To see the effects of that, wrap your event subscriber in `Minecraft.getMinecraft().addScheduledTask`.
+         */
+        public static class Post<T extends Packet<?>> extends GenericEvent<T> {
+
+            T packet;
+
+            public Post(T packet) {
+                super((Class<T>) packet.getClass());
+                this.packet = packet;
+            }
+
+            public T getPacket() {
+                return packet;
+            }
+
+        }
+
     }
 
 }
